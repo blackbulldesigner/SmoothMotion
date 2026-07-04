@@ -1,0 +1,47 @@
+/* ==========================================
+   EaseCraft — Color System (Gray + Blue)
+   ========================================== */
+:root {
+  /* === ACCENT — Azul ===*/
+  --ec-blue:          #3b82f6;
+  --ec-blue-bright:   #60a5fa;
+  --ec-blue-dim:      #1d4ed8;
+  --ec-blue-ghost:    rgba(59,130,246,0.15);
+  --ec-cyan:          #38bdf8;
+
+  /* === BACKGROUNDS === */
+  --ec-bg-deep:       #0f1117;
+  --ec-bg-panel:      #181b24;
+  --ec-bg-surface:    #1f2333;
+  --ec-bg-elevated:   #272d3f;
+  --ec-bg-input:      #1a1d2e;
+
+  /* === BORDERS === */
+  --ec-border:        #2d3448;
+  --ec-border-bright: #3b4260;
+
+  /* === TEXT === */
+  --ec-text-primary:  #e2e8f0;
+  --ec-text-secondary:#94a3b8;
+  --ec-text-muted:    #475569;
+
+  /* === GRAPH === */
+  --ec-graph-grid:    rgba(45,52,72,0.8);
+  --ec-graph-bg:      #141720;
+  --ec-curve:         #3b82f6;
+  --ec-curve-prev:    rgba(59,130,246,0.18);
+  --ec-cp-color:      #38bdf8;
+  --ec-cp-line:       rgba(56,189,248,0.4);
+
+  /* === STATES === */
+  --ec-danger:        #ef4444;
+  --ec-success:       #22c55e;
+  --ec-warning:       #f59e0b;
+
+  /* === MISC === */
+  --ec-radius-sm:     4px;
+  --ec-radius:        6px;
+  --ec-radius-lg:     10px;
+  --ec-divider-size:  8px;
+  --ec-transition:    0.15s ease;
+}
