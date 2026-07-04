@@ -1,0 +1,125 @@
+/* ==========================================
+   EaseCraft — Preset Cards
+   ========================================== */
+.preset {
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  border-radius: var(--ec-radius-sm);
+  overflow: visible;
+  transition: transform 0.12s ease;
+}
+
+.preset:hover { transform: scale(1.04); z-index: 2; }
+.preset:active { transform: scale(0.97); }
+
+/* SVG container */
+.preset .svgContainer {
+  background: var(--ec-bg-elevated);
+  border: 1px solid var(--ec-border);
+  border-radius: var(--ec-radius-sm);
+  line-height: 0;
+  overflow: hidden;
+  transition: background var(--ec-transition), border-color var(--ec-transition);
+}
+
+.preset:hover .svgContainer,
+.preset.selected .svgContainer {
+  background: var(--ec-blue-ghost);
+  border-color: var(--ec-blue);
+}
+
+.preset.selected .svgContainer {
+  box-shadow: 0 0 0 1px var(--ec-blue), 0 4px 12px rgba(59,130,246,0.25);
+}
+
+/* SVG curve */
+.preset svg {
+  overflow: visible;
+  padding: 10%;
+  width: 100%;
+}
+
+.preset path {
+  fill: none;
+  stroke: var(--ec-text-muted);
+  stroke-linecap: round;
+  stroke-width: 1.5px;
+  transition: stroke var(--ec-transition);
+}
+
+.preset:hover path { stroke: var(--ec-blue-bright); }
+.preset.selected path { stroke: var(--ec-blue-bright); }
+
+/* Preset name label */
+.preset span {
+  color: var(--ec-text-muted);
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.2px;
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--ec-transition);
+}
+.preset:hover span { color: var(--ec-text-secondary); }
+.preset.selected span { color: var(--ec-blue-bright); }
+
+/* Delete button (×) */
+.preset .deleteBtn {
+  align-items: center;
+  background: var(--ec-bg-deep);
+  border: 1px solid var(--ec-border-bright);
+  border-radius: 50%;
+  color: var(--ec-text-muted);
+  cursor: pointer;
+  display: none;
+  font-size: 9px;
+  height: 14px;
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  width: 14px;
+  z-index: 5;
+  transition: all var(--ec-transition);
+}
+.preset:hover .deleteBtn { display: flex; }
+.preset .deleteBtn:hover {
+  background: var(--ec-danger);
+  border-color: var(--ec-danger);
+  color: #fff;
+}
+
+/* Dragging state */
+.preset.dragging {
+  cursor: grabbing;
+  opacity: 0.4;
+  transform: scale(0.95);
+}
+.preset.drag-over .svgContainer {
+  border-color: var(--ec-cyan);
+}
+
+/* Badge de modo (Ease / Elastic / Custom…) */
+.preset-mode-badge {
+  background: rgba(59,130,246,0.22);
+  border: 1px solid rgba(96,165,250,0.35);
+  border-radius: 3px;
+  color: var(--ec-blue-bright);
+  font-size: 7px;
+  font-weight: 700;
+  left: 3px;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  padding: 2px 3px;
+  pointer-events: none;
+  position: absolute;
+  text-transform: uppercase;
+  top: 3px;
+  z-index: 2;
+}
+.preset .svgContainer { position: relative; }

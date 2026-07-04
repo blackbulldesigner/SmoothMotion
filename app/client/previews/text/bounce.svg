@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a0c"/>
+      <stop offset="100%" stop-color="#14141a"/>
+    </linearGradient>
+    <linearGradient id="txt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="200" fill="url(#bg)"/>
+  <path d="M90 150 Q120 70 150 110 Q180 150 210 90 Q230 70 250 100" stroke="#f97316" stroke-width="2" fill="none" opacity="0.6"/>
+  <text x="160" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="url(#txt)">Bounce</text>
+</svg>

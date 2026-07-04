@@ -1,0 +1,103 @@
+/* ==========================================
+   SmoothMotion — Loading Overlay
+   ========================================== */
+#overlay {
+  align-items: center;
+  background: var(--ec-bg-deep);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+  transition: opacity 0.4s ease;
+  opacity: 1;
+}
+
+#overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#overlay .logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ec-blue);
+  letter-spacing: 2px;
+}
+
+#overlay .logo span {
+  color: var(--ec-text-secondary);
+  font-weight: 300;
+}
+
+#overlay .spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--ec-bg-elevated);
+  border-top-color: var(--ec-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+#overlay .version {
+  font-size: 10px;
+  color: var(--ec-text-muted);
+  letter-spacing: 1px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   SmoothMotion — Próximamente overlay
+   ========================================== */
+.sm-soon-overlay {
+  align-items: center;
+  backdrop-filter: blur(3px);
+  background: rgba(8, 10, 14, 0.72);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  pointer-events: all;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 50;
+}
+
+.sm-soon-badge {
+  align-items: center;
+  background: linear-gradient(145deg, rgba(30, 36, 48, 0.95), rgba(18, 22, 30, 0.98));
+  border: 1px solid rgba(90, 140, 255, 0.35);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    0 0 24px rgba(74, 124, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 28px;
+  text-align: center;
+}
+
+.sm-soon-label {
+  color: var(--ec-blue, #5b8cff);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sm-soon-sub {
+  color: var(--ec-text-muted, #8b95a8);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}

@@ -1,0 +1,223 @@
+/* SmoothAnchor — grid fluido que se adapta al tamaño del panel */
+
+#anchorModule {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  container-name: anchor;
+}
+
+#anchorModule.active { display: flex; }
+
+.sa-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.sa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.sa-brand {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mb-text, #e8e8ec);
+}
+
+.sa-brand span { color: var(--mb-accent, #5b8cff); }
+
+.sa-badge {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(91, 140, 255, 0.12);
+  color: var(--mb-accent, #5b8cff);
+  border: 1px solid rgba(91, 140, 255, 0.28);
+  flex-shrink: 0;
+}
+
+.sa-desc {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--mb-muted, #9a9aa8);
+  flex-shrink: 0;
+}
+
+.sa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+}
+
+.sa-btn {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid var(--mb-border, #2e2e36);
+  border-radius: 6px;
+  background: var(--mb-surface, #232328);
+  color: var(--mb-text, #e8e8ec);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.12s, border-color 0.12s, transform 0.1s;
+}
+
+.sa-btn svg {
+  width: 38%;
+  height: 38%;
+  min-width: 12px;
+  min-height: 12px;
+  max-width: 22px;
+  max-height: 22px;
+  opacity: 0.92;
+}
+
+.sa-btn:hover {
+  background: var(--mb-surface-hover, #2c2c33);
+  border-color: rgba(91, 140, 255, 0.4);
+}
+
+.sa-btn-active {
+  background: rgba(91, 140, 255, 0.2);
+  border-color: var(--mb-accent, #5b8cff);
+}
+
+.sa-btn.sa-flash {
+  transform: scale(0.96);
+  box-shadow: 0 0 0 1px rgba(91, 140, 255, 0.5);
+}
+
+.sa-btn.sa-flash-error {
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.5);
+}
+
+.sa-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.sa-opt {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--mb-text, #e8e8ec);
+  cursor: pointer;
+}
+
+.sa-opt-dim { color: var(--mb-muted, #9a9aa8); }
+
+.sa-opt input {
+  accent-color: var(--mb-accent, #5b8cff);
+}
+
+.sa-raw {
+  width: 100%;
+  height: 26px;
+  border: 1px solid var(--mb-border, #2e2e36);
+  border-radius: 6px;
+  background: var(--mb-surface, #232328);
+  color: var(--mb-muted, #9a9aa8);
+  font-size: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.sa-raw:hover {
+  color: var(--mb-text, #e8e8ec);
+  border-color: rgba(91, 140, 255, 0.35);
+}
+
+/* Panel dockable: grid a pantalla completa */
+body.sm-standalone[data-sm-panel="anchor"] {
+  height: 100%;
+  overflow: hidden;
+}
+
+body.sm-standalone[data-sm-panel="anchor"] .sm-standalone-bar {
+  display: none !important;
+}
+
+body.sm-standalone[data-sm-panel="anchor"] #flowModule,
+body.sm-standalone[data-sm-panel="anchor"] #scriptsModule,
+body.sm-standalone[data-sm-panel="anchor"] #container,
+body.sm-standalone[data-sm-panel="anchor"] .mb-nav {
+  display: none !important;
+}
+
+body.sm-standalone[data-sm-panel="anchor"] #anchorModule {
+  display: flex !important;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+body.sm-standalone[data-sm-panel="anchor"] .sa-header,
+body.sm-standalone[data-sm-panel="anchor"] .sa-desc,
+body.sm-standalone[data-sm-panel="anchor"] .sa-options,
+body.sm-standalone[data-sm-panel="anchor"] .sa-raw {
+  display: none !important;
+}
+
+body.sm-standalone[data-sm-panel="anchor"] .sa-wrap {
+  padding: 6px;
+}
+
+/* Compacto: ocultar extras, grid sigue fluido */
+#anchorModule.sa-compact .sa-desc,
+#anchorModule.sa-compact .sa-opt-dim,
+#anchorModule.sa-compact .sa-raw {
+  display: none;
+}
+
+#anchorModule.sa-micro .sa-header,
+#anchorModule.sa-micro .sa-desc,
+#anchorModule.sa-micro .sa-options,
+#anchorModule.sa-micro .sa-raw {
+  display: none;
+}
+
+#anchorModule.sa-micro .sa-wrap {
+  padding: 3px;
+}
+
+#anchorModule.sa-micro .sa-grid {
+  gap: 2px;
+}
+
+@container anchor (max-height: 180px) {
+  #anchorModule .sa-desc,
+  #anchorModule .sa-opt-dim,
+  #anchorModule .sa-raw { display: none; }
+}
+
+@container anchor (max-width: 150px) {
+  #anchorModule .sa-header { display: none; }
+}

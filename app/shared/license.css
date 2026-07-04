@@ -1,0 +1,187 @@
+/* ============================================================
+   SmoothAlign — escudo de licencia (overlay autocontenido).
+   No depende del tema del panel; colores fijos para no chocar.
+   ============================================================ */
+
+.lic-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.78);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  overflow: auto;                /* permite scroll en paneles muy pequeños (ej. toolbars) */
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* block + margin auto: la tarjeta se centra horizontal y nunca se recorta por arriba
+   aunque el panel sea más bajo que ella (toolbars como SmoothTypo). */
+.lic-overlay.open { display: block; }
+
+.lic-card {
+  width: 88%;
+  max-width: 320px;
+  margin: 24px auto;
+  background: #1c1d22;
+  border: 1px solid #34363f;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  padding: 22px 20px;
+  text-align: center;
+}
+
+.onb-logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: #c7c9d1;
+  margin-bottom: 10px;
+}
+.onb-logo span { color: #5b9dff; }
+
+.lic-title {
+  color: #f2f3f7;
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.lic-text {
+  color: #aeb1bd;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+.lic-text b { color: #f2f3f7; }
+
+.lic-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #14151a;
+  border: 1px solid #34363f;
+  border-radius: 6px;
+  color: #f2f3f7;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  outline: none;
+  text-align: center;
+}
+.lic-input:focus { border-color: #3b82f6; }
+
+#lic-activate {
+  width: 100%;
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 12px;
+}
+#lic-activate:hover { background: #2f6fe0; }
+#lic-activate:disabled { opacity: 0.6; cursor: default; }
+
+.lic-btn-discord {
+  width: 100%;
+  margin-top: 8px;
+  background: #5865F2;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 9px 12px;
+}
+.lic-btn-discord:hover { background: #4954d6; }
+
+.lic-error {
+  color: #ff7b7b;
+  font-size: 10px;
+  line-height: 1.4;
+  margin: 10px 0 0;
+}
+.lic-error.hidden { display: none; }
+
+.lic-footnote {
+  color: #777a85;
+  font-size: 9px;
+  line-height: 1.4;
+  margin: 12px 0 0;
+}
+
+.lic-hwid-block {
+  background: #14151a;
+  border: 1px solid #34363f;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.lic-hwid-label {
+  display: block;
+  color: #777a85;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.lic-hwid-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lic-hwid-code {
+  flex: 1;
+  color: #4dd6e0;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 10px;
+  word-break: break-all;
+  line-height: 1.4;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
+
+.lic-copy-btn {
+  flex-shrink: 0;
+  background: #26272e;
+  border: 1px solid #41434d;
+  border-radius: 6px;
+  color: #5b9dff;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+.lic-copy-btn:hover { border-color: #3b82f6; }
+
+/* Toast del escudo */
+#sm-lic-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(12px);
+  background: #26272e;
+  border: 1px solid #41434d;
+  color: #f2f3f7;
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 100000;
+}
+#sm-lic-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

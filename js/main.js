@@ -1,0 +1,326 @@
+/* ==========================================
+   SmoothMotion — Sitio web oficial
+   Mockup interactivo + demo + reveal
+   ========================================== */
+
+/* ---------- Reveal on scroll ---------- */
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.12 }
+);
+document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+/* ---------- Hamburger menu ---------- */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+
+if (hamburgerBtn && mobileNav) {
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = hamburgerBtn.classList.toggle('open');
+    mobileNav.classList.toggle('open', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    mobileNav.setAttribute('aria-hidden', !isOpen);
+  });
+
+  // Close menu when a link is clicked
+  mobileNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      hamburgerBtn.classList.remove('open');
+      mobileNav.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    });
+  });
+}
+
+/* ==========================================
+   Hero — rotación de los 11 paneles reales
+   ========================================== */
+(function () {
+  const frame = document.getElementById('heroFrame');
+  const titleEl = document.getElementById('heroTitle');
+  const loader = document.getElementById('heroLoader');
+  const dotsWrap = document.getElementById('heroDots');
+  const wrap = document.getElementById('heroPanel');
+  if (!frame || !dotsWrap) return;
+
+  const PANELS = [
+    { name: 'SmoothCurves', src: 'app/client/index.html?m=flow' },
+    { name: 'SmoothText',   src: 'app/client/index.html?m=text' },
+    { name: 'SmoothTypo',   src: 'app/SmoothTypo/index.html' },
+    { name: 'SmoothTools',  src: 'app/client/index.html?m=scripts' },
+    { name: 'SmoothComp',   src: 'app/client/index.html?m=comp' },
+    { name: 'SmoothFX',     src: 'app/client/index.html?m=fx' },
+    { name: 'SmoothColor',  src: 'app/client/index.html?m=color' },
+    { name: 'SmoothAlign',  src: 'app/SmoothAlignPro/index.html' },
+    { name: 'SmoothGuides', src: 'app/SmoothGuides/index.html' },
+    { name: 'SmoothAnchor', src: 'app/client/index.html?m=anchor' },
+    { name: 'SmoothExport', src: 'app/client/index.html?m=export' },
+  ];
+
+  const INTERVAL = 5000;
+  let idx = 0, timer = null, paused = false;
+
+  PANELS.forEach((p, i) => {
+    const d = document.createElement('button');
+    d.type = 'button';
+    d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', p.name);
+    d.addEventListener('click', () => { show(i); restart(); });
+    dotsWrap.appendChild(d);
+  });
+  const dots = [...dotsWrap.children];
+
+  function show(i) {
+    idx = i;
+    titleEl.textContent = PANELS[i].name;
+    dots.forEach((d, j) => d.classList.toggle('active', j === i));
+    loader.classList.remove('hidden');
+    frame.style.opacity = '0';
+    frame.setAttribute('src', PANELS[i].src);
+  }
+  function next() { if (!paused) show((idx + 1) % PANELS.length); }
+  function start() { timer = setInterval(next, INTERVAL); }
+  function restart() { clearInterval(timer); start(); }
+
+  frame.addEventListener('load', () => {
+    if (!frame.getAttribute('src')) return;
+    setTimeout(() => { loader.classList.add('hidden'); frame.style.opacity = '1'; }, 220);
+  });
+
+  // Pausa la rotación mientras el ratón está encima (para interactuar)
+  if (wrap) {
+    wrap.addEventListener('mouseenter', () => { paused = true; });
+    wrap.addEventListener('mouseleave', () => { paused = false; });
+  }
+
+  show(0);
+  start();
+})();
+
+/* ==========================================
+   Playground — paneles reales embebidos
+   ========================================== */
+const PANEL_INFO = {
+  flow: {
+    num: '01', name: 'SmoothCurves', tag: 'Editor de curvas de ease',
+    body: 'El corazón de SmoothMotion. Edita curvas de aceleración en tiempo real y aplícalas a tus keyframes sin salir del panel.',
+    list: ['Modos Ease, Speed, Elastic, Bounce y Custom', 'Aplica como expresión (EXPR) o horneado (KEYS)', 'Lee, invierte y aleatoriza curvas · bibliotecas de presets'],
+  },
+  text: {
+    num: '02', name: 'SmoothText', tag: 'Animación de texto',
+    body: 'Más de 100 presets de animación de texto listos para aplicar por caracteres, palabras o líneas. En la demo verás un pack de ejemplo.',
+    list: ['100+ presets: posición, escala, rotación, 3D, rebote…', 'Organizados en packs y categorías', 'Buscador y favoritos integrados'],
+  },
+  typo: {
+    num: '03', name: 'SmoothTypo', tag: 'Herramientas de tipografía',
+    body: 'Una barra de herramientas tipográficas para trabajar el texto como en un editor profesional.',
+    list: ['Crear y dividir texto por líneas, palabras o letras', 'Resaltar, subrayar, tachar y buscar/reemplazar', 'Contador numérico y máquina de escribir'],
+  },
+  scripts: {
+    num: '04', name: 'SmoothTools', tag: 'Scripts y utilidades',
+    body: 'Tu caja de herramientas: una biblioteca de scripts personalizable más utilidades rápidas de flujo de trabajo.',
+    list: ['Biblioteca de scripts con categorías y favoritos', 'Renombrar capas en lote y limpiar expresiones', 'Alinear/distribuir keys y precomponer inteligente'],
+  },
+  comp: {
+    num: '05', name: 'SmoothComp', tag: 'Gestor de capas',
+    body: 'Controla las capas de tu composición con filtros, colores y notas. La demo trae capas de ejemplo para que lo pruebes.',
+    list: ['Filtra por tipo: nulls, sólidos, texto, shapes, cámaras…', 'Colorea por tipo automáticamente', 'Marca capas con keys / expresiones y añade notas'],
+  },
+  fx: {
+    num: '06', name: 'SmoothFX', tag: 'Efectos de movimiento',
+    body: 'Efectos de movimiento de uso diario, aplicados en un clic sin bucear en menús.',
+    list: ['Camera Shake enlazado a un nulo', 'Wiggle paramétrico', 'Loop (cycle, ping-pong, continue) y fundidos'],
+  },
+  color: {
+    num: '07', name: 'SmoothColor', tag: 'Gestión de color',
+    body: 'Trabaja el color de tu proyecto con una paleta personal y acciones rápidas.',
+    list: ['Selector con paleta personal guardable', 'Crea sólidos del tamaño de la comp', 'Aplica Fill o crea un control de color por expresiones'],
+  },
+  align: {
+    num: '08', name: 'SmoothAlign', tag: 'Alinear y distribuir',
+    body: 'Orden impecable en segundos: alinea y distribuye capas con precisión respecto a comp, área, selección o capa clave.',
+    list: ['Seis alineaciones a bordes y centros', 'Distribución horizontal/vertical y por espacios', 'Espaciado personalizado en píxeles'],
+  },
+  guides: {
+    num: '09', name: 'SmoothGuides', tag: 'Guías y safe zones',
+    body: 'Guías, cuadrículas y safe zones profesionales con vista previa de la composición activa.',
+    list: ['Cuadrícula, centro, márgenes y safe zones', 'Reglas y presets reutilizables', 'Importa y exporta tus configuraciones'],
+  },
+  anchor: {
+    num: '10', name: 'SmoothAnchor', tag: 'Punto de ancla inteligente',
+    body: 'Reposiciona el punto de ancla en 9 posiciones según el contenido o la máscara, sin que la capa se mueva en pantalla.',
+    list: ['9 posiciones instantáneas', 'Detección inteligente por contenido/máscara', 'La capa no se desplaza al recolocar el ancla'],
+  },
+  export: {
+    num: '11', name: 'SmoothExport', tag: 'Render y exportación',
+    body: 'Manda tus composiciones a render con tus plantillas y mantén el proyecto limpio.',
+    list: ['Añade comps a la cola de render', 'Plantillas de ajustes y módulos de salida', 'Limpia footage sin usar para optimizar el proyecto'],
+  },
+};
+
+(function () {
+  const frame = document.getElementById('pgFrame');
+  const loader = document.getElementById('pgLoader');
+  const titleEl = document.getElementById('pgTitle');
+  const chips = [...document.querySelectorAll('.pg-chip')];
+  if (!frame || chips.length === 0) return;
+
+  const dNum = document.getElementById('pgDescNum');
+  const dTitle = document.getElementById('pgDescTitle');
+  const dTag = document.getElementById('pgDescTag');
+  const dBody = document.getElementById('pgDescBody');
+  const dList = document.getElementById('pgDescList');
+
+  let loaded = false;
+
+  function showLoader() { loader && loader.classList.remove('hidden'); }
+  function hideLoader() { loader && loader.classList.add('hidden'); }
+
+  // El panel dibuja con requestAnimationFrame; damos un pequeño margen
+  // tras 'load' para que pinte antes de ocultar el loader.
+  frame.addEventListener('load', () => {
+    if (frame.getAttribute('src')) setTimeout(hideLoader, 250);
+  });
+
+  function updateDesc(id) {
+    const info = PANEL_INFO[id];
+    if (!info) return;
+    dNum.textContent = info.num;
+    dTitle.textContent = info.name;
+    dTag.textContent = info.tag;
+    dBody.textContent = info.body;
+    dList.innerHTML = info.list.map((li) => '<li>' + li + '</li>').join('');
+  }
+
+  function select(chip) {
+    chips.forEach((c) => c.classList.remove('active'));
+    chip.classList.add('active');
+    titleEl.textContent = chip.textContent.trim();
+    updateDesc(chip.getAttribute('data-id'));
+    showLoader();
+    frame.setAttribute('src', chip.getAttribute('data-src'));
+  }
+
+  // Descripción inicial (sin cargar aún el iframe)
+  updateDesc((chips.find((c) => c.classList.contains('active')) || chips[0]).getAttribute('data-id'));
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      if (chip.classList.contains('active') && loaded) return;
+      loaded = true;
+      select(chip);
+    });
+  });
+
+  // Carga diferida: solo montamos el primer panel cuando el playground
+  // entra en pantalla, para no penalizar la carga inicial de la web.
+  const pgObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !loaded) {
+          loaded = true;
+          const active = chips.find((c) => c.classList.contains('active')) || chips[0];
+          select(active);
+          pgObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.01, rootMargin: '300px 0px' }
+  );
+  pgObserver.observe(document.getElementById('pgWindow'));
+})();
+
+/* ==========================================
+   Extras — conteo de stats + scrollspy nav
+   ========================================== */
+(function () {
+  // Conteo animado de las cifras del hero (11, 100+, 1)
+  const nums = [...document.querySelectorAll('.hero-stats .stat strong')];
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const raw = el.textContent.trim();
+      const target = parseInt(raw, 10) || 0;
+      const suffix = raw.replace(/[0-9]/g, '');
+      const dur = 900;
+      const t0 = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  nums.forEach((n) => countObs.observe(n));
+
+  // Scrollspy: resalta el enlace del nav de la sección visible
+  const links = [...document.querySelectorAll('.nav-links a:not(.btn)')];
+  const map = {};
+  links.forEach((a) => {
+    const id = (a.getAttribute('href') || '').replace('#', '');
+    if (id) map[id] = a;
+  });
+  const sections = Object.keys(map)
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => a.classList.remove('active'));
+      const a = map[e.target.id];
+      if (a) a.classList.add('active');
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach((s) => spy.observe(s));
+})();
+
+/* ==========================================
+   Modal — Manual de usuario (sin salir del sitio)
+   ========================================== */
+(function () {
+  const modal = document.getElementById('manualModal');
+  const openBtn = document.getElementById('openManual');
+  const closeBtn = document.getElementById('closeManual');
+  const frame = document.getElementById('manualFrame');
+  const loader = document.getElementById('manualLoader');
+  if (!modal || !openBtn || !frame) return;
+
+  const SRC = 'manual/manual-de-usuario.html';
+  let loaded = false;
+
+  frame.addEventListener('load', () => {
+    if (frame.getAttribute('src')) loader && loader.classList.add('hidden');
+  });
+
+  function open() {
+    if (!loaded) { loaded = true; loader && loader.classList.remove('hidden'); frame.setAttribute('src', SRC); }
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+  function close() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
+
+  openBtn.addEventListener('click', open);
+  closeBtn && closeBtn.addEventListener('click', close);
+  modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+})();

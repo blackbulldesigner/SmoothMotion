@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmoothMotion — La suite todo-en-uno para Motion Graphics en After Effects</title>
+  <meta name="description" content="SmoothMotion v5: 11 paneles profesionales para After Effects. Curvas de ease, texto, tipografía, composición, FX, color, alineación, guías, anchor point y export — la familia perfecta para Motion Graphics." />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SmoothMotion — La suite todo-en-uno para Motion Graphics en After Effects" />
+  <meta property="og:description" content="SmoothMotion v5: 11 paneles profesionales para After Effects. Curvas de ease, texto, tipografía, composición, FX, color, alineación, guías, anchor point y export." />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SmoothMotion v5 — Suite de Motion Graphics para After Effects" />
+  <meta name="twitter:description" content="11 paneles profesionales. La familia perfecta para Motion Graphics en After Effects." />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header id="siteNav">
+    <div class="nav-inner">
+      <a href="#" class="logo">Smooth<span>Motion</span><em class="ver-badge">v5</em></a>
+      <nav class="nav-links">
+        <a href="#playground">Paneles</a>
+        <a href="#caracteristicas">Características</a>
+        <a href="#descargar" class="btn btn-primary btn-sm">Descargar</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+      <a href="#playground" class="mob-link">Paneles</a>
+      <a href="#caracteristicas" class="mob-link">Características</a>
+      <a href="#descargar" class="btn btn-primary">Descargar</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-copy reveal">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          Nuevo · SmoothMotion v5.0.1
+        </div>
+        <h1>La familia perfecta para<br /><span class="grad">Motion Graphics.</span></h1>
+        <p class="lead">
+          SmoothMotion no es un panel — son <strong>11 paneles profesionales</strong> que trabajan como uno solo
+          dentro de After Effects. Curvas de ease, animación de texto, tipografía, composición, FX, color,
+          alineación, guías y más. Todo tu flujo de Motion Graphics, en una sola suite.
+        </p>
+        <div class="hero-actions">
+          <a href="#descargar" class="btn btn-primary">Descargar para After Effects</a>
+          <a href="#playground" class="btn btn-ghost">Ver los 11 paneles ▸</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>11</strong><span>paneles</span></div>
+          <div class="stat"><strong>100+</strong><span>presets de texto</span></div>
+          <div class="stat"><strong>1</strong><span>suite unificada</span></div>
+        </div>
+      </div>
+
+      <!-- Ventana con los 11 paneles reales rotando -->
+      <div class="hero-panel reveal" id="heroPanel">
+        <div class="panel-titlebar">
+          <span class="tb-dot"></span><span class="tb-dot"></span><span class="tb-dot"></span>
+          <span class="tb-title" id="heroTitle">SmoothCurves</span>
+          <span class="hero-live">● en vivo</span>
+        </div>
+        <div class="hero-stage">
+          <div class="hero-loader" id="heroLoader"><div class="pg-spinner"></div></div>
+          <iframe id="heroFrame" title="Paneles SmoothMotion (demo)"></iframe>
+        </div>
+        <div class="hero-dots" id="heroDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BARRA COMPATIBILIDAD ===== -->
+  <div class="compat-strip">
+    <span>Compatible con</span>
+    <strong>Adobe After Effects 2020 — 2026</strong>
+    <span class="sep">·</span>
+    <span>Windows &amp; macOS</span>
+    <span class="sep">·</span>
+    <span>Extensión CEP</span>
+  </div>
+  <!-- ===== PLAYGROUND (paneles reales interactivos) ===== -->
+  <section id="playground" class="section">
+    <div class="section-head reveal">
+      <span class="kicker">La familia SmoothMotion</span>
+      <h2>Once paneles reales, en tu navegador.</h2>
+      <p>No son fotos ni vídeos: es la interfaz real de cada panel corriendo en vivo. Elige uno, navégalo,
+        cambia de pestaña y arrastra la curva. Las acciones que tocan After Effects están en modo demo — pero el HUD es 100&#37; auténtico.</p>
+    </div>
+
+    <div class="pg-selector reveal" id="pgSelector">
+      <button class="pg-chip active" data-id="flow"   data-src="app/client/index.html?m=flow">SmoothCurves</button>
+      <button class="pg-chip" data-id="text"   data-src="app/client/index.html?m=text">SmoothText</button>
+      <button class="pg-chip" data-id="typo"   data-src="app/SmoothTypo/index.html">SmoothTypo</button>
+      <button class="pg-chip" data-id="scripts" data-src="app/client/index.html?m=scripts">SmoothTools</button>
+      <button class="pg-chip" data-id="comp"   data-src="app/client/index.html?m=comp">SmoothComp</button>
+      <button class="pg-chip" data-id="fx"     data-src="app/client/index.html?m=fx">SmoothFX</button>
+      <button class="pg-chip" data-id="color"  data-src="app/client/index.html?m=color">SmoothColor</button>
+      <button class="pg-chip" data-id="align"  data-src="app/SmoothAlignPro/index.html">SmoothAlign</button>
+      <button class="pg-chip" data-id="guides" data-src="app/SmoothGuides/index.html">SmoothGuides</button>
+      <button class="pg-chip" data-id="anchor" data-src="app/client/index.html?m=anchor">SmoothAnchor</button>
+      <button class="pg-chip" data-id="export" data-src="app/client/index.html?m=export">SmoothExport</button>
+    </div>
+
+    <div class="pg-layout">
+      <div class="pg-window reveal" id="pgWindow">
+        <div class="pg-titlebar">
+          <span class="pg-dot"></span><span class="pg-dot"></span><span class="pg-dot"></span>
+          <span class="pg-title" id="pgTitle">SmoothCurves</span>
+          <span class="pg-live">● en vivo</span>
+        </div>
+        <div class="pg-stage">
+          <div class="pg-loader" id="pgLoader"><div class="pg-spinner"></div><span>Cargando panel…</span></div>
+          <iframe id="pgFrame" title="Panel SmoothMotion (demo)" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <aside class="pg-desc reveal" id="pgDesc">
+        <span class="pg-desc-badge" id="pgDescNum">01</span>
+        <h3 id="pgDescTitle">SmoothCurves</h3>
+        <p class="pg-desc-tag" id="pgDescTag">Editor de curvas de ease</p>
+        <p class="pg-desc-body" id="pgDescBody"></p>
+        <ul class="pg-desc-list" id="pgDescList"></ul>
+      </aside>
+    </div>
+
+    <p class="pg-foot">Consejo: en <strong>SmoothCurves</strong> arrastra los puntos de la curva; en <strong>SmoothComp</strong> haz clic en las capas; en <strong>SmoothGuides</strong> cambia entre pestañas.</p>
+  </section>
+
+  <!-- ===== CARACTERÍSTICAS ===== -->
+  <section id="caracteristicas" class="section">
+    <div class="section-head reveal">
+      <span class="kicker">Por qué SmoothMotion</span>
+      <h2>Pensado para animar más rápido</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature reveal">
+        <div class="f-num">01</div>
+        <h3>Todo en un panel</h3>
+        <p>Los 11 paneles conviven en una sola ventana con pestañas, o se acoplan por separado donde quieras dentro de After Effects. Tu espacio de trabajo, tus reglas.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="f-num">02</div>
+        <h3>Live Sync</h3>
+        <p>Activa la sincronización en vivo y cada ajuste de la curva se aplica automáticamente a los keyframes seleccionados. Sin clics extra.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="f-num">03</div>
+        <h3>EXPR o KEYS, tú eliges</h3>
+        <p>Aplica curvas como expresión editable y ligera, o "hornéalas" como keyframes puros sin expresiones. Compatible con cualquier pipeline.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="f-num">04</div>
+        <h3>Bibliotecas de presets</h3>
+        <p>Guarda tus curvas y scripts favoritos, organízalos en bibliotecas e impórtalos o expórtalos para compartir con todo tu equipo.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="f-num">05</div>
+        <h3>Interfaz nativa</h3>
+        <p>Diseñado con el lenguaje visual de After Effects: oscuro, compacto y sin distracciones. Se siente parte del programa desde el primer día.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="f-num">06</div>
+        <h3>En español</h3>
+        <p>Toda la interfaz, tooltips y descripciones están pensadas en español, con soporte multi-idioma. Nada de adivinar qué hace cada botón.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA DESCARGA ===== -->
+  <section id="descargar" class="section cta-section">
+    <div class="cta-card reveal">
+      <div class="cta-glow"></div>
+      <h2>Empieza a animar con <span class="grad">SmoothMotion</span></h2>
+      <p>Instalación en menos de un minuto. Copia la extensión, reinicia After Effects y encuentra los paneles en <strong>Ventana → Extensiones</strong>.</p>
+      <div class="hero-actions center">
+        <a href="#" class="btn btn-primary btn-lg">Descargar SmoothMotion v5</a>
+        <button type="button" class="btn btn-ghost btn-lg" id="openManual">Ver manual de usuario</button>
+      </div>
+      <span class="cta-note">v5.0.1 · 11 paneles · Windows &amp; macOS · After Effects 2020+</span>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <a href="#" class="logo">Smooth<span>Motion</span></a>
+      <p>La suite todo-en-uno de Motion Graphics para Adobe After Effects.</p>
+      <div class="footer-links">
+        <a href="#playground">Paneles</a>
+        <a href="#caracteristicas">Características</a>
+        <a href="#descargar">Descargar</a>
+      </div>
+      <span class="copyright">© 2026 SmoothMotion. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL: Manual de usuario ===== -->
+  <div class="manual-modal" id="manualModal" aria-hidden="true">
+    <div class="manual-backdrop" data-close></div>
+    <div class="manual-dialog" role="dialog" aria-modal="true" aria-label="Manual de usuario">
+      <div class="manual-bar">
+        <span class="manual-bar-title">Smooth<span>Motion</span> · Manual de usuario</span>
+        <div class="manual-bar-actions">
+          <a href="manual/manual-de-usuario.html" target="_blank" rel="noopener" class="manual-newtab" title="Abrir en pestaña nueva">Abrir aparte ↗</a>
+          <button type="button" class="manual-close" id="closeManual" aria-label="Cerrar">✕</button>
+        </div>
+      </div>
+      <div class="manual-stage">
+        <div class="manual-loader" id="manualLoader"><div class="pg-spinner"></div></div>
+        <iframe id="manualFrame" title="Manual de usuario de SmoothMotion"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
