@@ -122,13 +122,15 @@
   document.addEventListener('DOMContentLoaded', function () {
     // Silenciar mensajes de error (los paneles avisan de "Error al ejecutar
     // script de AE" porque no hay host; en demo eso no aporta nada).
-    if (typeof window.motionFlowToast === 'function') {
-      var origToast = window.motionFlowToast;
-      window.motionFlowToast = function (msg, ms) {
-        if (/error|⚠/i.test(String(msg))) return;
-        return origToast(msg, ms);
-      };
-    }
+    var devNullToast = function (msg, ms) {
+      if (/error|⚠/i.test(String(msg))) return;
+      // You can implement a custom web toast here if needed
+    };
+    
+    // Define all known toast functions so panels never fallback to alert()
+    window.smoothMotionToast = devNullToast;
+    window.motionFlowToast = devNullToast;
+    window.motionBroToast = devNullToast;
 
     // Etiqueta permanente DEMO
     var tag = document.createElement('div');
