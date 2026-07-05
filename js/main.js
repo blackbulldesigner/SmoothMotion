@@ -186,20 +186,20 @@ const STORE = {
       id: 'starter', name: 'Starter', price: 25,
       tagline: 'Lo esencial para empezar a animar',
       panels: ['flow', 'text', 'anchor'],
-      url: '',
+      url: 'https://ko-fi.com/s/d3a82513cf',
     },
     {
       id: 'pro', name: 'Pro', price: 45, popular: true,
       tagline: 'El flujo completo del motion designer',
       panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts'],
-      url: '',
+      url: 'https://ko-fi.com/s/11bb63c8cd',
     },
     {
       id: 'studio', name: 'Studio', price: 65,
       tagline: 'Todo SmoothMotion, con actualizaciones futuras',
       panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export'],
       allAndUpdates: true,
-      url: '',
+      url: 'https://ko-fi.com/s/9811ac8619',
     },
   ],
 };
