@@ -166,6 +166,49 @@ const PANEL_INFO = {
   },
 };
 
+/* ==========================================================
+   TIENDA — precios y enlaces de Ko-fi
+   ----------------------------------------------------------
+   👉 EDITA AQUÍ cuando tengas tu Ko-fi y los productos creados:
+   - kofiShop: tu tienda general (se usa si un panel no tiene 'url').
+   - currency: símbolo de moneda.
+   - family.url / panels.<id>.url: enlace directo del producto en Ko-fi
+     (ej. https://ko-fi.com/s/xxxxxxxx). Déjalo '' para usar la tienda general.
+   - price: número; cámbialos a tu gusto.
+   ========================================================== */
+const STORE = {
+  kofiShop: 'https://ko-fi.com/TU_USUARIO/shop',
+  currency: '$',
+  // Paquetes acumulativos (cada uno incluye los paneles del anterior).
+  // 👉 EDITA precios y pega la 'url' del producto en Ko-fi cuando lo tengas.
+  tiers: [
+    {
+      id: 'starter', name: 'Starter', price: 25,
+      tagline: 'Lo esencial para empezar a animar',
+      panels: ['flow', 'text', 'anchor'],
+      url: '',
+    },
+    {
+      id: 'pro', name: 'Pro', price: 45, popular: true,
+      tagline: 'El flujo completo del motion designer',
+      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts'],
+      url: '',
+    },
+    {
+      id: 'studio', name: 'Studio', price: 65,
+      tagline: 'Todo SmoothMotion, con actualizaciones futuras',
+      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export'],
+      allAndUpdates: true,
+      url: '',
+    },
+  ],
+};
+function storeUrl(u) { return (u && u.trim()) ? u.trim() : STORE.kofiShop; }
+// Paquete más barato que incluye un panel dado
+function tierForPanel(id) {
+  return STORE.tiers.find((t) => t.panels.indexOf(id) !== -1) || null;
+}
+
 (function () {
   const frame = document.getElementById('pgFrame');
   const loader = document.getElementById('pgLoader');
@@ -178,6 +221,9 @@ const PANEL_INFO = {
   const dTag = document.getElementById('pgDescTag');
   const dBody = document.getElementById('pgDescBody');
   const dList = document.getElementById('pgDescList');
+  const dPrice = document.getElementById('pgPrice');
+  const dBuy = document.getElementById('pgBuy');
+  const dTier = document.getElementById('pgTier');
 
   let loaded = false;
 
@@ -198,6 +244,11 @@ const PANEL_INFO = {
     dTag.textContent = info.tag;
     dBody.textContent = info.body;
     dList.innerHTML = info.list.map((li) => '<li>' + li + '</li>').join('');
+    if (dPrice) {
+      const tier = tierForPanel(id);
+      dPrice.textContent = tier ? 'Desde ' + STORE.currency + tier.price : '';
+      if (dTier) dTier.textContent = tier ? 'Incluido en el paquete ' + tier.name : '';
+    }
   }
 
   function select(chip) {
@@ -323,4 +374,36 @@ const PANEL_INFO = {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('open')) close();
   });
+})();
+
+/* ==========================================
+   Precios — paquetes (Starter / Pro / Studio) vía Ko-fi
+   ========================================== */
+(function () {
+  const grid = document.getElementById('tiersGrid');
+  if (!grid) return;
+  const name = (id) => (PANEL_INFO[id] || {}).name || id;
+
+  grid.innerHTML = STORE.tiers.map((t, i) => {
+    const prev = STORE.tiers[i - 1];
+    const newPanels = prev ? t.panels.filter((p) => prev.panels.indexOf(p) === -1) : t.panels;
+
+    const items = [];
+    if (prev) items.push('<li class="tier-inherit">Todo lo de ' + prev.name + '</li>');
+    newPanels.forEach((p) => items.push('<li>' + name(p) + '</li>'));
+    if (t.allAndUpdates) items.push('<li class="tier-extra">Actualizaciones futuras</li>');
+
+    return '' +
+      '<article class="tier-card' + (t.popular ? ' popular' : '') + '">' +
+        (t.popular ? '<span class="tier-badge">Más popular</span>' : '') +
+        '<h3 class="tier-name">' + t.name + '</h3>' +
+        '<p class="tier-tagline">' + t.tagline + '</p>' +
+        '<div class="tier-price">' + STORE.currency + t.price +
+          '<span class="tier-per">/ pago único</span></div>' +
+        '<div class="tier-count">' + t.panels.length + ' paneles' + (t.allAndUpdates ? ' · todo' : '') + '</div>' +
+        '<a class="btn ' + (t.popular ? 'btn-primary' : 'btn-ghost') + ' tier-buy" href="' +
+          storeUrl(t.url) + '" target="_blank" rel="noopener">Comprar ' + t.name + '</a>' +
+        '<ul class="tier-list">' + items.join('') + '</ul>' +
+      '</article>';
+  }).join('');
 })();

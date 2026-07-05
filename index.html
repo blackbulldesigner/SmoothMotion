@@ -29,7 +29,8 @@
       <nav class="nav-links">
         <a href="#playground">Paneles</a>
         <a href="#caracteristicas">Características</a>
-        <a href="#descargar" class="btn btn-primary btn-sm">Descargar</a>
+        <a href="#precios">Precios</a>
+        <a href="#precios" class="btn btn-primary btn-sm">Comprar</a>
       </nav>
       <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -38,7 +39,8 @@
     <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
       <a href="#playground" class="mob-link">Paneles</a>
       <a href="#caracteristicas" class="mob-link">Características</a>
-      <a href="#descargar" class="btn btn-primary">Descargar</a>
+      <a href="#precios" class="mob-link">Precios</a>
+      <a href="#precios" class="btn btn-primary">Comprar</a>
     </nav>
   </header>
 
@@ -58,7 +60,7 @@
           alineación, guías y más. Todo tu flujo de Motion Graphics, en una sola suite.
         </p>
         <div class="hero-actions">
-          <a href="#descargar" class="btn btn-primary">Descargar para After Effects</a>
+          <a href="#precios" class="btn btn-primary">Comprar para After Effects</a>
           <a href="#playground" class="btn btn-ghost">Ver los 11 paneles ▸</a>
         </div>
         <div class="hero-stats">
@@ -135,6 +137,11 @@
         <p class="pg-desc-tag" id="pgDescTag">Editor de curvas de ease</p>
         <p class="pg-desc-body" id="pgDescBody"></p>
         <ul class="pg-desc-list" id="pgDescList"></ul>
+        <div class="pg-buy">
+          <span class="pg-price" id="pgPrice"></span>
+          <a class="btn btn-primary pg-buy-btn" id="pgBuy" href="#precios">Ver paquetes</a>
+        </div>
+        <span class="pg-buy-family" id="pgTier"></span>
       </aside>
     </div>
 
@@ -181,14 +188,28 @@
     </div>
   </section>
 
+  <!-- ===== PRECIOS ===== -->
+  <section id="precios" class="section section-alt">
+    <div class="section-head reveal">
+      <span class="kicker">Precios</span>
+      <h2>Llévate un panel o toda la familia</h2>
+      <p>Compra solo lo que necesitas, o ahorra con la suite completa. Pago único vía Ko-fi;
+        tu key se reclama en el Discord.</p>
+    </div>
+
+    <div class="tiers-grid reveal" id="tiersGrid"><!-- generado por JS --></div>
+    <p class="tiers-foot">Todos los paquetes son acumulativos · pago único vía Ko-fi · tu key se reclama en el Discord. ¿Empezaste con uno y quieres subir? Paga solo la diferencia.</p>
+  </section>
+
   <!-- ===== CTA DESCARGA ===== -->
   <section id="descargar" class="section cta-section">
     <div class="cta-card reveal">
       <div class="cta-glow"></div>
       <h2>Empieza a animar con <span class="grad">SmoothMotion</span></h2>
-      <p>Instalación en menos de un minuto. Copia la extensión, reinicia After Effects y encuentra los paneles en <strong>Ventana → Extensiones</strong>.</p>
+      <p>Elige tu panel o la familia completa. Tras la compra en Ko-fi, reclamas tu key en el Discord,
+        la pegas en el panel y a animar — instalación en menos de un minuto.</p>
       <div class="hero-actions center">
-        <a href="#" class="btn btn-primary btn-lg">Descargar SmoothMotion v5</a>
+        <a href="#precios" class="btn btn-primary btn-lg">Ver precios y comprar</a>
         <button type="button" class="btn btn-ghost btn-lg" id="openManual">Ver manual de usuario</button>
       </div>
       <span class="cta-note">v5.0.1 · 11 paneles · Windows &amp; macOS · After Effects 2020+</span>
