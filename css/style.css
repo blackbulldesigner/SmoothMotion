@@ -790,6 +790,13 @@ footer {
   letter-spacing: -1.5px;
   margin: 14px 0 2px;
 }
+.tier-original-price {
+  color: var(--ec-text-muted);
+  font-size: 24px;
+  font-weight: 600;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
 .tier-per {
   color: var(--ec-text-muted);
   font-size: 12px;

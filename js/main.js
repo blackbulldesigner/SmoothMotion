@@ -183,19 +183,19 @@ const STORE = {
   // 👉 EDITA precios y pega la 'url' del producto en Ko-fi cuando lo tengas.
   tiers: [
     {
-      id: 'starter', name: 'Starter', price: 25,
+      id: 'starter', name: 'Starter', price: 25, originalPrice: 45,
       tagline: 'Lo esencial para empezar a animar',
       panels: ['flow', 'text', 'anchor'],
       url: 'https://ko-fi.com/s/d3a82513cf',
     },
     {
-      id: 'pro', name: 'Pro', price: 45, popular: true,
+      id: 'pro', name: 'Pro', price: 45, originalPrice: 75, popular: true,
       tagline: 'El flujo completo del motion designer',
       panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts'],
       url: 'https://ko-fi.com/s/11bb63c8cd',
     },
     {
-      id: 'studio', name: 'Studio', price: 65,
+      id: 'studio', name: 'Studio', price: 65, originalPrice: 110,
       tagline: 'Todo SmoothMotion, con actualizaciones futuras',
       panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export'],
       allAndUpdates: true,
@@ -398,7 +398,9 @@ function tierForPanel(id) {
         (t.popular ? '<span class="tier-badge">Más popular</span>' : '') +
         '<h3 class="tier-name">' + t.name + '</h3>' +
         '<p class="tier-tagline">' + t.tagline + '</p>' +
-        '<div class="tier-price">' + STORE.currency + t.price +
+        '<div class="tier-price">' + 
+          (t.originalPrice ? '<span class="tier-original-price">' + STORE.currency + t.originalPrice + '</span>' : '') +
+          STORE.currency + t.price +
           '<span class="tier-per">/ pago único</span></div>' +
         '<div class="tier-count">' + t.panels.length + ' paneles' + (t.allAndUpdates ? ' · todo' : '') + '</div>' +
         '<a class="btn ' + (t.popular ? 'btn-primary' : 'btn-ghost') + ' tier-buy" href="' +
