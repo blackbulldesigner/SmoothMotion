@@ -32,7 +32,45 @@
   } catch (e) {}
 
   // ── 3. Stubs Node / CEP ──
-  if (typeof window.require === 'undefined') window.require = function () { return {}; };
+  // Mock de módulos Node para que los paneles nuevos (Explorer/Traductor/Paste)
+  // muestren una UI real en la demo, sin acceso real al sistema.
+  if (typeof window.require === 'undefined') {
+    var DEMO_FS = {
+      '/Demo': ['Proyectos', 'Materiales', 'logo.png', 'intro.mp4', 'musica.mp3', 'render.aep'],
+      '/Demo/Proyectos': ['escena_01.aep', 'escena_02.aep', 'portada.png'],
+      '/Demo/Materiales': ['textura.jpg', 'grano.mov', 'sfx.wav', 'voz.mp3', 'fondo.png']
+    };
+    var DEMO_MODULES = {
+      os: { homedir: function () { return '/Demo'; }, tmpdir: function () { return '/Demo/tmp'; } },
+      path: {
+        sep: '/',
+        join: function () { return Array.prototype.slice.call(arguments).join('/').replace(/\/+/g, '/'); },
+        dirname: function (p) { var s = String(p).replace(/\/+$/, '').split('/'); s.pop(); return s.join('/') || '/'; }
+      },
+      fs: {
+        existsSync: function () { return true; },
+        statSync: function (p) {
+          var name = String(p).split('/').pop();
+          var isDir = name.indexOf('.') === -1;
+          return { isDirectory: function () { return isDir; }, size: 1024 };
+        },
+        readdirSync: function (p) { return DEMO_FS[p] ? DEMO_FS[p].slice() : []; },
+        readFileSync: function () { return ''; },
+        writeFileSync: function () {}, mkdirSync: function () {}, unlinkSync: function () {}
+      },
+      https: {
+        get: function (url, opts, cb) {
+          var handlers = {};
+          var req = { on: function (ev, fn) { handlers[ev] = fn; return req; }, setTimeout: function () {}, destroy: function () {} };
+          setTimeout(function () { if (handlers.error) handlers.error(new Error('modo demo')); }, 300);
+          return req;
+        }
+      },
+      child_process: { execFileSync: function () { throw new Error('modo demo'); } },
+      buffer: { Buffer: window.Buffer || function () {} }
+    };
+    window.require = function (m) { return DEMO_MODULES[m] || {}; };
+  }
   if (typeof window.cep === 'undefined') {
     window.cep = {
       util: { openURLInDefaultBrowser: function (u) { try { window.open(u, '_blank'); } catch (e) {} } },

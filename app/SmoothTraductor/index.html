@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmoothTraductor</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/license.css">
+</head>
+<body>
+
+<div class="tr-panel">
+  <div class="tr-header">
+    <div class="tr-brand">Smooth<span>Traductor</span></div>
+    <span class="tr-badge">TEXTO</span>
+  </div>
+
+  <div class="tr-langs">
+    <div class="tr-lang-col">
+      <label>Idioma de origen</label>
+      <select class="tr-select" id="tr-src">
+        <option value="auto" selected>Detectar automático</option>
+        <option value="es">Español</option>
+        <option value="en">Inglés</option>
+        <option value="pt">Portugués</option>
+        <option value="fr">Francés</option>
+        <option value="de">Alemán</option>
+        <option value="it">Italiano</option>
+        <option value="ja">Japonés</option>
+        <option value="ko">Coreano</option>
+        <option value="zh-CN">Chino</option>
+        <option value="ru">Ruso</option>
+        <option value="ar">Árabe</option>
+        <option value="hi">Hindi</option>
+        <option value="nl">Neerlandés</option>
+        <option value="tr">Turco</option>
+        <option value="pl">Polaco</option>
+      </select>
+    </div>
+    <button type="button" class="tr-swap" id="tr-swap" title="Intercambiar idiomas">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    </button>
+    <div class="tr-lang-col">
+      <label>Idioma destino</label>
+      <select class="tr-select" id="tr-dst">
+        <option value="es">Español</option>
+        <option value="en" selected>Inglés</option>
+        <option value="pt">Portugués</option>
+        <option value="fr">Francés</option>
+        <option value="de">Alemán</option>
+        <option value="it">Italiano</option>
+        <option value="ja">Japonés</option>
+        <option value="ko">Coreano</option>
+        <option value="zh-CN">Chino</option>
+        <option value="ru">Ruso</option>
+        <option value="ar">Árabe</option>
+        <option value="hi">Hindi</option>
+        <option value="nl">Neerlandés</option>
+        <option value="tr">Turco</option>
+        <option value="pl">Polaco</option>
+      </select>
+    </div>
+  </div>
+
+  <button type="button" class="tr-btn" id="tr-read">Leer texto de la capa seleccionada</button>
+
+  <div class="tr-field">
+    <div class="tr-field-head">
+      <label>Texto original</label>
+      <span class="tr-detected" id="tr-detected"></span>
+    </div>
+    <textarea class="tr-area" id="tr-source" placeholder="Selecciona una capa de texto y pulsa «Leer», o escribe aquí…" spellcheck="false"></textarea>
+  </div>
+
+  <button type="button" class="tr-btn tr-btn-primary" id="tr-translate">Traducir</button>
+
+  <div class="tr-field">
+    <div class="tr-field-head">
+      <label>Traducción</label>
+    </div>
+    <textarea class="tr-area" id="tr-result" placeholder="Aquí aparecerá la traducción (puedes editarla antes de aplicar)." spellcheck="false"></textarea>
+  </div>
+
+  <button type="button" class="tr-btn tr-btn-primary" id="tr-apply">Aplicar (duplica la capa y oculta la original)</button>
+
+  <p class="tr-hint">La traducción se coloca en una <b>copia</b> de la capa; la original queda oculta (ojo apagado). Reversible con Ctrl+Z. Requiere conexión a internet.</p>
+</div>
+
+<!-- ── Escudo de licencia (misma key de SmoothMotion) ─────────────────────── -->
+<div id="lic-overlay" class="lic-overlay">
+  <div class="lic-card">
+    <div class="onb-logo">Smooth<span>Traductor</span></div>
+    <h3 class="lic-title">Activa tu licencia</h3>
+    <div class="lic-hwid-block">
+      <span class="lic-hwid-label">Tu ID de equipo</span>
+      <div class="lic-hwid-row">
+        <code id="lic-hwid" class="lic-hwid-code" title="">—</code>
+        <button type="button" class="lic-copy-btn" id="lic-copy-hwid">Copiar</button>
+      </div>
+    </div>
+    <p class="lic-text">1. Copia el ID → 2. Reclámala en Discord con tu paquete → 3. Pega la key aquí</p>
+    <input type="text" id="lic-input" class="lic-input" placeholder="SM-XXXX-XXXX-X" autocomplete="off" spellcheck="false" maxlength="14" />
+    <button type="button" id="lic-activate">Activar licencia</button>
+    <button type="button" class="lic-btn-discord" id="lic-discord">Abrir Discord</button>
+    <p id="lic-error" class="lic-error hidden"></p>
+    <p class="lic-footnote">La misma key de SmoothMotion vale aquí. Válida solo en este equipo.</p>
+  </div>
+</div>
+
+<div id="tr-toast"></div>
+
+<script src="js/CSInterface.js"></script>
+<script src="../shared/license-config.js"></script>
+<script src="../shared/license.js"></script>
+<script>window.SM_REQUIRED_MODULE = 'translator';</script>
+<script src="../shared/demo-shim.js"></script>
+<script src="../shared/license-boot.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

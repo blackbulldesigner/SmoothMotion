@@ -63,6 +63,9 @@ if (hamburgerBtn && mobileNav) {
     { name: 'SmoothGuides', src: 'app/SmoothGuides/index.html' },
     { name: 'SmoothAnchor', src: 'app/client/index.html?m=anchor' },
     { name: 'SmoothExport', src: 'app/client/index.html?m=export' },
+    { name: 'SmoothExplorer',  src: 'app/SmoothExplorer/index.html' },
+    { name: 'SmoothTraductor', src: 'app/SmoothTraductor/index.html' },
+    { name: 'SmoothPaste',     src: 'app/SmoothPaste/index.html' },
   ];
 
   const INTERVAL = 5000;
@@ -164,6 +167,21 @@ const PANEL_INFO = {
     body: 'Manda tus composiciones a render con tus plantillas y mantén el proyecto limpio.',
     list: ['Añade comps a la cola de render', 'Plantillas de ajustes y módulos de salida', 'Limpia footage sin usar para optimizar el proyecto'],
   },
+  explorer: {
+    num: '12', name: 'SmoothExplorer', tag: 'Explorador de archivos',
+    body: 'Un explorador de archivos dentro de After Effects: navega tus carpetas, previsualiza medios e importa con doble clic.',
+    list: ['Miniaturas de imágenes y video · favoritos de carpetas', 'Reproductor de audio para escuchar antes de importar', 'Importa al proyecto o directo a la comp · tamaño de cuadrícula ajustable'],
+  },
+  translator: {
+    num: '13', name: 'SmoothTraductor', tag: 'Traducir capas de texto',
+    body: 'Traduce el texto de la capa seleccionada a decenas de idiomas y aplícalo en una copia, ocultando el original.',
+    list: ['Detección automática de idioma o manual', 'Duplica la capa con la traducción y oculta la original', 'Edita la traducción antes de aplicarla'],
+  },
+  paste: {
+    num: '14', name: 'SmoothPaste', tag: 'Copiar frame / pegar imagen',
+    body: 'Copia el fotograma actual al portapapeles del sistema, o pega una imagen del portapapeles como una capa nueva.',
+    list: ['Copia el frame de la comp al portapapeles', 'Pega imágenes del portapapeles como capa', 'Panel adaptable a cualquier zona de After Effects'],
+  },
 };
 
 /* ==========================================================
@@ -197,7 +215,7 @@ const STORE = {
     {
       id: 'studio', name: 'Studio', price: 65, originalPrice: 110,
       tagline: 'Todo SmoothMotion, con actualizaciones futuras',
-      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export'],
+      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export', 'explorer', 'translator', 'paste'],
       allAndUpdates: true,
       url: 'https://ko-fi.com/s/9811ac8619',
     },
