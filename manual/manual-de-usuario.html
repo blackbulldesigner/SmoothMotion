@@ -768,7 +768,7 @@
   <header class="topbar">
     <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
     <a href="#" class="logo">Smooth<span>Motion</span></a>
-    <span class="topbar-badge">Manual v5.4.4</span>
+    <span class="topbar-badge">Manual v5.5.0</span>
     <nav class="topbar-nav" aria-label="Módulos">
       <a class="module-pill" href="#sec-curves">SmoothCurves</a>
       <a class="module-pill" href="#sec-tools">SmoothTools</a>
@@ -834,7 +834,7 @@
         <h1>Manual de usuario</h1>
         <p class="hero-sub">Guía completa para instalar, activar y dominar todos los módulos de SmoothMotion dentro de After Effects.</p>
         <div class="hero-tags">
-          <span class="tag accent">v5.4.4</span>
+          <span class="tag accent">v5.5.0</span>
           <span class="tag">AE 2021+</span>
           <span class="tag">12 módulos</span>
           <span class="tag">Atajo: Ctrl + K</span>
@@ -1451,7 +1451,7 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
 
       <footer>
         <div class="logo-footer">Smooth<span>Motion</span></div>
-        <p>Manual del Usuario · Versión Oficial 5.4.4</p>
+        <p>Manual del Usuario · Versión Oficial 5.5.0</p>
         <a class="btn-discord" href="https://discord.gg/eV8xHpq2Np" target="_blank" rel="noopener" style="display:inline-block; margin-top: 10px;">Unirse a la Comunidad Discord</a>
       </footer>
 
@@ -1503,5 +1503,926 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
       });
     })();
   </script>
+
+
+<!-- SM-I18N-START -->
+<script>
+/**
+ * SmoothMotion — Manual de usuario · Español / English
+ * ==================================================================
+ * Se incrusta DENTRO del manual (es un archivo suelto que se distribuye solo,
+ * así que no puede depender de rutas externas).
+ *
+ * El HTML está en español (fuente de la verdad) y aquí vive el diccionario
+ * ES -> EN. El motor sustituye el texto del DOM; al cambiar de idioma se
+ * recarga la página para volver al español original sin guardar copias.
+ */
+(function () {
+  'use strict';
+
+  var LS_KEY = 'smoothmotion_manual_lang';
+  var SUPPORTED = ['es', 'en'];
+
+  function norm(l) {
+    l = String(l || '').toLowerCase().slice(0, 2);
+    return SUPPORTED.indexOf(l) !== -1 ? l : null;
+  }
+
+  var current = (function () {
+    try { var s = norm(localStorage.getItem(LS_KEY)); if (s) return s; } catch (e) {}
+    try { var n = norm(navigator.language || navigator.userLanguage); if (n) return n; } catch (e) {}
+    return 'es';
+  })();
+
+  function setLang(l) {
+    l = norm(l);
+    if (!l || l === current) return;
+    try { localStorage.setItem(LS_KEY, l); } catch (e) {}
+    location.reload();
+  }
+
+  /* ── Diccionario ES -> EN ─────────────────────────────────────────── */
+  var EN = {
+    /* Navegación / cabecera */
+    'Menú': 'Menu',
+    'Módulos': 'Modules',
+    'SmoothMotion — Manual de usuario': 'SmoothMotion — User manual',
+    'Manual v5.5.0': 'Manual v5.5.0',
+    'Únete al Discord': 'Join the Discord',
+    'Unirse a la Comunidad Discord': 'Join the Discord community',
+    'Contenido': 'Contents',
+    'Introducción': 'Introduction',
+    'Instalación': 'Installation',
+    'Actualizar plugin': 'Update plugin',
+    'Activar licencia': 'Activate license',
+    'Próximamente': 'Coming soon',
+    'Atajos y paleta': 'Shortcuts & palette',
+    'Ajustes': 'Settings',
+    'Consejos': 'Tips',
+    'Soporte': 'Support',
+    'Manual de usuario': 'User manual',
+    'Guía completa para instalar, activar y dominar todos los módulos de SmoothMotion dentro de After Effects.':
+      'Complete guide to install, activate and master every SmoothMotion module inside After Effects.',
+    'AE 2021+': 'AE 2021+',
+    '12 módulos': '12 modules',
+    'Atajo: Ctrl + K': 'Shortcut: Ctrl + K',
+    'Ventana → Extensiones → SmoothMotion': 'Window → Extensions → SmoothMotion',
+    'Adobe After Effects CC 2021+': 'Adobe After Effects CC 2021+',
+    'Manual del Usuario · Versión Oficial 5.5.0': 'User Manual · Official Version 5.5.0',
+
+    /* Introducción */
+    'es una suite de herramientas dentro de After Effects que reúne módulos de animación, productividad y tipografía en un solo panel CEP, diseñado para optimizar tu flujo de trabajo.':
+      'is a toolset inside After Effects that brings animation, productivity and typography modules together in a single CEP panel, designed to streamline your workflow.',
+    'Crea y aplica curvas de animación avanzadas — easing, elástico, rebote y personalizadas con control total.':
+      'Create and apply advanced animation curves — easing, elastic, bounce and custom with full control.',
+    'Colección de scripts de productividad y herramientas rápidas esenciales para tu día a día en After Effects.':
+      'A collection of productivity scripts and quick tools essential for your day to day in After Effects.',
+    'Visualiza, filtra y organiza eficientemente todas las capas de tu composición activa.':
+      'View, filter and efficiently organize every layer in your active composition.',
+    'Aplica Camera Shake, Wiggle, Loop y Fade de opacidad con un solo clic sin escribir expresiones complejas.':
+      'Apply Camera Shake, Wiggle, Loop and opacity Fade in one click without writing complex expressions.',
+    'Selector de color integrado, creación rápida de sólidos, aplicación de Fill y controles de color mediante Nulls.':
+      'Built-in color picker, quick solid creation, Fill application and color controls through Nulls.',
+    'Animador de texto en vivo: diseña la animación con vista previa en tiempo real y aplícala con expresiones fieles al preview. Entrada y salida, presets propios y copiar/pegar ajustes.':
+      'Live text animator: design the animation with a real-time preview and apply it with expressions faithful to the preview. In and out, your own presets and copy/paste settings.',
+    'Reposiciona el punto de ancla de capas sin mover su posición en pantalla.':
+      'Reposition the layer anchor point without moving its position on screen.',
+    'Gestión optimizada de la cola de render, uso de plantillas y limpieza automática del proyecto.':
+      'Streamlined render queue management, template usage and automatic project cleanup.',
+    'Tipografía avanzada (box, split, highlight…).': 'Advanced typography (box, split, highlight…).',
+    'en esta versión.': 'in this version.',
+    'Rig de cámara 3D, presets y speed ramp.': '3D camera rig, presets and speed ramp.',
+
+    /* Instalación */
+    'Requisitos': 'Requirements',
+    'Adobe After Effects': 'Adobe After Effects',
+    '2021 o superior': '2021 or later',
+    'Archivo': 'File',
+    '(recibido al completar la compra)': '(received when you complete the purchase)',
+    'descargar aquí': 'download here',
+    'Pasos de Instalación': 'Installation steps',
+    'Cierra': 'Close',
+    'Adobe After Effects por completo antes de iniciar.': 'Adobe After Effects completely before starting.',
+    'Abre la aplicación': 'Open the application',
+    'Arrastra el archivo': 'Drag the file',
+    'hacia la ventana del instalador.': 'onto the installer window.',
+    'Espera a que se complete el proceso y confirma el mensaje de éxito.':
+      'Wait for the process to finish and confirm the success message.',
+    'Abre After Effects de nuevo.': 'Open After Effects again.',
+    'Navega en el menú superior a': 'In the top menu go to',
+    'Procede a activar tu licencia: copia tu': 'Now activate your license: copy your',
+    'ID de equipo': 'machine ID',
+    'y reclámala en Discord (sección 3).': 'and claim it on Discord (section 3).',
+    'Si es la primera vez que instalas extensiones de terceros, es posible que necesites habilitar el':
+      'If this is your first time installing third-party extensions, you may need to enable',
+    'modo desarrollador de CEP': 'CEP developer mode',
+    'en el registro de Windows o Terminal de macOS. Pregunta en nuestro soporte de Discord si el panel no se muestra.':
+      'in the Windows registry or macOS Terminal. Ask on our Discord support if the panel does not show up.',
+
+    /* Actualizar */
+    'Actualizar desde una versión anterior': 'Updating from a previous version',
+    'Si ya tenías SmoothMotion instalado (versión anterior a': 'If you already had SmoothMotion installed (older than',
+    '), sigue estos pasos antes de activar tu licencia nueva.':
+      '), follow these steps before activating your new license.',
+    'After Effects por completo.': 'After Effects completely.',
+    'Desinstala': 'Uninstall',
+    'la versión vieja con': 'the old version with',
+    '(Uninstall) o ejecuta': '(Uninstall) or run',
+    'incluido en la descarga.': 'included in the download.',
+    'Instala el nuevo': 'Install the new',
+    'con ZXP Installer.': 'with ZXP Installer.',
+    'Abre AE →': 'Open AE →',
+    'Copia tu': 'Copy your',
+    ', reclama la licencia en Discord y activa (ver sección siguiente).':
+      ', claim the license on Discord and activate it (see the next section).',
+    'Las claves de versiones anteriores': 'Keys from previous versions',
+    'ya no son válidas': 'are no longer valid',
+    '. Debes reclamar una licencia nueva vinculada a tu ID de equipo.':
+      '. You must claim a new license bound to your machine ID.',
+
+    /* Licencia */
+    'Activar tu licencia': 'Activate your license',
+    'A partir de la': 'Starting with',
+    ', cada licencia queda vinculada al': ', each license is bound to the',
+    'de tu PC. El uso en ese equipo es ilimitado; la key no funciona en otras máquinas.':
+      'of your PC. Use on that machine is unlimited; the key does not work on other machines.',
+    'Paso 1 — Copiar tu ID de equipo': 'Step 1 — Copy your machine ID',
+    'Abre After Effects y el panel': 'Open After Effects and the panel',
+    'En la pantalla': 'On the',
+    'Activa tu licencia': 'Activate your license',
+    ', localiza el bloque': 'screen, find the',
+    'Tu ID de equipo': 'Your machine ID',
+    'Pulsa el botón': 'Press the',
+    'Copiar': 'Copy',
+    'para llevar el ID al portapapeles.': 'button to copy the ID to the clipboard.',
+    'Tu ID de equipo tiene este formato (32 caracteres):':
+      'Your machine ID looks like this (32 characters):',
+    'Si el botón Copiar no responde, selecciona el texto con el ratón y usa Ctrl+C.':
+      'If the Copy button does not respond, select the text with the mouse and press Ctrl+C.',
+    'Paso 2 — Reclamar la licencia en Discord': 'Step 2 — Claim the license on Discord',
+    'Entra al servidor oficial de SmoothMotion en Discord.': 'Join the official SmoothMotion Discord server.',
+    'Confirma que tienes tu rol de paquete': 'Make sure you have your package role',
+    '(Starter, Pro o Studio)': '(Starter, Pro or Studio)',
+    'Busca el mensaje con el botón': 'Find the message with the',
+    'Reclamar licencia': 'Claim license',
+    'y haz clic.': 'button and click it.',
+    'Se abrirá un formulario:': 'A form opens:',
+    'pega tu ID de equipo': 'paste your machine ID',
+    'y envíalo.': 'and submit it.',
+    'Recibirás un': 'You will receive a',
+    'mensaje privado': 'direct message',
+    'del bot con tu clave': 'from the bot with your key',
+    'Formato de tu licencia (generada para tu equipo):':
+      'Your license format (generated for your machine):',
+    'Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.':
+      'Keep it safe. It only works on the PC whose ID you used to claim it.',
+    'Si no recibes el mensaje privado, activa': 'If you do not receive the direct message, enable',
+    'Permitir mensajes directos de miembros del servidor':
+      'Allow direct messages from server members',
+    'en los ajustes de privacidad del servidor.': 'in the server privacy settings.',
+    'Paso 3 — Activar en After Effects': 'Step 3 — Activate in After Effects',
+    'En el panel SmoothMotion, pega la clave': 'In the SmoothMotion panel, paste the key',
+    'en el campo de licencia.': 'into the license field.',
+    'Pulsa': 'Press',
+    'El panel se desbloquea. No necesitas internet para usar el plugin en el día a día.':
+      'The panel unlocks. You do not need internet to use the plugin day to day.',
+    'Activación única (v5.0.1):': 'One-time activation (v5.0.1):',
+    'al activar': 'activating',
+    'cualquier': 'any',
+    'panel de la suite, el resto (SmoothCurves, SmoothAlign, SmoothGuides, etc.) quedan activados automáticamente en ese mismo equipo. Ya no necesitas pegar la key panel por panel.':
+      'panel of the suite activates the rest (SmoothCurves, SmoothAlign, SmoothGuides, etc.) automatically on that same machine. You no longer need to paste the key panel by panel.',
+    'Información importante sobre tu licencia': 'Important information about your license',
+    'La licencia es': 'The license is',
+    'válida solo en este equipo': 'valid on this machine only',
+    '(mismo ID de equipo).': '(same machine ID).',
+    'En la misma PC puedes usar SmoothMotion': 'On the same PC you can use SmoothMotion',
+    'sin límite': 'without limits',
+    '— no hay contador de sesiones.': '— there is no session counter.',
+    'Compartir tu key con otra persona': 'Sharing your key with someone else',
+    'no sirve': 'will not work',
+    ': está firmada para tu HWID.': ': it is signed for your HWID.',
+    'Si': 'If you',
+    'formateas': 'reformat',
+    'o cambias hardware importante, el ID puede cambiar — abre ticket en Discord para resetear y reclamar de nuevo.':
+      'or change major hardware, the ID may change — open a ticket on Discord to reset and claim again.',
+    'cambias de PC': 'change PC',
+    ', el admin debe desvincular tu licencia; luego reclamas otra vez con el ID del equipo nuevo.':
+      ', an admin must unlink your license; then you claim again with the new machine ID.',
+    'Para quitar la licencia local:': 'To remove the local license:',
+    'Ajustes (⚙) → Cambiar licencia': 'Settings (⚙) → Change license',
+    'Las': 'Plugin',
+    'actualizaciones': 'updates',
+    'del plugin dependen de mantener tu membresía activa en Discord.':
+      'depend on keeping your Discord membership active.',
+
+    /* SmoothCurves */
+    'SmoothCurves — Curvas de animación': 'SmoothCurves — Animation curves',
+    'Uso Básico': 'Basic usage',
+    'Selecciona': 'Select',
+    'capas': 'layers',
+    'propiedades': 'properties',
+    'que contengan keyframes en After Effects.': 'that contain keyframes in After Effects.',
+    'Ajusta la forma de la curva directamente en el editor visual interactivo.':
+      'Shape the curve directly in the interactive visual editor.',
+    'Haz clic en el botón': 'Click the',
+    '(el botón principal con la flecha) para inyectar la curva.':
+      'button (the main one with the arrow) to inject the curve.',
+    'Modos de Curva Disponibles': 'Available curve modes',
+    'Modo': 'Mode',
+    'Descripción y Comportamiento': 'Description and behavior',
+    'Curva Bezier clásica bidimensional (estilo Graph Editor tradicional)':
+      'Classic two-dimensional Bezier curve (traditional Graph Editor style)',
+    'Curva basada en el gráfico de velocidad de After Effects':
+      'Curve based on the After Effects speed graph',
+    'Genera movimiento elástico calculando amplitud y frecuencia':
+      'Generates elastic motion by computing amplitude and frequency',
+    'Simula físicas de rebote ajustando amplitud y fricción (amortiguación)':
+      'Simulates bounce physics by adjusting amplitude and friction (damping)',
+    'Permite crear curvas multipunto personalizadas de hasta 10 nodos':
+      'Lets you build custom multi-point curves of up to 10 nodes',
+    'Direccionalidad del Easing': 'Easing direction',
+    'Botón / Icono': 'Button / Icon',
+    'Efecto de Suavizado': 'Easing effect',
+    'Suavizado aplicado únicamente al salir del primer keyframe':
+      'Easing applied only when leaving the first keyframe',
+    'Suavizado simétrico en entrada y salida (forma de \'S\')':
+      'Symmetric easing on both in and out (S shape)',
+    'Suavizado aplicado únicamente al entrar al segundo keyframe':
+      'Easing applied only when entering the second keyframe',
+    'Métodos de Aplicación: EXPR vs KEYS': 'Application methods: EXPR vs KEYS',
+    'En los modos avanzados': 'In the advanced modes',
+    'puedes elegir el motor de cálculo:': 'you can choose the calculation engine:',
+    'Explicación Técnica': 'Technical explanation',
+    'Inyecta una expresión de Javascript matemática. Es no destructiva, ligera y fácil de modificar posteriormente.':
+      'Injects a mathematical JavaScript expression. It is non-destructive, lightweight and easy to tweak later.',
+    'Calcula e inserta keyframes "horneados" por cada frame. Ideal para entregar proyectos sin dependencias de expresiones complejas.':
+      'Computes and inserts "baked" keyframes on every frame. Ideal for delivering projects without complex expression dependencies.',
+    'Live Sync (Rayo)': 'Live Sync (lightning bolt)',
+    '— Activa el icono del rayo situado junto al botón Apply para que la curva se actualice en tiempo real en la composición mientras arrastras los puntos. (Nota: No disponible en modo Custom debido al rendimiento).':
+      '— Turn on the lightning icon next to the Apply button so the curve updates in real time in the composition while you drag the points. (Note: not available in Custom mode for performance reasons).',
+    'Herramientas del Editor Gráfico': 'Graph editor tools',
+    'Control': 'Control',
+    'Función': 'Function',
+    'Leer': 'Read',
+    'Extrae e importa la curva de los keyframes que tengas seleccionados en AE hacia la interfaz':
+      'Extracts and imports the curve from the keyframes you have selected in AE into the interface',
+    'Valores Bezier': 'Bezier values',
+    'Permite introducir numéricamente las coordenadas X1, Y1, X2, Y2 para máxima precisión':
+      'Lets you type the X1, Y1, X2, Y2 coordinates numerically for maximum precision',
+    'Invertir': 'Invert',
+    'Invierte espacial y temporalmente la forma de la curva':
+      'Flips the curve shape both spatially and in time',
+    'Aleatorizar': 'Randomize',
+    'Genera valores aleatorios para crear una curva impredecible':
+      'Generates random values to create an unpredictable curve',
+    'Guardar ⭐': 'Save ⭐',
+    'Almacena la curva actual en tu biblioteca personal de presets':
+      'Stores the current curve in your personal preset library',
+    'Gestión de la Biblioteca de Presets': 'Preset library management',
+    'Buscar:': 'Search:',
+    'Encuentra presets rápidamente tecleando su nombre.': 'Find presets quickly by typing their name.',
+    'Categorías Integradas:': 'Built-in categories:',
+    'Todo, Suave, Vel., Elastic, Bounce, Custom, Fuerza, Atrás, Cine.':
+      'All, Smooth, Speed, Elastic, Bounce, Custom, Power, Back, Film.',
+    'Historial Reciente:': 'Recent history:',
+    'Acceso rápido a las últimas 8 curvas aplicadas.': 'Quick access to the last 8 curves you applied.',
+    'Bibliotecas Personalizadas:': 'Custom libraries:',
+    'Crea, importa, exporta y elimina tus propias colecciones temáticas de curvas.':
+      'Create, import, export and delete your own themed curve collections.',
+    'Importar / Exportar:': 'Import / Export:',
+    'Comparte tus presets con otros animadores utilizando archivos en formato':
+      'Share your presets with other animators using files in',
+    'Herramientas Avanzadas (Modo Custom)': 'Advanced tools (Custom mode)',
+    'Peso de Segmento:': 'Segment weight:',
+    'Algoritmo que controla inteligentemente cuándo se insertan keyframes intermedios para optimizar el rendimiento.':
+      'An algorithm that smartly controls when intermediate keyframes are inserted to optimize performance.',
+    'Botones + / −:': '+ / − buttons:',
+    'Añade nuevos puntos de control a la curva o quita el último.':
+      'Add new control points to the curve or remove the last one.',
+    'Tecla Delete:': 'Delete key:',
+    'Elimina instantáneamente el punto de control seleccionado.':
+      'Instantly removes the selected control point.',
+    'Límite:': 'Limit:',
+    'Un máximo de': 'A maximum of',
+    '10 puntos': '10 points',
+    'por curva para garantizar la estabilidad.': 'per curve to guarantee stability.',
+
+    /* SmoothTools */
+    'SmoothTools — Scripts y Herramientas': 'SmoothTools — Scripts and tools',
+    'El módulo SmoothTools está dividido en dos pestañas principales:':
+      'The SmoothTools module is split into two main tabs:',
+    'Mis Scripts': 'My Scripts',
+    'Herramientas Rápidas': 'Quick Tools',
+    'Directorio de Scripts Incluidos': 'Included script directory',
+    'Nombre del Script': 'Script name',
+    'Descripción de la Acción': 'Action description',
+    'Alinear Capas': 'Align Layers',
+    'Mueve todas las capas seleccionadas para que su punto de entrada (In Point) coincida con el inicio de la composición.':
+      'Moves every selected layer so its In Point matches the start of the composition.',
+    'Colorizar Capas': 'Colorize Layers',
+    'Analiza y asigna colores de etiqueta (Label Colors) específicos basados en reglas o tipo de capa.':
+      'Analyzes and assigns specific label colors based on rules or layer type.',
+    'Copiar y Pegar Fotogramas': 'Copy and Paste Keyframes',
+    'Copia múltiples keyframes y los distribuye inteligentemente en múltiples capas seleccionadas.':
+      'Copies multiple keyframes and distributes them smartly across several selected layers.',
+    'Copiar y Pegar Invertido': 'Copy and Paste Reversed',
+    'Pega los keyframes en el portapapeles invirtiendo su orden en el tiempo (crea efectos de rebobinado o salida automática).':
+      'Pastes the clipboard keyframes reversing their order in time (creates rewind or automatic out effects).',
+    'Crear Capas Fotogramas': 'Create Keyframe Layers',
+    'Corta la capa en segmentos individuales, creando una nueva capa por cada keyframe encontrado.':
+      'Cuts the layer into individual segments, creating a new layer for every keyframe found.',
+    'Crear Nulo Desde Capas': 'Create Null From Layers',
+    'Calcula el punto central geométrico de las capas seleccionadas y crea un Objeto Nulo emparentado en esa posición.':
+      'Computes the geometric center of the selected layers and creates a parented Null Object at that position.',
+    'Des-precomponer Capas': 'Un-precompose Layers',
+    'Extrae el contenido de una Precomposición y lo vuelca directamente en la línea de tiempo actual, manteniendo tiempos.':
+      'Extracts the contents of a precomposition and drops them straight into the current timeline, keeping timings.',
+    'Duplicar Comps Dependientes': 'Duplicate Dependent Comps',
+    'Duplica una composición y de forma recursiva duplica también todas sus precomposiciones internas ("True Comp Duplicator").':
+      'Duplicates a composition and recursively duplicates all its inner precompositions too ("True Comp Duplicator").',
+    'FX Fotogramas Alineación': 'FX Keyframe Alignment',
+    'Desplaza los keyframes de los efectos aplicados para que comiencen exactamente en el In Point de la capa.':
+      'Shifts the keyframes of applied effects so they start exactly at the layer In Point.',
+    'Importar Subtítulos SRT': 'Import SRT Subtitles',
+    'Analiza un archivo de texto `.srt` y genera capas de texto o keyframes de Source Text precisos.':
+      'Parses a `.srt` text file and generates text layers or precise Source Text keyframes.',
+    'Recortar Precomps': 'Trim Precomps',
+    'Modifica la duración de la composición interna para ajustarse exactamente a la longitud de las capas que contiene.':
+      'Adjusts the inner composition duration to match exactly the length of the layers it contains.',
+    'Flujo de Trabajo para Scripts': 'Script workflow',
+    'Navega a la pestaña': 'Go to the tab',
+    'Selecciona el script deseado de la lista interactiva.': 'Pick the script you want from the interactive list.',
+    'Haz clic en el gran botón': 'Click the big',
+    'Usa la': 'Use the',
+    'Estrella (⭐)': 'Star (⭐)',
+    'para marcar scripts como favoritos y anclarlos en la parte superior.':
+      'to mark scripts as favorites and pin them at the top.',
+    'Activa el modo': 'Turn on',
+    'AutoAplicar (⚡)': 'AutoApply (⚡)',
+    'para que el script se ejecute automáticamente con un solo clic al seleccionarlo en la lista.':
+      'so the script runs automatically with a single click when you select it in the list.',
+    'Añade tus propios scripts (archivos': 'Add your own scripts (',
+    ') haciendo clic en el botón circular': 'files) by clicking the round button',
+    'Utilidades de la pestaña Herramientas': 'Utilities in the Tools tab',
+    'Gestor de Portapapeles de Imagen': 'Image clipboard manager',
+    'Copiar frame:': 'Copy frame:',
+    'Captura la imagen renderizada del frame actual en alta calidad al portapapeles del sistema operativo.':
+      'Captures the rendered image of the current frame in high quality to the operating system clipboard.',
+    'Pegar imagen:': 'Paste image:',
+    'Importa cualquier imagen que tengas en el portapapeles y la inserta como una capa PNG en la composición.':
+      'Imports whatever image you have on the clipboard and inserts it as a PNG layer in the composition.',
+    'Renombrador en Lote': 'Batch renamer',
+    'Potente utilidad para buscar y reemplazar texto, añadir prefijos, sufijos o generar numeración secuencial automática en las capas seleccionadas.':
+      'A powerful utility to find and replace text, add prefixes, suffixes or generate automatic sequential numbering on the selected layers.',
+    'Limpiador de Expresiones': 'Expression cleaner',
+    'Utilidad para purgar la composición: elimina expresiones desactivadas, aquellas que contienen errores de sintaxis, o borra todas las expresiones de golpe.':
+      'A utility to purge the composition: removes disabled expressions, those with syntax errors, or wipes every expression at once.',
+    'Gestor de Keyframes': 'Keyframe manager',
+    'Alinear a In/Out:': 'Align to In/Out:',
+    'Mueve el primer keyframe al punto de entrada y el último al punto de salida de la capa.':
+      'Moves the first keyframe to the layer in point and the last one to the out point.',
+    'Distribuir uniforme:': 'Distribute evenly:',
+    'Reorganiza los keyframes en el tiempo para que exista exactamente la misma distancia (frames) entre ellos.':
+      'Rearranges the keyframes in time so there is exactly the same distance (frames) between them.',
+    'Precomponer Inteligente': 'Smart precompose',
+    'Alternativa rápida al comando nativo para precomponer la selección y asignar un nombre personalizado de forma veloz.':
+      'A quick alternative to the native command to precompose the selection and assign a custom name fast.',
+
+    /* SmoothComp */
+    'SmoothComp — Gestor de capas': 'SmoothComp — Layer manager',
+    'Una vista alternativa y poderosa del Timeline para explorar, filtrar y organizar capas en composiciones densas.':
+      'A powerful alternative Timeline view to explore, filter and organize layers in dense compositions.',
+    'Barra de Búsqueda:': 'Search bar:',
+    'Encuentra capas instantáneamente por su nombre o por el contenido de sus notas.':
+      'Find layers instantly by their name or by the contents of their notes.',
+    'Filtros Dinámicos:': 'Dynamic filters:',
+    'Aísla la vista por tipo de capa: Nulls, Solids, Texto, Shapes, Cámaras, Luces, Footage importado, capas con Keyframes o con Expresiones.':
+      'Isolate the view by layer type: Nulls, Solids, Text, Shapes, Cameras, Lights, imported Footage, layers with Keyframes or with Expressions.',
+    'Selección Sincronizada:': 'Synced selection:',
+    'Haz clic en una fila para seleccionar la capa en AE (usa Ctrl/Cmd para multi-selección o Shift para rangos).':
+      'Click a row to select the layer in AE (use Ctrl/Cmd for multi-selection or Shift for ranges).',
+    'Sistema de Notas:': 'Notes system:',
+    'Haz clic en el icono del lápiz para escribir anotaciones o recordatorios directamente en la fila de la capa.':
+      'Click the pencil icon to write annotations or reminders right on the layer row.',
+    'Auto-Colorización:': 'Auto-colorize:',
+    'Asigna masivamente colores de etiqueta estándar basados en la categoría lógica de la capa.':
+      'Bulk-assigns standard label colors based on the logical category of the layer.',
+    'Snapshot:': 'Snapshot:',
+    'Crea una copia de seguridad duplicada de la composición activa actual con un solo clic.':
+      'Creates a duplicated backup of the current active composition with one click.',
+
+    /* SmoothFX */
+    'SmoothFX — Efectos One-Click': 'SmoothFX — One-click effects',
+    'Aplica comportamientos complejos basados en expresiones a través de una interfaz sencilla y visual.':
+      'Apply complex expression-based behaviors through a simple, visual interface.',
+    'Herramienta FX': 'FX tool',
+    'Controles Principales': 'Main controls',
+    'Resultado en la Composición': 'Result in the composition',
+    'Intensidad global, Frecuencia de vibración': 'Global intensity, shake frequency',
+    'Crea un Null Object maestro con un controlador de wiggle avanzado y emparenta las capas automáticamente.':
+      'Creates a master Null Object with an advanced wiggle controller and parents the layers automatically.',
+    'Cantidad (Amplitud), Frecuencia (Velocidad)': 'Amount (amplitude), Frequency (speed)',
+    'Aplica la expresión `wiggle()` directamente en la propiedad seleccionada vinculada a controles Slider.':
+      'Applies the `wiggle()` expression directly on the selected property linked to Slider controls.',
+    'Modo: Cycle / Ping-pong / Continue': 'Mode: Cycle / Ping-pong / Continue',
+    'Envuelve los keyframes de la propiedad con la expresión `loopOut()` correspondiente.':
+      'Wraps the property keyframes with the matching `loopOut()` expression.',
+    'Duración de Entrada, Duración de Salida (en frames)': 'In duration, Out duration (in frames)',
+    'Automatiza la opacidad para que la capa aparezca y desaparezca suavemente sin necesidad de crear keyframes.':
+      'Automates opacity so the layer fades in and out smoothly without creating keyframes.',
+
+    /* SmoothColor */
+    'SmoothColor — Gestión de Color': 'SmoothColor — Color management',
+    'Selector de Color Avanzado': 'Advanced color picker',
+    'Interfaz interactiva y selector visual de espectro completo.':
+      'Interactive interface and full-spectrum visual picker.',
+    'Campo de texto para copiar/pegar directamente valores Hexadecimales (ej:':
+      'Text field to copy/paste hexadecimal values directly (e.g.',
+    'Mis Colores:': 'My Colors:',
+    'Almacena tu paleta personal de proyecto (capacidad hasta 48 muestras de color guardadas).':
+      'Stores your personal project palette (holds up to 48 saved color swatches).',
+    'Acciones de Color': 'Color actions',
+    'Acción Rápida': 'Quick action',
+    'Comportamiento': 'Behavior',
+    'Genera una nueva capa de Sólido (del mismo tamaño que la composición) utilizando el color actualmente seleccionado en la interfaz.':
+      'Generates a new Solid layer (the same size as the composition) using the color currently selected in the interface.',
+    'Aplica o actualiza el efecto "Relleno" (Fill) nativo de AE en todas las capas seleccionadas.':
+      'Applies or updates the native AE Fill effect on all selected layers.',
+    'Crea un Objeto Nulo llamado "Color Controller" y le aplica un efecto de Control de Color enlazado para usarlo como variable global en expresiones.':
+      'Creates a Null Object named "Color Controller" and applies a linked Color Control effect to use as a global variable in expressions.',
+    'Nuevo': 'New',
+    'Cambia el color de': 'Changes the',
+    'etiqueta': 'label',
+    '(el punto de color del timeline) de las capas seleccionadas al más cercano de la paleta de After Effects, según el color elegido.':
+      'color (the color dot in the timeline) of the selected layers to the closest one in the After Effects palette, based on the chosen color.',
+
+    /* SmoothText */
+    'SmoothText — Animador de texto en vivo': 'SmoothText — Live text animator',
+    'Renovado': 'Revamped',
+    'SmoothText es ahora un': 'SmoothText is now a',
+    'animador de texto en vivo': 'live text animator',
+    ': diseñas la animación con una': ': you design the animation with a',
+    'vista previa en tiempo real': 'real-time preview',
+    'y la aplicas a After Effects con': 'and apply it to After Effects with',
+    'expresiones fieles al preview': 'expressions faithful to the preview',
+    '(lo que ves es lo que se genera). Ya': '(what you see is what gets generated). It',
+    'no': 'no longer',
+    'necesita importar packs de presets.': 'needs to import preset packs.',
+    'Flujo básico': 'Basic workflow',
+    'Abre': 'Open',
+    'y escribe tu texto en el campo': 'and type your text in the',
+    'En la pestaña': 'In the',
+    ', elige': 'tab, choose',
+    '(letras, palabras o líneas), la': '(letters, words or lines), the',
+    'dirección': 'direction',
+    'y el': 'and the',
+    'easing': 'easing',
+    '(Smooth, Ease In-Out, Back, Elastic, Bounce, Linear).':
+      '(Smooth, Ease In-Out, Back, Elastic, Bounce, Linear).',
+    'Ajusta': 'Adjust',
+    '; pulsa': '; press',
+    'para opacidad, escala, rotación, blur, tracking y offsets.':
+      'for opacity, scale, rotation, blur, tracking and offsets.',
+    '(o la barra espaciadora) para revisar la animación en el preview.':
+      '(or the space bar) to review the animation in the preview.',
+    'Con una': 'With an',
+    'composición activa': 'active composition',
+    ', pulsa': ', press',
+    'para crear la capa de texto animada.': 'to create the animated text layer.',
+    'Entrada y salida (Exit / Out)': 'In and out (Exit / Out)',
+    'Además de la entrada, puedes configurar una': 'Besides the entrance, you can set up an',
+    'salida': 'exit',
+    'con su propio timing y dirección. Modos:': 'with its own timing and direction. Modes:',
+    '(regresa por donde entró),': '(goes back the way it came in),',
+    '(sale por el lado opuesto) o': '(leaves through the opposite side) or',
+    '(destino totalmente libre).': '(completely free target).',
+    'Estilo': 'Style',
+    'defines tamaño, peso y familia de fuente, alineación y colores de texto y fondo del preview.':
+      'you set the font size, weight and family, alignment and the preview text and background colors.',
+    'Tus presets': 'Your presets',
+    'Guardar:': 'Save:',
+    ', nombra tus ajustes actuales (entrada + salida) y pulsa': 'tab, name your current settings (in + out) and press',
+    '. Se conservan en este equipo.': '. They are kept on this machine.',
+    'Aplicar / renombrar / borrar:': 'Apply / rename / delete:',
+    'clic en una card para aplicarla; doble clic en su nombre para renombrar; ✕ para borrar.':
+      'click a card to apply it; double-click its name to rename; ✕ to delete.',
+    'Copiar / Pegar ajustes:': 'Copy / Paste settings:',
+    'con': 'with',
+    'Pegar': 'Paste',
+    'mueves una configuración completa entre capas, proyectos o equipos.':
+      'you move a complete setup between layers, projects or machines.',
+    'Al aplicar sobre una': 'When applying on a',
+    'capa de texto seleccionada': 'selected text layer',
+    '(o si ya existe una capa SmoothText), se': '(or if a SmoothText layer already exists), its animation is',
+    'reemplaza': 'replaced',
+    'su animación en vez de acumular otra encima. Todo es reversible con':
+      'instead of stacking another on top. Everything is reversible with',
+
+    /* SmoothAnchor */
+    'SmoothAnchor — Punto de ancla': 'SmoothAnchor — Anchor point',
+    'Reposiciona el': 'Repositions the',
+    'punto de ancla': 'anchor point',
+    'de las capas seleccionadas sin que se muevan visualmente en el encuadre. Ideal para alinear pivotes antes de animar escala o rotación.':
+      'of the selected layers without them moving visually in frame. Ideal to align pivots before animating scale or rotation.',
+    'Selecciona una o más capas en la composición activa.':
+      'Select one or more layers in the active composition.',
+    '(o el panel independiente SmoothAnchor).': '(or the standalone SmoothAnchor panel).',
+    'Pulsa una de las nueve posiciones: arriba-izquierda, centro, abajo-derecha, etc.':
+      'Press one of the nine positions: top-left, center, bottom-right, etc.',
+    'Funciona con capas de texto, shapes, sólidos e imágenes. Aplica a toda la selección de una vez.':
+      'Works with text, shape, solid and image layers. Applies to the whole selection at once.',
+
+    /* Próximamente */
+    'SmoothTypo y SmoothCamera — Próximamente': 'SmoothTypo and SmoothCamera — Coming soon',
+    'En la': 'In',
+    'verás las pestañas': 'you will see the',
+    'en la navegación, pero aparecen con un overlay de': 'tabs in the navigation, but they show a',
+    '«Próximamente»': '"Coming soon"',
+    '. Puedes explorar la interfaz; las funciones se activarán en una actualización futura.':
+      'overlay. You can explore the interface; the features will be enabled in a future update.',
+    'Módulo': 'Module',
+    'Qué incluirá': 'What it will include',
+    'Text box adaptable, split text, highlight, underline, strikethrough, typewriter, counters y más.':
+      'Adaptive text box, split text, highlight, underline, strikethrough, typewriter, counters and more.',
+    'Rig de cámara 3D, quick setup, presets de movimiento, speed ramp y time remapping.':
+      '3D camera rig, quick setup, motion presets, speed ramp and time remapping.',
+
+    /* SmoothExport */
+    'SmoothExport — Render y Optimización': 'SmoothExport — Render and optimization',
+    'Gestión de la Cola de Render': 'Render queue management',
+    'Añadir comp a la cola:': 'Add comp to queue:',
+    'Botón principal para enviar rápidamente la composición actual a la Render Queue nativa de AE.':
+      'Main button to quickly send the current composition to the native AE Render Queue.',
+    'Exportación mediante Plantillas': 'Exporting with templates',
+    'Cargar plantillas': 'Load templates',
+    '(icono de recarga). SmoothMotion escaneará y extraerá tus preajustes nativos de AE.':
+      '(reload icon). SmoothMotion will scan and extract your native AE presets.',
+    'Selecciona tu': 'Select your preferred',
+    'Ajuste de render': 'Render settings',
+    '(Render Settings) y tu': 'and your',
+    'Módulo de salida': 'Output module',
+    '(Output Module) preferidos en los menús desplegables.': 'in the dropdown menus.',
+    'Añadir a la cola de procesamiento': 'Add to render queue',
+    'para encolar la composición ya configurada con estas plantillas.':
+      'to queue the composition already configured with these templates.',
+    'Herramientas de Limpieza de Proyecto': 'Project cleanup tools',
+    'Quitar elementos sin uso:': 'Remove unused items:',
+    'Escanea el panel de proyecto y elimina permanentemente todos los archivos de metraje (footage) que no estén siendo utilizados en ninguna composición.':
+      'Scans the project panel and permanently removes every footage file not used in any composition.',
+    'Consolidar duplicados:': 'Consolidate duplicates:',
+    'Encuentra archivos o composiciones importadas múltiples veces de forma idéntica y los combina en una sola instancia para ahorrar memoria y mantener el orden.':
+      'Finds files or compositions imported multiple times identically and merges them into a single instance to save memory and stay organized.',
+
+    /* SmoothAlign */
+    'SmoothAlign — Alinear y distribuir capas': 'SmoothAlign — Align and distribute layers',
+    'Nuevo en v5.0.1.': 'New in v5.0.1.',
+    'Alinea, distribuye y reparte el espacio entre las capas seleccionadas con un solo clic, tomando como referencia la composición, el área de trabajo, la selección o una capa clave.':
+      'Align, distribute and spread the space between the selected layers in one click, using the composition, the work area, the selection or a key layer as reference.',
+    'Alinear capas': 'Align layers',
+    'Horizontal:': 'Horizontal:',
+    'izquierda, centro y derecha.': 'left, center and right.',
+    'Vertical:': 'Vertical:',
+    'arriba, medio y abajo.': 'top, middle and bottom.',
+    'Distribuir capas': 'Distribute layers',
+    'Por centros': 'By centers',
+    '(horizontal o vertical) o': '(horizontal or vertical) or',
+    'por bordes': 'by edges',
+    '(superior, centro, inferior).': '(top, center, bottom).',
+    'Espaciado uniforme entre bordes': 'Uniform spacing between edges',
+    'en horizontal y vertical.': 'horizontally and vertically.',
+    'Distribuir espacio': 'Distribute space',
+    'Reparte un espacio uniforme entre capas en horizontal o vertical, o define un':
+      'Spreads a uniform space between layers horizontally or vertically, or set a',
+    'espacio personalizado': 'custom space',
+    'en píxeles.': 'in pixels.',
+    'Alinear respecto a': 'Align relative to',
+    'Referencia': 'Reference',
+    'Alinea en relación a…': 'Aligns relative to…',
+    'Composición': 'Composition',
+    'Los límites de la comp activa.': 'The bounds of the active comp.',
+    'Área de trabajo': 'Work area',
+    'La región / área de interés.': 'The region / area of interest.',
+    'Selección': 'Selection',
+    'El conjunto de capas seleccionadas.': 'The set of selected layers.',
+    'Capa clave': 'Key layer',
+    'La última capa seleccionada.': 'The last selected layer.',
+    'Opciones:': 'Options:',
+    'alinear a bordes, incluir capas ocultas y bloquear la posición tras operar.':
+      'align to edges, include hidden layers and lock the position after operating.',
+
+    /* SmoothGuides */
+    'SmoothGuides — Guías y zonas seguras': 'SmoothGuides — Guides and safe zones',
+    'Crea guías de composición, cuadrículas, zonas seguras y reglas de diseño con vista previa en tiempo real sobre tu composición activa.':
+      'Create composition guides, grids, safe zones and design rules with a real-time preview over your active composition.',
+    'Guías rápidas': 'Quick guides',
+    'Formatos listos para usar (9:16, 4:5, 1:1, 16:9, 21:9 o personalizado) que además puedes usar para':
+      'Ready-to-use formats (9:16, 4:5, 1:1, 16:9, 21:9 or custom) that you can also use to',
+    'crear una composición': 'create a composition',
+    'con ese formato.': 'with that format.',
+    'Guías de composición': 'Composition guides',
+    'Centro, regla de tercios, cuadrícula, diagonales y cruz central.':
+      'Center, rule of thirds, grid, diagonals and center cross.',
+    'Reglas avanzadas: márgenes,': 'Advanced rules: margins,',
+    'Guías personalizadas verticales, horizontales o por área/marco (en % o px).':
+      'Custom vertical, horizontal or area/frame guides (in % or px).',
+    'Safe zones (zonas seguras)': 'Safe zones',
+    'Acción segura, título seguro y presets por plataforma (TikTok, Instagram, YouTube/Shorts, Broadcast) con porcentajes configurables.':
+      'Action safe, title safe and per-platform presets (TikTok, Instagram, YouTube/Shorts, Broadcast) with configurable percentages.',
+    'Visualización y aplicación': 'Display and application',
+    'Color, estilo de línea, grosor y opacidad de las guías.':
+      'Guide color, line style, thickness and opacity.',
+    'Capa-guía de color': 'Color guide layer',
+    '(no renderiza) y': '(does not render) and',
+    'guías nativas de AE': 'native AE guides',
+    'para snapping; el «ojito» muestra u oculta todo.':
+      'for snapping; the eye icon shows or hides everything.',
+    'Presets guardables e': 'Savable presets and',
+    'importar / exportar': 'import / export',
+    'configuraciones en .json.': 'setups as .json.',
+    'Las guías se muestran solo como referencia y no aparecen en el render final.':
+      'Guides are shown only as reference and do not appear in the final render.',
+
+    /* SmoothExplorer */
+    'SmoothExplorer — Explorador de archivos': 'SmoothExplorer — File explorer',
+    'Un explorador de archivos dentro de After Effects: navega tus carpetas, previsualiza imágenes, video y audio, e importa a tu proyecto sin salir del panel. Panel independiente (':
+      'A file explorer inside After Effects: browse your folders, preview images, video and audio, and import into your project without leaving the panel. Standalone panel (',
+    'Navegar': 'Browsing',
+    'Ruta con migas de pan clicables y botones de': 'Clickable breadcrumb path plus',
+    'subir un nivel': 'up one level',
+    'inicio': 'home',
+    '(tu carpeta de usuario).': 'buttons (your user folder).',
+    'Botón de': 'A',
+    'explorar carpeta': 'browse folder',
+    'que abre el diálogo de Windows para elegir una ubicación.':
+      'button that opens the Windows dialog to pick a location.',
+    'Favoritos': 'Favorites',
+    ': ancla carpetas para acceso rápido (se recuerdan entre sesiones).':
+      ': pin folders for quick access (remembered between sessions).',
+    'Búsqueda y filtros por tipo: imágenes, video, audio y proyectos.':
+      'Search and filters by type: images, video, audio and projects.',
+    'Previsualizar e importar': 'Preview and import',
+    'Explora hasta el archivo que quieras. Las imágenes y videos muestran':
+      'Browse to the file you want. Images and videos show a',
+    'miniatura': 'thumbnail',
+    'Los archivos de': '',
+    'audio': 'Audio files',
+    'se reproducen en el panel para escucharlos antes de importar.':
+      'play in the panel so you can listen before importing.',
+    'Doble clic': 'Double click',
+    'importa el archivo (o entra en la carpeta). También los botones':
+      'imports the file (or enters the folder). So do the buttons',
+    'En Ajustes (⚙) puedes cambiar el': 'In Settings (⚙) you can change the',
+    'volumen del panel': 'panel volume',
+    'tamaño de la cuadrícula': 'grid size',
+    'de miniaturas.': 'for thumbnails.',
+
+    /* SmoothTraductor */
+    'SmoothTraductor — Traducir capas de texto': 'SmoothTraductor — Translate text layers',
+    'Traduce el texto de una capa seleccionada a decenas de idiomas y aplícalo sin perder el original. Panel independiente (':
+      'Translate the text of a selected layer into dozens of languages and apply it without losing the original. Standalone panel (',
+    '). Requiere conexión a internet.': '). Requires an internet connection.',
+    'Selecciona una': 'Select a',
+    'capa de texto': 'text layer',
+    'y pulsa': 'and press',
+    '«Leer texto de la capa»': '"Read layer text"',
+    '(o escribe el texto a mano).': '(or type the text by hand).',
+    'Elige el idioma de': 'Choose the',
+    'origen': 'source',
+    '(o déjalo en «Detectar automático») y el idioma': 'language (or leave "Auto detect") and the',
+    'destino': 'target',
+    '. Puedes editar la traducción antes de aplicarla.':
+      '. You can edit the translation before applying it.',
+    ': se crea una': ': a',
+    'copia de la capa': 'copy of the layer',
+    'con la traducción y la original queda': 'is created with the translation and the original stays',
+    'oculta': 'hidden',
+    '(reversible con Ctrl+Z).': '(reversible with Ctrl+Z).',
+    'El botón de intercambio invierte origen ↔ destino (y los textos), útil para traducir de vuelta.':
+      'The swap button flips source ↔ target (and the texts), handy to translate back.',
+
+    /* SmoothPaste */
+    'SmoothPaste — Copiar frame / pegar imagen': 'SmoothPaste — Copy frame / paste image',
+    ') con dos acciones de portapapeles, adaptable a cualquier zona de After Effects.':
+      ') with two clipboard actions, adaptable to any area of After Effects.',
+    'captura el fotograma actual de la composición y lo copia al portapapeles del sistema, listo para pegar en cualquier programa.':
+      'captures the current composition frame and copies it to the system clipboard, ready to paste into any program.',
+    'toma la imagen del portapapeles (copiada de una app o de un archivo de imagen) y la añade como una':
+      'takes the clipboard image (copied from an app or an image file) and adds it as a',
+    'capa nueva': 'new layer',
+    'en la composición activa.': 'in the active composition.',
+    'El panel se adapta a su tamaño: en zonas grandes muestra icono + descripción; en una tira delgada, solo los iconos. Reversible con Ctrl+Z.':
+      'The panel adapts to its size: in large areas it shows icon + description; in a thin strip, icons only. Reversible with Ctrl+Z.',
+
+    /* Atajos */
+    'Atajos de Teclado y Paleta de Comandos': 'Keyboard shortcuts and command palette',
+    'Atajos Globales de la Interfaz': 'Global interface shortcuts',
+    'Atajo Teclado': 'Keyboard shortcut',
+    'Acción Ejecutada': 'Action performed',
+    '(Windows) /': '(Windows) /',
+    '(macOS)': '(macOS)',
+    'Abrir paleta universal de comandos (Spotlight)': 'Open the universal command palette (Spotlight)',
+    'Cierra modales superpuestos o cancela acciones': 'Closes stacked modals or cancels actions',
+    'Confirma la opción del modal activo o ejecuta el comando seleccionado':
+      'Confirms the active modal option or runs the selected command',
+    'Delete o Backspace': 'Delete or Backspace',
+    'Elimina el punto de control activo en el editor de curvas (Modo Custom)':
+      'Removes the active control point in the curve editor (Custom mode)',
+    'La Paleta de Comandos (Ctrl/Cmd + K)': 'The command palette (Ctrl/Cmd + K)',
+    'Esta es la característica más poderosa del plugin. Funciona como un buscador "Spotlight". Te permite escribir y ejecutar':
+      'This is the most powerful feature of the plugin. It works like a "Spotlight" search. It lets you type and run',
+    'absolutamente cualquier acción': 'absolutely any action',
+    'de cualquier módulo, sin tener que cambiar de pestaña o navegar por la interfaz.':
+      'from any module, without switching tabs or navigating the interface.',
+    '— Navega por los resultados de la búsqueda con las flechas del teclado.':
+      '— Move through the search results with the arrow keys.',
+    '— Ejecuta la herramienta iluminada instantáneamente.': '— Runs the highlighted tool instantly.',
+    '— Cierra la paleta rápidamente.': '— Closes the palette quickly.',
+    'Icono de Estrella (★)': 'Star icon (★)',
+    '— Marca comandos como favoritos para que siempre aparezcan arriba.':
+      '— Mark commands as favorites so they always appear at the top.',
+    'Tip:': 'Tip:',
+    'Puedes personalizar la barra de navegación superior (mostrar u ocultar pestañas de módulos) usando las opciones de configuración ubicadas en la parte inferior de la paleta de comandos.':
+      'You can customize the top navigation bar (show or hide module tabs) using the settings options at the bottom of the command palette.',
+
+    /* Ajustes */
+    'Configuración y Ajustes': 'Configuration and settings',
+    'Acceso:': 'Access:',
+    'Haz clic en el icono de engranaje (⚙) situado en la': 'Click the gear icon (⚙) located in the',
+    'barra de navegación superior': 'top navigation bar',
+    'de la ventana SmoothMotion, a la derecha de las pestañas.':
+      'of the SmoothMotion window, to the right of the tabs.',
+    '(en versiones anteriores estaba dentro de la pestaña SmoothCurves).':
+      '(in earlier versions it lived inside the SmoothCurves tab).',
+    'Opción de Menú': 'Menu option',
+    'Descripción del Ajuste': 'Setting description',
+    'Idioma (Language)': 'Language',
+    'Cambia toda la interfaz entre Español e Inglés (requiere reiniciar el panel).':
+      'Switches the whole interface between Spanish and English (requires restarting After Effects).',
+    'Soporte Técnico': 'Technical support',
+    'Abre directamente el servidor de Discord en tu navegador para ayuda técnica.':
+      'Opens the Discord server directly in your browser for technical help.',
+    'Gestión de Licencia': 'License management',
+    'Consulta el estado de activación, quita la licencia local o introduce una nueva key tras un reset en Discord.':
+      'Check the activation status, remove the local license or enter a new key after a reset on Discord.',
+
+    /* Pro-Tips */
+    'Pro-Tips y Mejores Prácticas': 'Pro tips and best practices',
+    'Acostúmbrate a utilizar': 'Get used to using',
+    '; es la ruta más rápida para ejecutar cualquier herramienta sin buscarla en la interfaz visual.':
+      '; it is the fastest route to run any tool without hunting for it in the visual interface.',
+    'Activa': 'Turn on',
+    'en SmoothCurves para ver instantáneamente cómo afecta el suavizado a la animación en el canvas de AE sin tener que dar clic a Apply constantemente.':
+      'in SmoothCurves to instantly see how the easing affects the animation on the AE canvas without clicking Apply over and over.',
+    'Ancla como': 'Pin as',
+    'en la paleta de comandos aquellos scripts de la pestaña Tools que utilices en cada proyecto.':
+      'in the command palette those Tools scripts you use on every project.',
+    'Utiliza el modo': 'Use',
+    'para la etapa de conceptualización y prueba. Una vez aprobado, puedes cambiar a':
+      'mode for the concepting and testing stage. Once approved, you can switch to',
+    'si el render o la entrega final lo exige.': 'if the render or final delivery requires it.',
+    'Las colecciones de curvas personalizadas (formato .json) pueden compartirse.':
+      'Custom curve collections (.json format) can be shared.',
+    'Exporta tus bibliotecas de curvas': 'Export your curve libraries',
+    'para mantener un respaldo o usarlas en otro ordenador de tu estudio.':
+      'to keep a backup or use them on another computer in your studio.',
+    'Usa agresivamente el': 'Make heavy use of the',
+    'Sistema de Notas en SmoothComp': 'Notes system in SmoothComp',
+    'para documentar qué hacen ciertas capas de control o Nulls invisibles, para ti mismo en el futuro o para otros animadores.':
+      'to document what certain control layers or invisible Nulls do, for your future self or for other animators.',
+    'para herramientas como el "Renombrador" o la "Alineación" si estás procesando docenas de capas una a una.':
+      'for tools like the "Renamer" or "Align" if you are processing dozens of layers one by one.',
+
+    /* Soporte / FAQ */
+    'Soporte y Resolución de Problemas': 'Support and troubleshooting',
+    'La mejor forma de obtener ayuda inmediata es nuestra comunidad privada en':
+      'The best way to get immediate help is our private community on',
+    'Discord:': 'Discord:',
+    'Alternativamente, puedes usar el botón': 'Alternatively, you can use the',
+    'dentro de los Ajustes (⚙) del panel.': 'button inside the panel Settings (⚙).',
+    'Tabla de Problemas Frecuentes (FAQ)': 'Frequently asked questions (FAQ)',
+    'Síntoma / Problema': 'Symptom / Problem',
+    'Solución Recomendada': 'Recommended solution',
+    'El panel no aparece listado en el menú \'Extensiones\'.':
+      'The panel is not listed in the \'Extensions\' menu.',
+    'Reinicia After Effects. Verifica que la instalación mediante ZXP Installer fue exitosa. Comprueba el modo desarrollador CEP en tu sistema.':
+      'Restart After Effects. Check that the ZXP Installer installation succeeded. Verify CEP developer mode on your system.',
+    'Alerta de "Licencia no válida" o "no corresponde a este equipo".':
+      '"Invalid license" or "does not match this machine" warning.',
+    'Copia tu ID de equipo del panel, reclama de nuevo en Discord con ese ID y pega la key nueva.':
+      'Copy your machine ID from the panel, claim again on Discord with that ID and paste the new key.',
+    'No puedo copiar el ID de equipo.': 'I cannot copy the machine ID.',
+    'Selecciona el código con el ratón y usa Ctrl+C (Cmd+C en Mac).':
+      'Select the code with the mouse and press Ctrl+C (Cmd+C on Mac).',
+    'Cambié de PC o formateé Windows.': 'I changed PC or reformatted Windows.',
+    'Abre un ticket en Discord. Tras el reset, reclama con el ID del equipo nuevo.':
+      'Open a ticket on Discord. After the reset, claim with the new machine ID.',
+    'El Bot no envía el Mensaje Directo en Discord.': 'The bot does not send the direct message on Discord.',
+    'Haz clic derecho sobre el servidor de SmoothMotion, selecciona \'Ajustes de Privacidad\' y activa \'Permitir mensajes directos\'.':
+      'Right-click the SmoothMotion server, choose \'Privacy Settings\' and enable \'Allow direct messages\'.',
+    'Hago clic en \'Ejecutar\' en un Script y no ocurre nada.':
+      'I click \'Run\' on a script and nothing happens.',
+    'La inmensa mayoría de scripts requiere que tengas al menos una capa o propiedad seleccionada en tu Timeline antes de ejecutarse.':
+      'The vast majority of scripts require at least one layer or property selected in your Timeline before running.',
+    'La curva de animación no se aplica o tira error.': 'The animation curve does not apply or throws an error.',
+    'Asegúrate de tener seleccionados explícitamente los keyframes (los rombos en el timeline), y que pertenezcan a una propiedad interpolable continua (ej. Posición, Rotación), no a propiedades estáticas de tipo hold.':
+      'Make sure the keyframes are explicitly selected (the diamonds in the timeline) and that they belong to a continuously interpolable property (e.g. Position, Rotation), not to static hold properties.',
+    'SmoothComp, "Leer" curva o las plantillas de render aparecen vacíos (After Effects 2025).':
+      'SmoothComp, "Read" curve or the render templates come up empty (After Effects 2025).',
+    'Actualiza a la': 'Update to',
+    'o superior: corrige un problema del puente de datos propio de AE 2025. En SmoothComp, abre una composición y pulsa el botón de refrescar.':
+      'or later: it fixes an AE 2025 data bridge issue. In SmoothComp, open a composition and press the refresh button.',
+    'After Effects se cierra solo de vez en cuando (error': 'After Effects closes by itself now and then (error',
+    'Suele ser el': 'It is usually the AE',
+    'Multi-Frame Rendering': 'Multi-Frame Rendering',
+    'de AE, no el plugin. Ve a': ', not the plugin. Go to',
+    'Preferencias → Memoria y rendimiento': 'Preferences → Memory and Performance',
+    'y desactiva "Habilitar renderizado multifotograma"; luego vacía la caché de base de datos y disco.':
+      'and disable "Enable Multi-Frame Rendering"; then empty the database and disk cache.',
+    'Importé un pack de texto pero desaparece al reabrir AE.':
+      'I imported a text pack but it disappears when I reopen AE.',
+    'Resuelto en la v5.2.0: el registro de packs se guarda en tu carpeta de usuario. Vuelve a importarlo una vez con esta versión y quedará guardado.':
+      'Fixed in v5.2.0: the pack registry is stored in your user folder. Import it once more with this version and it will stick.'
+  };
+
+  /* ── Motor ──────────────────────────────────────────────────────────── */
+  var LOWER = null;
+  function keyOf(s) { return String(s).replace(/\s+/g, ' ').trim(); }
+  function lookup(s) {
+    var k = keyOf(s);
+    if (!k) return null;
+    if (EN[k] != null) return EN[k];
+    if (LOWER === null) {
+      LOWER = Object.create(null);
+      for (var mk in EN) LOWER[mk.toLowerCase()] = EN[mk];
+    }
+    var hit = LOWER[k.toLowerCase()];
+    if (hit == null) return null;
+    if (k.length > 1 && k === k.toUpperCase() && k !== k.toLowerCase()) return hit.toUpperCase();
+    return hit;
+  }
+
+  var SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, CODE: 1, PRE: 1, SVG: 1 };
+  function skipEl(el) {
+    return el && el.nodeType === 1 &&
+      (SKIP[el.tagName] || (el.hasAttribute && el.hasAttribute('data-no-i18n')));
+  }
+  function inSkipped(n) {
+    for (var p = n.parentNode; p && p.nodeType === 1; p = p.parentNode) if (skipEl(p)) return true;
+    return false;
+  }
+
+  function translate(root) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, null, false);
+    var n;
+    while ((n = w.nextNode())) {
+      if (n.nodeType === 3) {
+        var raw = n.nodeValue; if (!raw) continue;
+        var k = keyOf(raw); if (!k) continue;
+        var hit = lookup(k);
+        if (hit == null || hit === k || inSkipped(n)) continue;
+        n.nodeValue = raw.match(/^\s*/)[0] + hit + raw.match(/\s*$/)[0];
+      } else if (n.getAttribute) {
+        ['title', 'aria-label', 'placeholder', 'alt'].forEach(function (a) {
+          var v = n.getAttribute(a); if (!v) return;
+          var h = lookup(v); if (h != null && h !== v) n.setAttribute(a, h);
+        });
+      }
+    }
+  }
+
+  /* ── Botón de idioma ────────────────────────────────────────────────── */
+  function addToggle() {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'manual-lang-toggle';
+    btn.setAttribute('data-no-i18n', '');
+    btn.textContent = (current === 'es') ? 'EN' : 'ES';
+    btn.title = 'Español / English';
+    btn.style.cssText =
+      'position:fixed;bottom:18px;right:18px;z-index:9999;' +
+      'background:rgba(31,35,51,0.92);border:1px solid #3b4260;border-radius:8px;' +
+      'color:#e2e8f0;cursor:pointer;font:700 12px/1 Inter,system-ui,sans-serif;' +
+      'letter-spacing:.5px;padding:9px 13px;backdrop-filter:blur(6px);' +
+      'box-shadow:0 6px 20px rgba(0,0,0,.35);transition:border-color .15s,color .15s;';
+    btn.addEventListener('mouseenter', function () { btn.style.borderColor = '#3b82f6'; btn.style.color = '#fff'; });
+    btn.addEventListener('mouseleave', function () { btn.style.borderColor = '#3b4260'; btn.style.color = '#e2e8f0'; });
+    btn.addEventListener('click', function () { setLang(current === 'es' ? 'en' : 'es'); });
+    document.body.appendChild(btn);
+  }
+
+  function start() {
+    if (current === 'en') {
+      translate(document.body);
+      try { document.documentElement.setAttribute('lang', 'en'); } catch (e) {}
+    }
+    addToggle();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+
+</script>
+<!-- SM-I18N-END -->
 </body>
 </html>

@@ -29,7 +29,10 @@
       <nav class="nav-links">
         <a href="#playground">Paneles</a>
         <a href="#caracteristicas">Características</a>
+        <a href="#about">Sobre mí</a>
         <a href="#precios">Precios</a>
+        <button type="button" class="lang-toggle" id="langToggle" data-no-i18n
+                title="Español / English" aria-label="Cambiar idioma">EN</button>
         <a href="#precios" class="btn btn-primary btn-sm">Comprar</a>
       </nav>
       <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" aria-expanded="false">
@@ -39,7 +42,10 @@
     <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
       <a href="#playground" class="mob-link">Paneles</a>
       <a href="#caracteristicas" class="mob-link">Características</a>
+      <a href="#about" class="mob-link">Sobre mí</a>
       <a href="#precios" class="mob-link">Precios</a>
+      <button type="button" class="lang-toggle mob-lang" id="langToggleMob" data-no-i18n
+              title="Español / English" aria-label="Cambiar idioma">EN</button>
       <a href="#precios" class="btn btn-primary">Comprar</a>
     </nav>
   </header>
@@ -51,7 +57,7 @@
       <div class="hero-copy reveal">
         <div class="pill">
           <span class="pill-dot"></span>
-          Nuevo · SmoothMotion v5.3.3
+          Nuevo · SmoothMotion v5.5.0
         </div>
         <h1>La familia perfecta para<br /><span class="grad">Motion Graphics.</span></h1>
         <p class="lead">
@@ -191,6 +197,33 @@
     </div>
   </section>
 
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section">
+    <div class="about-card reveal">
+      <div class="about-glow"></div>
+      <div class="about-avatar">
+        <!-- Si assets/blackbull.png no existe, la imagen se quita sola y quedan las iniciales -->
+        <img src="assets/blackbull.png" alt="BlackBull" onerror="this.remove()" />
+        <span class="about-avatar-initials" aria-hidden="true">BB</span>
+      </div>
+      <div class="about-body">
+        <span class="kicker">Quién está detrás</span>
+        <h2>Hola, soy <span class="grad">BlackBull</span></h2>
+        <p>
+          Soy editor de vídeo con <strong>6 años de experiencia</strong> y me especializo en
+          <strong>After Effects</strong>. Llevo mucho tiempo trabajando en esta herramienta para
+          facilitarle la vida a editores como yo.
+        </p>
+        <p class="about-note">
+          SmoothMotion nace de mi propio flujo de trabajo: cada panel resuelve algo que me hacía
+          perder tiempo en el día a día.
+        </p>
+        <a href="https://blackbulldesigner.carrd.co/" target="_blank" rel="noopener"
+           class="btn btn-primary about-btn">Ver mis redes ↗</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== PRECIOS ===== -->
   <section id="precios" class="section section-alt">
     <div class="section-head reveal">
@@ -215,7 +248,7 @@
         <a href="#precios" class="btn btn-primary btn-lg">Ver precios y comprar</a>
         <button type="button" class="btn btn-ghost btn-lg" id="openManual">Ver manual de usuario</button>
       </div>
-      <span class="cta-note">v5.3.3 · 14 paneles · Windows &amp; macOS · After Effects 2020+</span>
+      <span class="cta-note">v5.5.0 · 14 paneles · Windows &amp; macOS · After Effects 2020+</span>
     </div>
   </section>
 
@@ -251,6 +284,8 @@
     </div>
   </div>
 
+  <script src="js/i18n.js"></script>
+  <script src="js/i18n-en.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
