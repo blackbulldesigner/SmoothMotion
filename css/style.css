@@ -967,3 +967,106 @@ body.modal-open { overflow: hidden; }
   .pg-chip { font-size: 11.5px; padding: 7px 13px; }
   .pg-buy { flex-direction: column; align-items: stretch; gap: 10px; }
 }
+
+/* ==========================================
+   ABOUT — quién está detrás
+   ========================================== */
+.about-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 42px 44px;
+  background: linear-gradient(145deg, var(--ec-bg-surface), var(--ec-bg-panel));
+  border: 1px solid var(--ec-border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.about-glow {
+  position: absolute;
+  top: -120px; right: -80px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(59,130,246,0.20), transparent 68%);
+  pointer-events: none;
+}
+.about-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 84px; height: 84px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--ec-blue), var(--ec-cyan));
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  box-shadow: 0 10px 30px rgba(59,130,246,0.35);
+  /* aro sutil para que la foto recorte limpio */
+  outline: 2px solid rgba(255,255,255,0.10);
+  outline-offset: -2px;
+}
+/* La foto llena el círculo; si falla, quedan las iniciales de debajo */
+.about-avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+.about-avatar-initials { position: relative; z-index: 0; }
+.about-body { position: relative; z-index: 1; min-width: 0; }
+.about-body h2 {
+  font-size: clamp(26px, 3.4vw, 34px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 10px 0 16px;
+}
+.about-body p {
+  color: var(--ec-text-secondary);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.about-body p strong { color: var(--ec-text-primary); font-weight: 600; }
+.about-note {
+  border-left: 2px solid var(--ec-blue);
+  padding-left: 14px;
+  font-style: italic;
+}
+.about-btn { margin-top: 8px; }
+
+@media (max-width: 700px) {
+  .about-card { grid-template-columns: 1fr; gap: 20px; padding: 32px 24px; text-align: center; }
+  .about-avatar { margin: 0 auto; }
+  .about-note { text-align: left; }
+  .about-btn { width: 100%; }
+}
+
+/* ==========================================
+   Botón de idioma (ES / EN)
+   ========================================== */
+.lang-toggle {
+  background: var(--ec-bg-surface);
+  border: 1px solid var(--ec-border);
+  border-radius: 6px;
+  color: var(--ec-text-secondary);
+  cursor: pointer;
+  font: 600 12px/1 inherit;
+  letter-spacing: 0.5px;
+  padding: 7px 11px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.lang-toggle:hover {
+  color: var(--ec-text-primary);
+  border-color: var(--ec-blue);
+  background: var(--ec-blue-ghost);
+}
+.mobile-nav .mob-lang { align-self: flex-start; margin: 4px 0; }
