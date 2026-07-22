@@ -768,7 +768,7 @@
   <header class="topbar">
     <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
     <a href="#" class="logo">Smooth<span>Motion</span></a>
-    <span class="topbar-badge">Manual v5.3.3</span>
+    <span class="topbar-badge">Manual v5.4.4</span>
     <nav class="topbar-nav" aria-label="Módulos">
       <a class="module-pill" href="#sec-curves">SmoothCurves</a>
       <a class="module-pill" href="#sec-tools">SmoothTools</a>
@@ -834,7 +834,7 @@
         <h1>Manual de usuario</h1>
         <p class="hero-sub">Guía completa para instalar, activar y dominar todos los módulos de SmoothMotion dentro de After Effects.</p>
         <div class="hero-tags">
-          <span class="tag accent">v5.3.3</span>
+          <span class="tag accent">v5.4.4</span>
           <span class="tag">AE 2021+</span>
           <span class="tag">12 módulos</span>
           <span class="tag">Atajo: Ctrl + K</span>
@@ -868,7 +868,7 @@
           </div>
           <div class="module-card">
             <div class="name">SmoothText</div>
-            <div class="desc">Biblioteca de presets de animación de texto. Importa packs .ffx, previsualiza y aplica con un clic.</div>
+            <div class="desc">Animador de texto en vivo: diseña la animación con vista previa en tiempo real y aplícala con expresiones fieles al preview. Entrada y salida, presets propios y copiar/pegar ajustes.</div>
           </div>
           <div class="module-card">
             <div class="name">SmoothAnchor</div>
@@ -908,9 +908,6 @@
           <li><span>Navega en el menú superior a <strong>Ventana → Extensiones → SmoothMotion</strong>.</span></li>
           <li><span>Procede a activar tu licencia: copia tu <strong>ID de equipo</strong> y reclámala en Discord (sección 3).</span></li>
         </ol>
-        <div class="callout note">
-          Los <strong>presets de SmoothText</strong> se distribuyen en un archivo aparte (RAR/ZIP). No vienen dentro del ZXP. Impórtalos con el botón <strong>＋</strong> en la pestaña SmoothText.
-        </div>
         <div class="callout note">
           Si es la primera vez que instalas extensiones de terceros, es posible que necesites habilitar el <strong>modo desarrollador de CEP</strong> en el registro de Windows o Terminal de macOS. Pregunta en nuestro soporte de Discord si el panel no se muestra.
         </div>
@@ -1183,40 +1180,29 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
 
       <!-- 9. SmoothText -->
       <section id="sec-text">
-        <h2><span class="num">9</span> SmoothText — Presets de animación de texto</h2>
-        <p>Aplica animaciones de texto profesionales desde una biblioteca visual de presets. El ZXP <strong>no incluye</strong> los archivos .ffx — se distribuyen en un pack aparte que debes importar una sola vez.</p>
-        <h3>Importar un pack de presets</h3>
+        <h2><span class="num">9</span> SmoothText — Animador de texto en vivo <span class="tag accent">Renovado</span></h2>
+        <p>SmoothText es ahora un <strong>animador de texto en vivo</strong>: diseñas la animación con una <strong>vista previa en tiempo real</strong> y la aplicas a After Effects con <strong>expresiones fieles al preview</strong> (lo que ves es lo que se genera). Ya <strong>no</strong> necesita importar packs de presets.</p>
+        <h3>Flujo básico</h3>
         <ol class="steps">
-          <li><span>Extrae el archivo de presets que recibiste (debe contener <code>pack.json</code> y carpetas con archivos <code>.ffx</code>).</span></li>
-          <li><span>Abre <strong>SmoothMotion → SmoothText</strong>.</span></li>
-          <li><span>Pulsa el <strong>botón de importar</strong> (icono de bandeja con flecha, a la derecha de la barra) y selecciona la carpeta del pack.</span></li>
-          <li><span>El pack queda registrado y aparece en el selector de bibliotecas.</span></li>
+          <li><span>Abre <strong>SmoothMotion → SmoothText</strong> y escribe tu texto en el campo <strong>YOUR TEXT</strong>.</span></li>
+          <li><span>En la pestaña <strong>Animate</strong>, elige <strong>Animate by</strong> (letras, palabras o líneas), la <strong>dirección</strong> y el <strong>easing</strong> (Smooth, Ease In-Out, Back, Elastic, Bounce, Linear).</span></li>
+          <li><span>Ajusta <strong>Duration</strong>, <strong>Overlap</strong> y <strong>Distance</strong>; pulsa <strong>More</strong> para opacidad, escala, rotación, blur, tracking y offsets.</span></li>
+          <li><span>Pulsa <strong>Replay</strong> (o la barra espaciadora) para revisar la animación en el preview.</span></li>
+          <li><span>Con una <strong>composición activa</strong>, pulsa <strong>Apply to AE</strong> para crear la capa de texto animada.</span></li>
         </ol>
-        <h3>Aplicar un preset</h3>
-        <ol class="steps">
-          <li><span>Selecciona una o más <strong>capas de texto</strong> en la composición activa.</span></li>
-          <li><span>Navega por categorías o usa la <strong>barra de búsqueda</strong>.</span></li>
-          <li><span>Pasa el cursor sobre un preset para previsualizarlo en video y pulsa <strong>Aplicar</strong> (aparece sobre la miniatura, sin tapar la vista previa).</span></li>
-        </ol>
+        <h3>Entrada y salida (Exit / Out)</h3>
+        <p>Además de la entrada, puedes configurar una <strong>salida</strong> con su propio timing y dirección. Modos: <strong>Off</strong>, <strong>Mirror</strong> (regresa por donde entró), <strong>Clone</strong> (sale por el lado opuesto) o <strong>Custom</strong> (destino totalmente libre).</p>
+        <h3>Estilo</h3>
+        <p>En la pestaña <strong>Style</strong> defines tamaño, peso y familia de fuente, alineación y colores de texto y fondo del preview.</p>
+        <h3>Tus presets <span class="tag accent">Nuevo</span></h3>
         <ul>
-          <li><strong>Favoritos:</strong> Pulsa el icono de estrella de un preset para marcarlo; filtra con el botón de estrella de la barra superior.</li>
-          <li><strong>Vista previa:</strong> Cada preset reproduce un video al pasar el cursor por su miniatura.</li>
-          <li><strong>Varios packs:</strong> Puedes importar más de un pack; cambia entre ellos en el selector superior.</li>
+          <li><strong>Guardar:</strong> en la pestaña <strong>Presets</strong>, nombra tus ajustes actuales (entrada + salida) y pulsa <strong>Guardar</strong>. Se conservan en este equipo.</li>
+          <li><strong>Aplicar / renombrar / borrar:</strong> clic en una card para aplicarla; doble clic en su nombre para renombrar; ✕ para borrar.</li>
+          <li><strong>Copiar / Pegar ajustes:</strong> con <strong>Copiar</strong> y <strong>Pegar</strong> mueves una configuración completa entre capas, proyectos o equipos.</li>
         </ul>
-
-        <h3>Duración por marcador <span class="tag accent">Nuevo</span></h3>
-        <p>Controla cuánto dura la animación de un preset <strong>arrastrando un marcador</strong> en la capa, al estilo de Animation Composer. No necesitas tocar keyframes.</p>
-        <ol class="steps">
-          <li><span>Activa el <strong>botón de marcador</strong> (icono de banderita) en la barra de SmoothText. Queda resaltado en azul y el ajuste se recuerda entre sesiones.</span></li>
-          <li><span>Aplica un preset <strong>de expresiones</strong> a tu capa de texto. Se coloca automáticamente un marcador al final natural de la animación (su duración por defecto).</span></li>
-          <li><span><strong>Arrastra el marcador</strong> en el timeline de la capa para que la animación dure más o menos. Se re-escala en tiempo real.</span></li>
-        </ol>
         <div class="callout note">
-          Solo aplica a presets basados en <strong>expresiones</strong>. Si el preset usa keyframes, el panel te lo avisa (esos se ajustan estirando sus keyframes directamente en el timeline).
+          Al aplicar sobre una <strong>capa de texto seleccionada</strong> (o si ya existe una capa SmoothText), se <strong>reemplaza</strong> su animación en vez de acumular otra encima. Todo es reversible con <strong>Ctrl+Z</strong>.
         </div>
-
-        <h3>Eliminar la animación <span class="tag accent">Nuevo</span></h3>
-        <p>El botón <strong>Eliminar animación</strong> (icono de círculo con equis) quita de las capas de texto seleccionadas los <strong>animadores de texto</strong>, las <strong>expresiones</strong> aplicadas por el preset y el marcador de duración. Es <strong>reversible con Ctrl+Z</strong>.</p>
       </section>
 
       <!-- 10. SmoothAnchor -->
@@ -1465,7 +1451,7 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
 
       <footer>
         <div class="logo-footer">Smooth<span>Motion</span></div>
-        <p>Manual del Usuario · Versión Oficial 5.3.3</p>
+        <p>Manual del Usuario · Versión Oficial 5.4.4</p>
         <a class="btn-discord" href="https://discord.gg/eV8xHpq2Np" target="_blank" rel="noopener" style="display:inline-block; margin-top: 10px;">Unirse a la Comunidad Discord</a>
       </footer>
 

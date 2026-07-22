@@ -108,7 +108,7 @@
     document.addEventListener('click', function (ev) {
       var el = ev.target.closest('button, .op-btn, .tt-btn, .sa-btn, .t-btn, .wc');
       if (!el) return;
-      if (el.closest('#tab-nav, #toolbar-tabs, .ref-grid')) return; // dejar navegación interna
+      if (el.closest('#tab-nav, #toolbar-tabs, .ref-grid, .app')) return; // dejar navegación interna (.app = SmoothText, funciona en el navegador)
       demoToast();
     }, true);
   });

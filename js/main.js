@@ -53,7 +53,7 @@ if (hamburgerBtn && mobileNav) {
 
   const PANELS = [
     { name: 'SmoothCurves', src: 'app/client/index.html?m=flow' },
-    { name: 'SmoothText',   src: 'app/client/index.html?m=text' },
+    { name: 'SmoothText',   src: 'app/SmoothText/index.html' },
     { name: 'SmoothTypo',   src: 'app/SmoothTypo/index.html' },
     { name: 'SmoothTools',  src: 'app/client/index.html?m=scripts' },
     { name: 'SmoothComp',   src: 'app/client/index.html?m=comp' },
@@ -118,9 +118,9 @@ const PANEL_INFO = {
     list: ['Modos Ease, Speed, Elastic, Bounce y Custom', 'Aplica como expresión (EXPR) o horneado (KEYS)', 'Lee, invierte y aleatoriza curvas · bibliotecas de presets'],
   },
   text: {
-    num: '02', name: 'SmoothText', tag: 'Animación de texto',
-    body: 'Más de 100 presets de animación de texto listos para aplicar por caracteres, palabras o líneas. En la demo verás un pack de ejemplo.',
-    list: ['100+ presets: posición, escala, rotación, 3D, rebote…', 'Organizados en packs y categorías', 'Buscador y favoritos integrados'],
+    num: '02', name: 'SmoothText', tag: 'Animador de texto en vivo',
+    body: 'Diseña animaciones de texto con vista previa en tiempo real y aplícalas a After Effects con expresiones fieles al preview. Anima por caracteres, palabras o líneas, con entrada y salida.',
+    list: ['Easings Smooth, Back, Elastic, Bounce y más', 'Entrada + salida (Exit) con timing y dirección propios', 'Guarda tus presets y cópialos/pégalos entre proyectos'],
   },
   typo: {
     num: '03', name: 'SmoothTypo', tag: 'Herramientas de tipografía',
@@ -201,19 +201,19 @@ const STORE = {
   // 👉 EDITA precios y pega la 'url' del producto en Ko-fi cuando lo tengas.
   tiers: [
     {
-      id: 'starter', name: 'Starter', price: 25, originalPrice: 45,
+      id: 'starter', name: 'Starter', price: 30, originalPrice: 45,
       tagline: 'Lo esencial para empezar a animar',
-      panels: ['flow', 'text', 'anchor'],
+      panels: ['flow', 'anchor', 'translator'],
       url: 'https://ko-fi.com/s/d3a82513cf',
     },
     {
-      id: 'pro', name: 'Pro', price: 45, originalPrice: 75, popular: true,
+      id: 'pro', name: 'Pro', price: 50, originalPrice: 75, popular: true,
       tagline: 'El flujo completo del motion designer',
-      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts'],
+      panels: ['flow', 'anchor', 'translator', 'typo', 'fx', 'comp', 'scripts'],
       url: 'https://ko-fi.com/s/11bb63c8cd',
     },
     {
-      id: 'studio', name: 'Studio', price: 65, originalPrice: 110,
+      id: 'studio', name: 'Studio', price: 70, originalPrice: 110,
       tagline: 'Todo SmoothMotion, con actualizaciones futuras',
       panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export', 'explorer', 'translator', 'paste'],
       allAndUpdates: true,
