@@ -994,33 +994,24 @@ body.modal-open { overflow: hidden; }
 }
 .about-avatar {
   position: relative;
-  display: grid;
-  place-items: center;
   width: 84px; height: 84px;
   flex: 0 0 auto;
   border-radius: 50%;
   overflow: hidden;
   background: linear-gradient(135deg, var(--ec-blue), var(--ec-cyan));
-  color: #fff;
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
   box-shadow: 0 10px 30px rgba(59,130,246,0.35);
   /* aro sutil para que la foto recorte limpio */
   outline: 2px solid rgba(255,255,255,0.10);
   outline-offset: -2px;
 }
-/* La foto llena el círculo; si falla, quedan las iniciales de debajo */
+/* La foto llena el círculo */
 .about-avatar img {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
   display: block;
 }
-.about-avatar-initials { position: relative; z-index: 0; }
 .about-body { position: relative; z-index: 1; min-width: 0; }
 .about-body h2 {
   font-size: clamp(26px, 3.4vw, 34px);
