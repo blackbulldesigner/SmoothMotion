@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmoothAlign</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/license.css">
+</head>
+<body>
+<div id="app">
+
+  <div id="content">
+
+    <!-- ALINEAR CAPAS -->
+    <section class="card">
+      <div class="card-title">Alinear capas</div>
+      <div class="btn-grid grid-6">
+        <button class="op-btn" data-op="align" data-mode="left" title="Alinea al borde izquierdo">
+          <svg viewBox="0 0 28 28" class="ico"><line x1="4" y1="4" x2="4" y2="24"/><rect x="7" y="7" width="14" height="5" rx="1"/><rect x="7" y="16" width="9" height="5" rx="1"/></svg>
+          <span>Izquierda</span>
+        </button>
+        <button class="op-btn" data-op="align" data-mode="center-h" title="Centra horizontalmente">
+          <svg viewBox="0 0 28 28" class="ico"><line x1="14" y1="4" x2="14" y2="24"/><rect x="7" y="7" width="14" height="5" rx="1"/><rect x="9.5" y="16" width="9" height="5" rx="1"/></svg>
+          <span>Centro</span>
+        </button>
+        <button class="op-btn" data-op="align" data-mode="right" title="Alinea al borde derecho">
+          <svg viewBox="0 0 28 28" class="ico"><line x1="24" y1="4" x2="24" y2="24"/><rect x="7" y="7" width="14" height="5" rx="1"/><rect x="12" y="16" width="9" height="5" rx="1"/></svg>
+          <span>Derecha</span>
+        </button>
+        <button class="op-btn" data-op="align" data-mode="top" title="Alinea al borde superior">
+          <svg viewBox="0 0 28 28" class="ico"><line x1="4" y1="4" x2="24" y2="4"/><rect x="7" y="7" width="5" height="14" rx="1"/><rect x="16" y="7" width="5" height="9" rx="1"/></svg>
+          <span>Arriba</span>
+        </button>
+        <button class="op-btn" data-op="align" data-mode="middle-v" title="Centra verticalmente">
+          <svg viewBox="0 0 28 28" class="ico"><line x1="4" y1="14" x2="24" y2="14"/><rect x="7" y="7" width="5" height="14" rx="1"/><rect x="16" y="9.5" width="5" height="9" rx="1"/></svg>
+          <span>Medio</span>
+        </button>
+        <button class="op-btn" data-op="align" data-mode="bottom" title="Alinea al borde inferior">
+          <svg viewBox="0 0 28 28" class="ico"><line x1="4" y1="24" x2="24" y2="24"/><rect x="7" y="7" width="5" height="14" rx="1"/><rect x="16" y="12" width="5" height="9" rx="1"/></svg>
+          <span>Abajo</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- DISTRIBUIR CAPAS -->
+    <section class="card">
+      <div class="card-title">Distribuir capas</div>
+      <div class="btn-grid grid-7">
+        <button class="op-btn" data-op="distribute" data-axis="x" data-mode="center" title="Distribuye horizontalmente (centros)">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="3" y="9" width="5" height="10" rx="1"/><rect x="11.5" y="9" width="5" height="10" rx="1"/><rect x="20" y="9" width="5" height="10" rx="1"/></svg>
+          <span>Horizontal</span>
+        </button>
+        <button class="op-btn" data-op="distribute" data-axis="y" data-mode="center" title="Distribuye verticalmente (centros)">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="9" y="3" width="10" height="5" rx="1"/><rect x="9" y="11.5" width="10" height="5" rx="1"/><rect x="9" y="20" width="10" height="5" rx="1"/></svg>
+          <span>Vertical</span>
+        </button>
+        <button class="op-btn" data-op="distribute" data-axis="y" data-mode="edge" data-kind="min" title="Distribuye por bordes superiores">
+          <svg viewBox="0 0 28 28" class="ico"><line x1="4" y1="5" x2="24" y2="5" class="g"/><rect x="9" y="5" width="10" height="4" rx="1"/><rect x="9" y="13" width="10" height="4" rx="1"/><rect x="9" y="21" width="10" height="4" rx="1"/></svg>
+          <span>Arriba</span>
+        </button>
+        <button class="op-btn" data-op="distribute" data-axis="y" data-mode="edge" data-kind="center" title="Distribuye por centros verticales">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="9" y="3" width="10" height="5" rx="1"/><rect x="9" y="11.5" width="10" height="5" rx="1"/><rect x="9" y="20" width="10" height="5" rx="1"/><line x1="14" y1="2" x2="14" y2="26" class="g"/></svg>
+          <span>Centro</span>
+        </button>
+        <button class="op-btn" data-op="distribute" data-axis="y" data-mode="edge" data-kind="max" title="Distribuye por bordes inferiores">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="9" y="3" width="10" height="4" rx="1"/><rect x="9" y="11" width="10" height="4" rx="1"/><rect x="9" y="19" width="10" height="4" rx="1"/><line x1="4" y1="23" x2="24" y2="23" class="g"/></svg>
+          <span>Abajo</span>
+        </button>
+        <button class="op-btn" data-op="distribute" data-axis="x" data-mode="gaps" title="Espaciado uniforme entre bordes (H)">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="3" y="9" width="6" height="10" rx="1"/><rect x="13" y="9" width="3" height="10" rx="1"/><rect x="20" y="9" width="5" height="10" rx="1"/></svg>
+          <span>H. bordes</span>
+        </button>
+        <button class="op-btn" data-op="distribute" data-axis="y" data-mode="gaps" title="Espaciado uniforme entre bordes (V)">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="9" y="3" width="10" height="6" rx="1"/><rect x="9" y="13" width="10" height="3" rx="1"/><rect x="9" y="20" width="10" height="5" rx="1"/></svg>
+          <span>V. bordes</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- DISTRIBUIR ESPACIO -->
+    <section class="card">
+      <div class="card-title">Distribuir espacio</div>
+      <div class="space-row">
+        <button class="op-btn op-wide" data-op="space" data-axis="x" title="Espacio uniforme horizontal">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="3" y="9" width="6" height="10" rx="1"/><rect x="19" y="9" width="6" height="10" rx="1"/><line x1="11" y1="14" x2="17" y2="14" class="g"/><line x1="11" y1="11" x2="11" y2="17" class="g"/><line x1="17" y1="11" x2="17" y2="17" class="g"/></svg>
+          <span>Espacio horizontal</span>
+        </button>
+        <button class="op-btn op-wide" data-op="space" data-axis="y" title="Espacio uniforme vertical">
+          <svg viewBox="0 0 28 28" class="ico"><rect x="9" y="3" width="10" height="6" rx="1"/><rect x="9" y="19" width="10" height="6" rx="1"/><line x1="14" y1="11" x2="14" y2="17" class="g"/><line x1="11" y1="11" x2="17" y2="11" class="g"/><line x1="11" y1="17" x2="17" y2="17" class="g"/></svg>
+          <span>Espacio vertical</span>
+        </button>
+        <div class="space-custom">
+          <label>Espacio personalizado</label>
+          <div class="space-input">
+            <input type="number" id="customSpace" value="120" min="0" step="1">
+            <span class="unit">px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALINEAR A -->
+    <section class="card">
+      <div class="card-title">Alinear a</div>
+      <div class="ref-grid">
+        <button class="ref-btn active" data-ref="comp" title="Respecto a la composición">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Composición</span>
+        </button>
+        <button class="ref-btn" data-ref="workarea" title="Respecto al área / región de interés">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/></svg>
+          <span>Área de trabajo</span>
+        </button>
+        <button class="ref-btn" data-ref="selection" title="Respecto a la selección">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="3 2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          <span>Selección</span>
+        </button>
+        <button class="ref-btn" data-ref="keylayer" title="Respecto a la capa clave (última seleccionada)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></svg>
+          <span>Capa clave</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- OPCIONES -->
+    <section class="card">
+      <div class="card-title">Opciones</div>
+      <div class="opt-row">
+        <label class="opt"><input type="checkbox" id="optEdges" checked> <span>Alinear a bordes</span></label>
+        <label class="opt"><input type="checkbox" id="optHidden"> <span>Incluir capas ocultas</span></label>
+        <label class="opt"><input type="checkbox" id="optLock"> <span>Bloquear posición</span></label>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Toast de feedback (no ocupa espacio fijo) -->
+  <div id="toast"></div>
+
+</div>
+
+<!-- ── Escudo de licencia (HWID + key del bot de Discord) ─────────────────── -->
+<div id="lic-overlay" class="lic-overlay">
+  <div class="lic-card">
+    <div class="onb-logo">Smooth<span>Align</span></div>
+    <h3 class="lic-title">Activa tu licencia</h3>
+    <div class="lic-hwid-block">
+      <span class="lic-hwid-label">Tu ID de equipo</span>
+      <div class="lic-hwid-row">
+        <code id="lic-hwid" class="lic-hwid-code" title="">—</code>
+        <button type="button" class="lic-copy-btn" id="lic-copy-hwid">Copiar</button>
+      </div>
+    </div>
+    <p class="lic-text">1. Copia el ID → 2. Reclámala en Discord con tu paquete → 3. Pega la key aquí</p>
+    <input type="text" id="lic-input" class="lic-input" placeholder="SM-XXXX-XXXX" autocomplete="off" spellcheck="false" maxlength="13" />
+    <button type="button" id="lic-activate">Activar licencia</button>
+    <button type="button" class="lic-btn-discord" id="lic-discord">Abrir Discord</button>
+    <p id="lic-error" class="lic-error hidden"></p>
+    <p class="lic-footnote">La misma key de SmoothMotion vale aquí. Válida solo en este equipo.</p>
+  </div>
+</div>
+
+<script src="js/CSInterface.js"></script>
+<script src="../shared/license-config.js"></script>
+<script src="../shared/license.js"></script>
+<script src="../shared/demo-shim.js"></script>
+<script src="../shared/license-boot.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
