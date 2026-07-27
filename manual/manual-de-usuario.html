@@ -768,7 +768,7 @@
   <header class="topbar">
     <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
     <a href="#" class="logo">Smooth<span>Motion</span></a>
-    <span class="topbar-badge">Manual v5.5.0</span>
+    <span class="topbar-badge">Manual v6.3.0</span>
     <nav class="topbar-nav" aria-label="Módulos">
       <a class="module-pill" href="#sec-curves">SmoothCurves</a>
       <a class="module-pill" href="#sec-tools">SmoothTools</a>
@@ -781,6 +781,7 @@
       <a class="module-pill" href="#sec-explorer">SmoothExplorer</a>
       <a class="module-pill" href="#sec-translator">SmoothTraductor</a>
       <a class="module-pill" href="#sec-paste">SmoothPaste</a>
+<a class="module-pill" href="#sec-smooth3d">Smooth3D</a>
     </nav>
     <a class="btn-discord" href="https://discord.gg/eV8xHpq2Np" target="_blank" rel="noopener">Únete al Discord</a>
   </header>
@@ -807,6 +808,7 @@
         <a href="#sec-explorer">SmoothExplorer</a>
         <a href="#sec-translator">SmoothTraductor</a>
         <a href="#sec-paste">SmoothPaste</a>
+<a href="#sec-smooth3d">Smooth3D</a>
         <a href="#atajos">Atajos y paleta</a>
         <a href="#ajustes">Ajustes</a>
         <a href="#consejos">Consejos</a>
@@ -1363,7 +1365,38 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
       </section>
 
       <!-- 10. Atajos -->
-      <section id="atajos">
+      <!-- 18. Smooth3D -->
+<section id="sec-smooth3d">
+<h2><span class="num">18</span> Smooth3D — Carruseles y orbes 3D <span class="tag accent">Nuevo</span></h2>
+<p><strong>Smooth3D</strong> (paquete <strong>Studio</strong>) genera composiciones 3D animadas en un clic: carruseles, orbes, slides y muros de tarjetas. Diseñas con una <strong>vista previa 3D en vivo</strong> y lo que ves es lo que se crea en After Effects.</p>
+<h3>Flujo básico</h3>
+<ol class="steps">
+<li><span>Abre <strong>Ventana → Extensiones → Smooth3D</strong>.</span></li>
+<li><span>En <strong>Orbe</strong> elige cuántos <strong>slots</strong> quieres y su tamaño, y luego la <strong>distribución</strong>: círculo, slide horizontal o vertical, hélice, esfera, muro, túnel, onda, arco, cilindro o ADN.</span></li>
+<li><span>En <strong>Estilo</strong> ajusta la forma de las tarjetas, el anillo visual y la profundidad; en <strong>Cám</strong>, la distancia y la órbita.</span></li>
+<li><span>En <strong>Anim</strong> elige un preset (Carrusel, Plano → 3D, Rotación, Péndulo…) y la curva de velocidad.</span></li>
+<li><span>Pulsa <strong>Generar Orbe 3D</strong>: se crea la composición <code>Smooth3D_Orb</code> con la cámara, el nulo de control y una precomposición por slot.</span></li>
+</ol>
+<h3>El nulo de control</h3>
+<p>La composición incluye un nulo llamado <code>Smooth3D_Control</code> con todos los parámetros como deslizadores, enlazados por expresiones. Cambias uno y el orbe se reacomoda solo, sin volver a generar nada:</p>
+<ul>
+<li><strong>Slot al frente:</strong> el control estrella. Si pones <code>3</code>, el slot 3 pasa al centro; con <code>7</code>, el 7. Acepta decimales (<code>3.5</code> queda a mitad de camino) y se adapta a la cantidad de slots que tengas.</li>
+<li><strong>Slots · Radio · Inclinación X · Separación Z · Escala:</strong> la geometría del orbe.</li>
+<li><strong>Giro Y:</strong> la rotación del conjunto.</li>
+<li><strong>Distancia · Altura · Órbita · Zoom · Enfoque:</strong> la cámara.</li>
+<li><strong>Zoom central</strong> (solo en Slide): agranda el slot enfocado y achica los vecinos. Al 100&#37; queda un slide plano normal.</li>
+</ul>
+<div class="callout note">
+Las animaciones se crean como <strong>fotogramas sobre esos deslizadores</strong>, así que puedes moverlos, cambiar duraciones y ajustar las curvas de velocidad como en cualquier capa. El preset <strong>Carrusel</strong> anima <em>Slot al frente</em> de 1 a N para que cada tarjeta pase por el centro.
+</div>
+<h3>Poner tu contenido</h3>
+<p>Cada slot es una precomposición (<code>Slot_1_Content</code>, <code>Slot_2_Content</code>…): ábrela y coloca dentro tu imagen, vídeo o texto.</p>
+<p>Para ir más rápido, en la pestaña <strong>Slots</strong> usa <strong>Auto-rellenar desde carpeta</strong>: eliges una carpeta y al generar se reparten los archivos entre los slots, escalados para cubrir la tarjeta y recortados con su forma gracias al <strong>track matte automático</strong>. Si quieres generar los slots vacíos sin perder la carpeta elegida, apaga <strong>Importar el contenido</strong>.</p>
+<div class="callout tip">
+Las tarjetas miran siempre a la cámara mientras el orbe gira. Si prefieres el orbe quieto y moverlo tú con los controles, apaga <strong>Rotación automática</strong> en la pestaña Anim.
+</div>
+</section>
+<section id="atajos">
         <h2><span class="num">10</span> Atajos de Teclado y Paleta de Comandos</h2>
         <h3>Atajos Globales de la Interfaz</h3>
         <div class="table-wrap">
@@ -1547,7 +1580,7 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
     'Menú': 'Menu',
     'Módulos': 'Modules',
     'SmoothMotion — Manual de usuario': 'SmoothMotion — User manual',
-    'Manual v5.5.0': 'Manual v5.5.0',
+    'Manual v6.3.0': 'Manual v6.3.0',
     'Únete al Discord': 'Join the Discord',
     'Unirse a la Comunidad Discord': 'Join the Discord community',
     'Contenido': 'Contents',
@@ -2341,7 +2374,64 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
     'Importé un pack de texto pero desaparece al reabrir AE.':
       'I imported a text pack but it disappears when I reopen AE.',
     'Resuelto en la v5.2.0: el registro de packs se guarda en tu carpeta de usuario. Vuelve a importarlo una vez con esta versión y quedará guardado.':
-      'Fixed in v5.2.0: the pack registry is stored in your user folder. Import it once more with this version and it will stick.'
+      'Fixed in v5.2.0: the pack registry is stored in your user folder. Import it once more with this version and it will stick.',
+    /* --- Smooth3D (v6) --- */
+    'Smooth3D': 'Smooth3D',
+    'Carruseles y orbes 3D': '3D carousels and orbs',
+    'genera composiciones 3D animadas en un clic: carruseles, orbes, slides y muros de tarjetas. Diseñas con una': 'generates animated 3D compositions in one click: carousels, orbs, slides and card walls. You design with a',
+    'vista previa 3D en vivo': 'live 3D preview',
+    'y lo que ves es lo que se crea en After Effects.': 'and what you see is what gets created in After Effects.',
+    'El nulo de control': 'The control null',
+    'Poner tu contenido': 'Adding your content',
+    'Slot al frente:': 'Slot in front:',
+    'Zoom central': 'Center zoom',
+    'Rotación automática': 'Auto rotation',
+    'Importar el contenido': 'Import the content',
+    'Auto-rellenar desde carpeta': 'Auto-fill from folder',
+    'track matte automático': 'automatic track matte',
+    'Generar Orbe 3D': 'Generate 3D Orb',
+    'Slots · Radio · Inclinación X · Separación Z · Escala:': 'Slots · Radius · Tilt X · Z spacing · Scale:',
+    'la geometría del orbe.': 'the orb geometry.',
+    'la rotación del conjunto.': 'the rotation of the whole set.',
+    'Distancia · Altura · Órbita · Zoom · Enfoque:': 'Distance · Height · Orbit · Zoom · Focus:',
+    'la cámara.': 'the camera.',
+    'Smooth3D — Carruseles y orbes 3D': 'Smooth3D — 3D carousels and orbs',
+    '(paquete': '(package',
+    ') genera composiciones 3D animadas en un clic: carruseles, orbes, slides y muros de tarjetas. Diseñas con una': ') generates animated 3D compositions in one click: carousels, orbs, slides and card walls. You design with a',
+    'Ventana → Extensiones → Smooth3D': 'Window → Extensions → Smooth3D',
+    'Orbe': 'Orb',
+    'elige cuántos': 'choose how many',
+    'quieres y su tamaño, y luego la': 'you want and their size, then the',
+    'distribución': 'layout',
+    ': círculo, slide horizontal o vertical, hélice, esfera, muro, túnel, onda, arco, cilindro o ADN.': ': circle, horizontal or vertical slide, helix, sphere, wall, tunnel, wave, arc, cylinder or DNA.',
+    'ajusta la forma de las tarjetas, el anillo visual y la profundidad; en': 'adjust the card shape, the visual ring and the depth; in',
+    'Cám': 'Cam',
+    ', la distancia y la órbita.': ', the distance and the orbit.',
+    'elige un preset (Carrusel, Plano → 3D, Rotación, Péndulo…) y la curva de velocidad.': 'pick a preset (Carousel, Flat → 3D, Rotation, Pendulum…) and the speed curve.',
+    ': se crea la composición': ': the composition',
+    'con la cámara, el nulo de control y una precomposición por slot.': 'is created, with the camera, the control null and one precomp per slot.',
+    'La composición incluye un nulo llamado': 'The composition includes a null named',
+    'con todos los parámetros como deslizadores, enlazados por expresiones. Cambias uno y el orbe se reacomoda solo, sin volver a generar nada:': 'with every parameter as a slider, linked by expressions. Change one and the orb rearranges itself, with no need to generate again:',
+    'el control estrella. Si pones': 'the star control. Set it to',
+    ', el slot 3 pasa al centro; con': 'and slot 3 moves to the center; with',
+    ', el 7. Acepta decimales (': 'it is slot 7. It accepts decimals (',
+    'queda a mitad de camino) y se adapta a la cantidad de slots que tengas.': 'sits halfway) and adapts to however many slots you have.',
+    'Giro Y:': 'Y spin:',
+    '(solo en Slide): agranda el slot enfocado y achica los vecinos. Al 100% queda un slide plano normal.': '(Slide only): enlarges the focused slot and shrinks its neighbours. At 100% you get a plain flat slide.',
+    'Las animaciones se crean como': 'Animations are created as',
+    'fotogramas sobre esos deslizadores': 'keyframes on those sliders',
+    ', así que puedes moverlos, cambiar duraciones y ajustar las curvas de velocidad como en cualquier capa. El preset': ', so you can move them, change durations and tweak the speed curves like on any layer. The preset',
+    'anima': 'animates',
+    'Slot al frente': 'Slot in front',
+    'de 1 a N para que cada tarjeta pase por el centro.': 'from 1 to N so every card passes through the center.',
+    'Cada slot es una precomposición (': 'Each slot is a precomp (',
+    '…): ábrela y coloca dentro tu imagen, vídeo o texto.': '…): open it and drop your image, video or text inside.',
+    'Para ir más rápido, en la pestaña': 'To go faster, in the',
+    'usa': 'tab use',
+    ': eliges una carpeta y al generar se reparten los archivos entre los slots, escalados para cubrir la tarjeta y recortados con su forma gracias al': ': pick a folder and, when generating, the files are spread across the slots, scaled to cover the card and cropped to its shape thanks to the',
+    '. Si quieres generar los slots vacíos sin perder la carpeta elegida, apaga': '. If you want to generate empty slots without losing the chosen folder, turn off',
+    'Las tarjetas miran siempre a la cámara mientras el orbe gira. Si prefieres el orbe quieto y moverlo tú con los controles, apaga': 'The cards always face the camera while the orb spins. If you prefer the orb still and want to move it yourself with the controls, turn off',
+    'en la pestaña Anim.': 'in the Anim tab.',
   };
 
   /* ── Motor ──────────────────────────────────────────────────────────── */

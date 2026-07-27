@@ -1,0 +1,243 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmoothText — Text Animation Panel</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="../shared/license.css" />
+
+<div class="app">
+  <!-- ============ PREVIEW SIDE ============ -->
+  <section class="stage">
+    <header class="stage-bar">
+      <div class="brand">
+        <span class="dot"></span>
+        <strong>SmoothText</strong>
+        <span class="ver">v0.1</span>
+      </div>
+      <div class="stage-tools">
+        <label class="chk">
+          <input type="checkbox" id="checkerboard" />
+          <span>Checkerboard</span>
+        </label>
+        <label class="chk">
+          <input type="checkbox" id="loop" />
+          <span>Loop</span>
+        </label>
+      </div>
+    </header>
+
+    <div class="canvas" id="canvas">
+      <div class="preview-text" id="previewText"></div>
+    </div>
+
+    <footer class="stage-foot">
+      <div class="text-field">
+        <label for="textInput">YOUR TEXT</label>
+        <textarea id="textInput" rows="1" spellcheck="false">Smooth Text</textarea>
+      </div>
+      <button class="btn-play" id="replay" title="Reproducir (barra espaciadora)">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <span>Replay</span>
+      </button>
+    </footer>
+  </section>
+
+  <!-- ============ CONTROL PANEL ============ -->
+  <aside class="panel">
+    <nav class="tabs" id="tabs">
+      <button class="tab is-active" data-tab="animate">Animate</button>
+      <button class="tab" data-tab="style">Style</button>
+      <button class="tab" data-tab="presets">Presets</button>
+    </nav>
+
+    <div class="tab-body">
+      <!-- ANIMATE -->
+      <div class="tab-page is-active" data-page="animate">
+        <div class="field">
+          <span class="field-label">Animate by</span>
+          <div class="seg" id="animateBy" role="group">
+            <button data-val="letters" class="is-active">Letters</button>
+            <button data-val="words">Words</button>
+            <button data-val="lines">Lines</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Direction</span>
+          <div class="seg seg-icons" id="direction" role="group">
+            <button data-val="below" class="is-active" title="Desde abajo">↑</button>
+            <button data-val="above" title="Desde arriba">↓</button>
+            <button data-val="left" title="Desde la izquierda">→</button>
+            <button data-val="right" title="Desde la derecha">←</button>
+            <button data-val="center" title="Sin desplazamiento">•</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Easing</span>
+          <select id="easing" class="select">
+            <option value="smooth">Smooth (Ease Out)</option>
+            <option value="inout">Ease In-Out</option>
+            <option value="back">Back / Overshoot</option>
+            <option value="elastic">Elastic</option>
+            <option value="bounce">Bounce</option>
+            <option value="linear">Linear</option>
+          </select>
+        </div>
+
+        <!-- Elastic sub-panel -->
+        <div class="subgroup" id="elasticGroup" hidden>
+          <div class="subgroup-title">Elastic</div>
+          <div class="sliders" id="elasticSliders"></div>
+        </div>
+
+        <div class="sliders" id="coreSliders"></div>
+
+        <button class="more-toggle" id="moreToggle" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="14" height="14" class="chev"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+          More
+        </button>
+        <div class="sliders more" id="moreSliders" hidden></div>
+
+        <!-- EXIT / OUT -->
+        <div class="exit-block">
+          <div class="field">
+            <span class="field-label">Exit / Out</span>
+            <div class="seg" id="exitMode" role="group">
+              <button data-val="off" class="is-active">Off</button>
+              <button data-val="mirror">Mirror</button>
+              <button data-val="clone">Clone</button>
+              <button data-val="custom">Custom</button>
+            </div>
+          </div>
+
+          <div id="exitControls" hidden>
+            <div class="sliders" id="exitTimingSliders"></div>
+
+            <div class="field">
+              <span class="field-label">Exit easing</span>
+              <select id="exitEasing" class="select">
+                <option value="smooth">Smooth (Ease In)</option>
+                <option value="inout">Ease In-Out</option>
+                <option value="back">Back / Overshoot</option>
+                <option value="elastic">Elastic</option>
+                <option value="bounce">Bounce</option>
+                <option value="linear">Linear</option>
+              </select>
+            </div>
+
+            <div class="subgroup" id="exitCustom" hidden>
+              <div class="subgroup-title">Exit target</div>
+              <div class="field">
+                <span class="field-label">Direction (hacia dónde sale)</span>
+                <div class="seg seg-icons" id="exitDirection" role="group">
+                  <button data-val="above" class="is-active" title="Sale hacia arriba">↑</button>
+                  <button data-val="below" title="Sale hacia abajo">↓</button>
+                  <button data-val="right" title="Sale hacia la derecha">→</button>
+                  <button data-val="left" title="Sale hacia la izquierda">←</button>
+                  <button data-val="center" title="Sin desplazamiento">•</button>
+                </div>
+              </div>
+              <div class="sliders" id="exitCustomSliders"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STYLE -->
+      <div class="tab-page" data-page="style">
+        <div class="sliders" id="styleSliders"></div>
+        <div class="field">
+          <span class="field-label">Font weight</span>
+          <select id="fontWeight" class="select">
+            <option value="300">Light</option>
+            <option value="400">Regular</option>
+            <option value="600">Semibold</option>
+            <option value="800" selected>Bold</option>
+            <option value="900">Black</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="field-label">Font family</span>
+          <select id="fontFamily" class="select">
+            <option value="system-ui, -apple-system, 'Segoe UI', sans-serif" selected>Sans (system)</option>
+            <option value="Georgia, 'Times New Roman', serif">Serif</option>
+            <option value="'Courier New', monospace">Mono</option>
+            <option value="'Trebuchet MS', sans-serif">Trebuchet</option>
+            <option value="Impact, 'Arial Black', sans-serif">Impact</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="field-label">Align</span>
+          <div class="seg" id="align" role="group">
+            <button data-val="left">Left</button>
+            <button data-val="center" class="is-active">Center</button>
+            <button data-val="right">Right</button>
+          </div>
+        </div>
+        <div class="field color-row">
+          <span class="field-label">Text color</span>
+          <input type="color" id="textColor" value="#ffffff" />
+        </div>
+        <div class="field color-row">
+          <span class="field-label">Background</span>
+          <input type="color" id="bgColor" value="#0a0d17" />
+        </div>
+      </div>
+
+      <!-- PRESETS -->
+      <div class="tab-page" data-page="presets">
+        <div class="preset-save">
+          <input type="text" id="presetName" class="preset-name-input" placeholder="Nombra tus ajustes actuales…" maxlength="32" spellcheck="false" autocomplete="off" />
+          <button class="btn primary btn-save" id="savePreset" title="Guarda la animación actual (entrada + salida) como preset propio">Guardar</button>
+        </div>
+        <div id="presetSaveStatus" class="preset-status" role="status" aria-live="polite"></div>
+        <p class="hint">Guarda tus ajustes actuales —entrada <b>y</b> salida— como preset propio; se conservan en este equipo. Clic en una card para aplicarla; doble clic en el nombre para renombrar, ✕ para borrar.</p>
+
+        <div id="userSection">
+          <div class="preset-section">Tus presets</div>
+          <div class="preset-grid" id="presetGridUser"></div>
+          <p class="user-empty-hint">Aún no guardaste presets. Ajusta la animación y pulsa «Guardar».</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="panel-foot">
+      <button class="btn ghost" id="copyConfig" title="Copiar los ajustes actuales para pegarlos en otro SmoothText">Copiar</button>
+      <button class="btn ghost" id="pasteConfig" title="Pegar ajustes copiados de otro SmoothText">Pegar</button>
+      <button class="btn primary" id="applyBtn">Apply</button>
+    </footer>
+  </aside>
+</div>
+
+<!-- ── Escudo de licencia (HWID + key del bot de Discord) ─────────────────── -->
+<div id="lic-overlay" class="lic-overlay">
+  <div class="lic-card">
+    <div class="onb-logo">Smooth<span>Text</span></div>
+    <h3 class="lic-title">Activa tu licencia</h3>
+    <div class="lic-hwid-block">
+      <span class="lic-hwid-label">Tu ID de equipo</span>
+      <div class="lic-hwid-row">
+        <code id="lic-hwid" class="lic-hwid-code" title="">—</code>
+        <button type="button" class="lic-copy-btn" id="lic-copy-hwid">Copiar</button>
+      </div>
+    </div>
+    <p class="lic-text">1. Copia el ID → 2. Reclámala en Discord con tu paquete → 3. Pega la key aquí</p>
+    <input type="text" id="lic-input" class="lic-input" placeholder="SM-XXXX-XXXX-X" autocomplete="off" spellcheck="false" maxlength="24" />
+    <button type="button" id="lic-activate">Activar licencia</button>
+    <button type="button" class="lic-btn-discord" id="lic-discord">Abrir Discord</button>
+    <p id="lic-error" class="lic-error hidden"></p>
+    <p class="lic-footnote">La misma key de SmoothMotion vale aquí. Válida solo en este equipo.</p>
+  </div>
+</div>
+
+<!-- CSInterface del motor (define CSInterface + SystemPath) -->
+<script src="CSInterface.js"></script>
+
+<!-- Escudo de licencia compartido + DEMO shim (desbloquea y stubea AE) -->
+<script src="../shared/license-config.js"></script>
+<script src="../shared/license.js"></script>
+<script src="../shared/demo-shim.js"></script>
+<script src="../shared/license-boot.js"></script>
+
+<!-- Motor del panel (intacto) -->
+<script src="app.js"></script>

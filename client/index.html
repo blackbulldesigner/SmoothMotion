@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmoothMotion</title>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/overlay.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/preset.css" />
+  <link rel="stylesheet" href="css/tooltip.css" />
+  <link rel="stylesheet" href="css/scripts.css" />
+  <link rel="stylesheet" href="css/tools.css" />
+  <link rel="stylesheet" href="css/comp.css" />
+  <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/extras.css" />
+  <link rel="stylesheet" href="css/text.css" />
+  <link rel="stylesheet" href="css/anchor.css" />
+</head>
+<body ondragover="return false" ondrop="return false">
+
+  <div id="overlay">
+    <div class="logo">Smooth<span>Motion</span></div>
+    <div class="spinner"></div>
+    <div class="version">v5.0.1</div>
+  </div>
+
+  <nav id="mbNav">
+    <button type="button" class="mb-nav-btn active" data-module="flow" id="mb-nav-flow">SmoothCurves</button>
+    <button type="button" class="mb-nav-btn" data-module="scripts" id="mb-nav-scripts">SmoothTools</button>
+    <button type="button" class="mb-nav-btn" data-module="comp" id="mb-nav-comp">SmoothComp</button>
+    <button type="button" class="mb-nav-btn" data-module="fx" id="mb-nav-fx">SmoothFX</button>
+    <button type="button" class="mb-nav-btn" data-module="color" id="mb-nav-color">SmoothColor</button>
+    <button type="button" class="mb-nav-btn" data-module="text" id="mb-nav-text">SmoothText</button>
+    <button type="button" class="mb-nav-btn" data-module="anchor" id="mb-nav-anchor">SmoothAnchor</button>
+    <button type="button" class="mb-nav-btn" data-module="export" id="mb-nav-export">SmoothExport</button>
+  </nav>
+
+  <div id="flowModule" class="mb-module active">
+  <div id="container">
+    <div id="graphPanel">
+      <div id="graphModeBar">
+        <div id="graphModeToggle">
+          <input type="radio" id="graph-ease" name="graphMode" value="ease" checked />
+          <label class="graph-mode-btn" for="graph-ease" id="lbl-graph-ease" data-tooltip="Curva Bezier">Ease</label>
+          <input type="radio" id="graph-speed" name="graphMode" value="speed" />
+          <label class="graph-mode-btn" for="graph-speed" id="lbl-graph-speed" data-tooltip="Gráfica de velocidad">Speed</label>
+          <input type="radio" id="graph-elastic" name="graphMode" value="elastic" />
+          <label class="graph-mode-btn" for="graph-elastic" id="lbl-graph-elastic" data-tooltip="Curva elástica">Elastic</label>
+          <input type="radio" id="graph-bounce" name="graphMode" value="bounce" />
+          <label class="graph-mode-btn" for="graph-bounce" id="lbl-graph-bounce" data-tooltip="Curva rebote">Bounce</label>
+          <input type="radio" id="graph-custom" name="graphMode" value="custom" />
+          <label class="graph-mode-btn" for="graph-custom" id="lbl-graph-custom" data-tooltip="Curva personalizada">Custom</label>
+        </div>
+        <div id="applyMethodToggle" class="hidden">
+          <button type="button" class="am-btn active" id="am-expr" data-method="expr" data-tooltip="Aplicar como expresión (editable, ligera)">fx EXPR</button>
+          <button type="button" class="am-btn" id="am-keys" data-method="keys" data-tooltip="Hornear como keyframes (estilo Kease, sin expresiones)">◆ KEYS</button>
+        </div>
+      </div>
+      <div id="graphPanel-top">
+        <div id="canvas-wrapper">
+          <div id="CP1"></div>
+          <div id="CP2"></div>
+          <canvas id="canvasLast"></canvas>
+          <canvas id="canvas"></canvas>
+          <div id="coordsBadge">0.42, 0.00 · 0.58, 1.00</div>
+          <div id="marqueeBox"></div>
+          <div id="customHandles"></div>
+        </div>
+      </div>
+
+      <div id="customSegmentsBar" class="hidden">
+        <span id="lbl-custom-segments" title="Peso relativo de cada segmento — define cuándo se insertan los keys intermedios en AE">Peso seg.:</span>
+        <div id="customSegmentsInputs"></div>
+        <button type="button" class="ec-btn" id="btn-add-custom-point" data-tooltip="Añadir punto">+</button>
+        <button type="button" class="ec-btn danger-text" id="btn-del-custom-point" data-tooltip="Eliminar punto(s) seleccionado(s)">−</button>
+      </div>
+
+      <div id="previewTrack">
+        <div id="previewBall"></div>
+        <span id="previewLabel">Preview</span>
+      </div>
+
+      <div id="controls">
+        <div class="ctrl-row">
+          <button class="ec-btn" id="btn-read" data-tooltip="Leer keyframes seleccionados">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+          </button>
+          <div id="bezierValues" data-tooltip="Clic para editar valores manualmente">0.42, 0.00, 0.58, 1.00</div>
+          <button class="ec-btn" id="btn-invert" data-tooltip="Invertir curva">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="17 1 21 5 17 9"></polyline>
+              <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+              <polyline points="7 23 3 19 7 15"></polyline>
+              <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+            </svg>
+          </button>
+          <button class="ec-btn" id="btn-randomize" data-tooltip="Curva aleatoria">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+              <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+            </svg>
+          </button>
+          <button class="ec-btn" id="btn-save" data-tooltip="Guardar como preset">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="ctrl-row" style="align-items:stretch;">
+          <div class="ctrl-row" style="flex:1; gap:4px;">
+            <input type="radio" id="dir-out" name="easeDir" value="out" />
+            <label class="dir-label" for="dir-out" data-tooltip="Ease Out">
+              <svg viewBox="0 0 25 25"><path d="M11.8317 23L23 23C23.5523 23 24 22.5523 24 22L24 21.4113C24 21.1478 23.896 20.895 23.7106 20.7077L17.6745 14.6106C16.5171 13.4416 16.5171 11.5584 17.6745 10.3894L23.7106 4.29227C23.896 4.10503 24 3.8522 24 3.58872L24 3C24 2.44772 23.5523 2 23 2L11.8317 2C11.5651 2 11.3095 2.10647 11.1217 2.29577L1.69853 11.7958C1.31183 12.1856 1.31183 12.8144 1.69853 13.2042L11.1217 22.7042C11.3095 22.8935 11.5651 23 11.8317 23Z"/></svg>
+            </label>
+            <input type="radio" id="dir-both" name="easeDir" value="both" checked />
+            <label class="dir-label" for="dir-both" data-tooltip="Ease Both">
+              <svg viewBox="0 0 25 25"><path d="M23 2H2C1.44772 2 1 2.44772 1 3V3.58579C1 3.851 1.10536 4.10536 1.29289 4.29289L5.5 8.5L7.24589 10.4328C8.2988 11.5984 8.27433 13.3789 7.18979 14.5151L1.27663 20.7102C1.09907 20.8962 1 21.1435 1 21.4006V22C1 22.5523 1.44772 23 2 23H23C23.5523 23 24 22.5523 24 22V21.4006C24 21.1435 23.9009 20.8962 23.7234 20.7102L17.8639 14.5714C16.7574 13.4121 16.7574 11.5879 17.8639 10.4286L23.7234 4.28981C23.9009 4.10379 24 3.85652 24 3.59936V3C24 2.44772 23.5523 2 23 2Z"/></svg>
+            </label>
+            <input type="radio" id="dir-in" name="easeDir" value="in" />
+            <label class="dir-label" for="dir-in" data-tooltip="Ease In">
+              <svg viewBox="0 0 25 25"><path d="M13.1683 2H2C1.44772 2 1 2.44772 1 3V3.58872C1 3.8522 1.10398 4.10503 1.28935 4.29227L7.32553 10.3894C8.48294 11.5584 8.48294 13.4416 7.32553 14.6106L1.28935 20.7077C1.10398 20.895 1 21.1478 1 21.4113V22C1 22.5523 1.44772 23 2 23H13.1683C13.4349 23 13.6905 22.8935 13.8783 22.7042L23.3015 13.2042C23.6882 12.8144 23.6882 12.1856 23.3015 11.7958L13.8783 2.29577C13.6905 2.10647 13.4349 2 13.1683 2Z"/></svg>
+            </label>
+          </div>
+          <div style="display:flex; flex:2; gap:4px;">
+            <input type="checkbox" id="chk-live-sync" />
+            <label class="ec-btn" id="lbl-live-sync" for="chk-live-sync" data-tooltip="Live Sync (auto-aplicar)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </label>
+            <button id="btn-apply" style="flex:1;" data-tooltip="Aplicar a keyframes seleccionados">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="divider" data-tooltip="Arrastra para redimensionar">· · ·</div>
+
+    <div id="libraryPanel">
+      <div id="libraryBar">
+        <select id="ddLibraries"></select>
+        <button class="lib-btn" id="btn-new-lib" data-tooltip="Nueva biblioteca">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="lib-btn" id="btn-import-lib" data-tooltip="Importar biblioteca (.json / .flow)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+        <button class="lib-btn" id="btn-export-lib" data-tooltip="Exportar biblioteca">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </button>
+        <button class="lib-btn danger" id="btn-delete-lib" data-tooltip="Eliminar biblioteca">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+        </button>
+        <button class="lib-btn" id="btn-settings" data-tooltip="Ajustes" style="margin-left:auto;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+
+      <div id="searchBar">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;opacity:0.45;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-presets" placeholder="Buscar presets…" autocomplete="off" />
+      </div>
+
+      <div id="recent-row" style="display:none;"></div>
+
+      <div id="categoryTabs">
+        <div class="cat-tab active" data-cat="all">Todo</div>
+        <div class="cat-tab" data-cat="ease">Suave</div>
+        <div class="cat-tab" data-cat="speed">Vel.</div>
+        <div class="cat-tab" data-cat="elastic">Elastic</div>
+        <div class="cat-tab" data-cat="bounce">Bounce</div>
+        <div class="cat-tab" data-cat="custom">Custom</div>
+        <div class="cat-tab" data-cat="power">Fuerza</div>
+        <div class="cat-tab" data-cat="back">Atrás</div>
+        <div class="cat-tab" data-cat="cinematic">Cine</div>
+      </div>
+
+      <div id="library">
+        <div id="presetsGrid"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="scriptsModule" class="mb-module">
+    <nav class="tools-subnav">
+      <button type="button" class="tools-subnav-btn active" data-tools-page="scripts" id="tools-tab-scripts" title="Mis Scripts">
+        <svg class="tools-subnav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span class="tools-subnav-txt">Mis Scripts</span>
+      </button>
+      <button type="button" class="tools-subnav-btn" data-tools-page="quick" id="tools-tab-quick" title="Herramientas">
+        <svg class="tools-subnav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <span class="tools-subnav-txt">Herramientas</span>
+      </button>
+    </nav>
+
+    <div class="tools-page active" id="tools-page-scripts">
+    <div class="scr-panel">
+      <div class="scr-search-area">
+        <div class="scr-search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.45;margin-right:6px;flex-shrink:0;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="scr-search-input" placeholder="Buscar script..." id="scr-searchInput" data-scr-i18n-placeholder="search_placeholder" autocomplete="off" />
+        </div>
+        <div class="scr-action-icon" id="scr-btnAddScript" title="Añadir Script">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="scr-action-icon" id="scr-btnExport" title="Exportar Backup">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="scr-action-icon" id="scr-btnImport" title="Importar Backup">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <input type="file" id="scr-importBackupFile" accept=".json" style="display:none" />
+        <div class="scr-action-icon" id="scr-btnScriptSettings" title="Ajustes">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <div class="scr-rail-filter" id="scr-railFilter" title="Categoría (clic para cambiar)">•</div>
+        <div class="scr-view-toggle">
+          <div class="scr-view-btn active" id="scr-btnGrid" title="Cuadrícula"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+          <div class="scr-view-btn" id="scr-btnList" title="Lista"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+        </div>
+      </div>
+      <div class="scr-tabs">
+        <div class="scr-tab active" data-filter="all" data-scr-i18n="tab_all">TODO</div>
+        <div class="scr-tab" data-filter="favorites" data-scr-i18n="tab_favorites">FAVORITOS</div>
+        <div class="scr-tab" data-filter="animation" data-scr-i18n="tab_animation">ANIMACIÓN</div>
+        <div class="scr-tab" data-filter="cameras" data-scr-i18n="tab_cameras">CÁMARAS</div>
+        <div class="scr-tab" data-filter="layers" data-scr-i18n="tab_layers">CAPAS</div>
+        <div class="scr-tab" data-filter="utilities" data-scr-i18n="tab_utilities">UTILIDADES</div>
+      </div>
+      <div class="scr-content">
+        <div id="scr-gridView"></div>
+        <div id="scr-listView"></div>
+      </div>
+      <div class="scr-footer">
+        <div class="scr-footer-left">
+          <div class="scr-btn-icon" id="scr-btnFavFilter" title="Favoritos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="scr-btn-icon" id="scr-btnEditCode" title="Editar" style="display:none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="scr-btn-icon" id="scr-btnDeleteScript" title="Eliminar" style="display:none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f24c4c" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+        </div>
+        <div class="scr-pagination">
+          <div class="scr-page-arrow" id="scr-prevPage"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <span id="scr-pageIndicator">1 DE 1</span>
+          <div class="scr-page-arrow" id="scr-nextPage"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="scr-footer-right">
+          <div class="scr-auto-apply" id="scr-autoApplyToggle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span data-scr-i18n="auto_apply">AutoAplicar</span>
+          </div>
+          <button type="button" class="scr-btn-execute" id="scr-btnExecute" title="Ejecutar script seleccionado">
+            <svg class="scr-exec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span class="scr-exec-txt" data-scr-i18n="btn_execute_selected">EJECUTAR</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="tools-page" id="tools-page-quick">
+      <div class="tools-quick-rail" id="tools-quick-rail" aria-label="Herramientas rápidas">
+        <button type="button" class="tools-rail-btn" id="tk-rail-copy" title="Copiar frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></button>
+        <button type="button" class="tools-rail-btn" id="tk-rail-paste" title="Pegar imagen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></button>
+        <button type="button" class="tools-rail-btn" id="tk-rail-expr-off" title="Quitar expresiones desactivadas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M8 8l8 8"/><path d="M4 7h5M15 17h5M7 4v5M17 15v5"/></svg></button>
+        <button type="button" class="tools-rail-btn" id="tk-rail-expr-err" title="Quitar expresiones con error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></button>
+        <button type="button" class="tools-rail-btn" id="tk-rail-keys-align" title="Alinear keys a In/Out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 10v8M12 8v10M17 10v8"/></svg></button>
+        <button type="button" class="tools-rail-btn" id="tk-rail-keys-dist" title="Distribuir keys"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M7 7v10M12 5v14M17 7v10"/></svg></button>
+        <button type="button" class="tools-rail-btn" id="tk-rail-precomp" title="Precomponer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/></svg></button>
+      </div>
+      <div class="tools-quick-scroll">
+
+        <div class="tk-card">
+          <h4 class="tk-card-title">Copiar y pegar imagen</h4>
+          <p class="tk-desc">Copia el frame actual al portapapeles del sistema o pega una imagen del portapapeles como capa.</p>
+          <div class="tk-btn-row">
+            <button type="button" class="tk-btn" id="tk-copy-frame" title="Captura el frame actual de la composición y lo copia al portapapeles del sistema operativo.">Copiar frame</button>
+            <button type="button" class="tk-btn" id="tk-paste-image" title="Pega la imagen del portapapeles del sistema como una nueva capa en la composición activa.">Pegar imagen</button>
+          </div>
+        </div>
+
+        <div class="tk-card">
+          <h4 class="tk-card-title">Renombrar capas en lote</h4>
+          <p class="tk-desc">Aplica a las capas seleccionadas.</p>
+          <div class="tk-grid">
+            <div class="tk-field">
+              <label class="tk-label">Buscar</label>
+              <input type="text" class="tk-input" id="tk-rn-find" placeholder="texto a buscar" />
+            </div>
+            <div class="tk-field">
+              <label class="tk-label">Reemplazar</label>
+              <input type="text" class="tk-input" id="tk-rn-replace" placeholder="nuevo texto" />
+            </div>
+            <div class="tk-field">
+              <label class="tk-label">Prefijo</label>
+              <input type="text" class="tk-input" id="tk-rn-prefix" placeholder="ej. BG_" />
+            </div>
+            <div class="tk-field">
+              <label class="tk-label">Sufijo</label>
+              <input type="text" class="tk-input" id="tk-rn-suffix" placeholder="ej. _v2" />
+            </div>
+          </div>
+          <label class="tk-check-row">
+            <input type="checkbox" id="tk-rn-number" />
+            <span>Numerar (01, 02, 03...)</span>
+          </label>
+          <button type="button" class="tk-btn tk-btn-primary" id="tk-rn-apply" title="Renombra todas las capas seleccionadas aplicando buscar/reemplazar, prefijo, sufijo y numeración.">Renombrar selección</button>
+        </div>
+
+        <div class="tk-card">
+          <h4 class="tk-card-title">Limpiar expresiones</h4>
+          <p class="tk-desc">Elimina expresiones desactivadas o con error en la selección.</p>
+          <div class="tk-btn-row">
+            <button type="button" class="tk-btn" id="tk-expr-disabled" title="Quita solo las expresiones que están desactivadas (toggle apagado) en las capas seleccionadas.">Quitar desactivadas</button>
+            <button type="button" class="tk-btn" id="tk-expr-errored" title="Quita las expresiones que tienen errores en las capas seleccionadas.">Quitar con error</button>
+          </div>
+          <button type="button" class="tk-btn" id="tk-expr-all" style="margin-top:6px;width:100%;" title="Quita TODAS las expresiones de las capas seleccionadas.">Quitar todas las expresiones</button>
+        </div>
+
+        <div class="tk-card">
+          <h4 class="tk-card-title">Keyframes</h4>
+          <p class="tk-desc">Sobre las propiedades con keys seleccionadas.</p>
+          <div class="tk-btn-row">
+            <button type="button" class="tk-btn" id="tk-keys-align" title="Estira los keyframes seleccionados para que el primero quede en la entrada y el último en la salida de la capa.">Alinear a In/Out</button>
+            <button type="button" class="tk-btn" id="tk-keys-distribute" title="Reparte los keyframes seleccionados con el mismo espacio de tiempo entre ellos.">Distribuir uniforme</button>
+          </div>
+        </div>
+
+        <div class="tk-card">
+          <h4 class="tk-card-title">Precomponer inteligente</h4>
+          <p class="tk-desc">Precompone la selección conservando la duración y los atributos.</p>
+          <div class="tk-field">
+            <label class="tk-label">Nombre</label>
+            <input type="text" class="tk-input" id="tk-precomp-name" placeholder="Pre-comp 1" />
+          </div>
+          <button type="button" class="tk-btn tk-btn-primary" id="tk-precomp-apply" title="Precompone las capas seleccionadas en una nueva composición conservando duración y atributos.">Precomponer selección</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SmoothComp ───────────────────────────────────────────────────────── -->
+  <div id="compModule" class="mb-module">
+    <div class="cmp-panel">
+      <div class="cmp-toolbar">
+        <div class="cmp-search-box">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.45;flex-shrink:0;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="cmp-search" class="cmp-search" placeholder="Filtrar capas..." autocomplete="off" />
+        </div>
+        <button type="button" class="cmp-icon-btn" id="cmp-refresh" title="Recarga la lista de capas de la composición activa.">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </button>
+      </div>
+
+      <div class="cmp-filters" id="cmp-filters">
+        <button type="button" class="cmp-chip active" data-cmp-filter="all">Todo</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="null">Nulls</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="solid">Solids</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="text">Texto</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="shape">Shapes</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="camera">Cámaras</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="light">Luces</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="footage">Footage</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="keys">Con keys</button>
+        <button type="button" class="cmp-chip" data-cmp-filter="expr">Con expr.</button>
+      </div>
+
+      <div class="cmp-list" id="cmp-list">
+        <div class="cmp-empty" id="cmp-empty">Abre una composición y pulsa refrescar.</div>
+      </div>
+
+      <div class="cmp-actions">
+        <button type="button" class="tk-btn" id="cmp-autolabel" title="Asigna automáticamente un color de etiqueta a cada capa según su tipo (nulo, sólido, texto, shape, etc.).">Colorear por tipo</button>
+        <button type="button" class="tk-btn" id="cmp-snapshot" title="Crea una copia de seguridad de la composición activa en la carpeta 'SmoothComp Snapshots'.">Snapshot del comp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SmoothFX ─────────────────────────────────────────────────────────── -->
+  <div id="fxModule" class="mb-module">
+    <div class="mod-scroll">
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Camera Shake</h4>
+          <p class="tk-desc">Crea un nulo 2D en el centro con shake y enlaza las capas seleccionadas.</p>
+        <div class="tk-grid">
+          <div class="tk-field">
+            <label class="tk-label">Intensidad</label>
+            <input type="number" class="tk-input" id="fx-shake-amount" value="20" min="0" />
+          </div>
+          <div class="tk-field">
+            <label class="tk-label">Frecuencia</label>
+            <input type="number" class="tk-input" id="fx-shake-freq" value="3" min="0" step="0.1" />
+          </div>
+        </div>
+        <button type="button" class="tk-btn tk-btn-primary" id="fx-shake-apply" title="Selecciona capas en el timeline, ajusta intensidad/frecuencia y pulsa. Crea un nulo FX Shake, aplica wiggle al nulo y parenta las capas seleccionadas conservando su posición.">Crear Camera Shake</button>
+      </div>
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Wiggle</h4>
+        <p class="tk-desc">Aplica wiggle a la propiedad seleccionada.</p>
+        <div class="tk-grid">
+          <div class="tk-field">
+            <label class="tk-label">Cantidad</label>
+            <input type="number" class="tk-input" id="fx-wiggle-amount" value="30" min="0" />
+          </div>
+          <div class="tk-field">
+            <label class="tk-label">Frecuencia</label>
+            <input type="number" class="tk-input" id="fx-wiggle-freq" value="2" min="0" step="0.1" />
+          </div>
+        </div>
+        <button type="button" class="tk-btn tk-btn-primary" id="fx-wiggle-apply" title="Aplica una expresión wiggle (vibración aleatoria) a la propiedad seleccionada en el timeline.">Aplicar Wiggle</button>
+      </div>
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Loop</h4>
+        <p class="tk-desc">Cicla los keyframes de la propiedad seleccionada.</p>
+        <div class="tk-btn-row">
+          <button type="button" class="tk-btn" id="fx-loop-cycle" title="Repite la animación en bucle desde el inicio (loopOut cycle).">Cycle</button>
+          <button type="button" class="tk-btn" id="fx-loop-pingpong" title="Repite la animación hacia adelante y hacia atrás (loopOut pingpong).">Ping-pong</button>
+          <button type="button" class="tk-btn" id="fx-loop-continue" title="Continúa el movimiento manteniendo la velocidad del último keyframe (loopOut continue).">Continue</button>
+        </div>
+      </div>
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Fundido (Fade)</h4>
+        <p class="tk-desc">Keyframes de opacidad en la entrada/salida de la capa.</p>
+        <div class="tk-grid">
+          <div class="tk-field">
+            <label class="tk-label">Entrada (frames)</label>
+            <input type="number" class="tk-input" id="fx-fade-in" value="12" min="0" />
+          </div>
+          <div class="tk-field">
+            <label class="tk-label">Salida (frames)</label>
+            <input type="number" class="tk-input" id="fx-fade-out" value="12" min="0" />
+          </div>
+        </div>
+        <button type="button" class="tk-btn tk-btn-primary" id="fx-fade-apply" title="Crea keyframes de opacidad para un fundido de entrada y de salida en las capas seleccionadas.">Aplicar Fade</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SmoothColor ──────────────────────────────────────────────────────── -->
+  <div id="colorModule" class="mb-module">
+    <div class="mod-scroll">
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Color</h4>
+        <p class="tk-desc">Elige un color y aplícalo.</p>
+        <div class="col-picker-row">
+          <input type="color" id="col-picker" value="#3b82f6" class="col-picker" title="Selector de color." />
+          <input type="text" id="col-hex" class="tk-input" value="#3b82f6" maxlength="7" style="flex:1;" title="Código hexadecimal del color (#RRGGBB)." />
+        </div>
+        <div class="col-palette-head">
+          <span class="tk-label" style="margin:0;">Mis colores</span>
+          <button type="button" class="col-add-btn" id="col-add" title="Guarda el color actual en tu paleta personal.">+ Añadir</button>
+        </div>
+        <div class="col-swatches" id="col-swatches"></div>
+        <p class="col-palette-hint" id="col-palette-hint">Elige un color arriba y pulsa + Añadir para guardarlo aquí.</p>
+      </div>
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Acciones</h4>
+        <button type="button" class="tk-btn tk-btn-primary" id="col-solid" title="Crea una capa de sólido del color elegido, del tamaño de la composición.">Crear sólido con el color</button>
+        <button type="button" class="tk-btn" id="col-fill" style="width:100%;margin-top:6px;" title="Añade el efecto Fill con el color elegido a las capas seleccionadas.">Rellenar selección (Fill)</button>
+        <button type="button" class="tk-btn" id="col-control" style="width:100%;margin-top:6px;" title="Crea un nulo con un efecto Color Control para enlazar este color por expresiones.">Crear control de color</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SmoothText (Preset Studio motor) ─────────────────────────────────── -->
+  <div id="textModule" class="mb-module">
+    <div class="txt-toolbar">
+      <input type="text" class="txt-search" id="txt-search" placeholder="Buscar presets…" autocomplete="off" spellcheck="false" />
+      <button type="button" class="txt-quick-btn hidden" id="txt-search-clear" title="Limpiar búsqueda">✕</button>
+      <button type="button" class="txt-quick-btn" id="txt-view-fav" title="Favoritos">★</button>
+      <button type="button" class="txt-quick-btn txt-import-btn" id="txt-import-btn" title="Importar pack de presets">＋</button>
+    </div>
+    <div class="txt-content" id="txt-content"></div>
+    <div class="txt-footer" id="txt-footer">
+      <span id="txt-footer-text" class="txt-footer-text"><span class="txt-footer-muted">Iniciando…</span></span>
+    </div>
+  </div>
+
+  <!-- ── SmoothAnchor ─────────────────────────────────────────────────────── -->
+  <div id="anchorModule" class="mb-module">
+    <div class="sa-wrap">
+      <div class="sa-header">
+        <div class="sa-brand">Smooth<span>Anchor</span></div>
+        <span class="sa-badge">Smart v1.3</span>
+      </div>
+      <p class="sa-desc">Punto de ancla segun mascara o contenido. La capa no se mueve en pantalla.</p>
+      <div class="sa-grid" role="group" aria-label="Posicion del punto de ancla">
+        <button type="button" class="sa-btn" data-pos="TL" title="Arriba izquierda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 19L5 5M5 5v8M5 5h8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="sa-btn" data-pos="TC" title="Arriba centro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M8 9l4-4 4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="sa-btn" data-pos="TR" title="Arriba derecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19L19 5M19 5v8M19 5h-8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="sa-btn" data-pos="ML" title="Centro izquierda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M9 8l-4 4 4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="sa-btn sa-btn-center" id="sa-anchor-c" data-pos="MC" title="Centro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2.5"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3" stroke-linecap="round"/></svg></button>
+        <button type="button" class="sa-btn" data-pos="MR" title="Centro derecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M15 8l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="sa-btn" data-pos="BL" title="Abajo izquierda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 5L5 19M5 19v-8M5 19h8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="sa-btn" data-pos="BC" title="Abajo centro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M8 15l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="sa-btn" data-pos="BR" title="Abajo derecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 19v-8M19 19h-8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="sa-options">
+        <label class="sa-opt"><input type="checkbox" id="sa-move-pos" checked> Mover posicion con ancla</label>
+        <label class="sa-opt sa-opt-dim"><input type="checkbox" id="sa-debug"> Debug bounds</label>
+      </div>
+      <button type="button" class="sa-raw" id="sa-center-raw">Centro raw (sin mover posicion)</button>
+    </div>
+  </div>
+
+  <!-- ── SmoothExport ─────────────────────────────────────────────────────── -->
+  <div id="exportModule" class="mb-module">
+    <div class="mod-scroll">
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Cola de render</h4>
+        <p class="tk-desc">Añade la composición activa a la cola de render de AE.</p>
+        <button type="button" class="tk-btn tk-btn-primary" id="exp-add" title="Añade la composición activa a la cola de render de After Effects con los ajustes por defecto.">Añadir comp a la cola</button>
+      </div>
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Con plantilla</h4>
+        <p class="tk-desc">Añade con plantilla y guarda junto al proyecto.</p>
+        <div class="tk-field" style="margin-bottom:8px;">
+          <label class="tk-label">Ajustes de render</label>
+          <select id="exp-rs" class="tk-input"></select>
+        </div>
+        <div class="tk-field" style="margin-bottom:8px;">
+          <label class="tk-label">Módulo de salida</label>
+          <select id="exp-om" class="tk-input"></select>
+        </div>
+        <div class="tk-btn-row">
+          <button type="button" class="tk-btn" id="exp-refresh-tpl" title="Carga las plantillas de ajustes de render y módulos de salida disponibles en tu After Effects.">Cargar plantillas</button>
+          <button type="button" class="tk-btn tk-btn-primary" id="exp-add-tpl" style="width:auto;margin-top:0;" title="Añade la comp a la cola aplicando las plantillas elegidas y guarda junto al proyecto.">Añadir</button>
+        </div>
+      </div>
+
+      <div class="tk-card">
+        <h4 class="tk-card-title">Limpiar proyecto</h4>
+        <p class="tk-desc">Optimiza el proyecto eliminando lo que no se usa.</p>
+        <div class="tk-btn-row">
+          <button type="button" class="tk-btn" id="exp-clean-unused" title="Elimina del proyecto el footage que no se usa en ninguna composición.">Quitar sin uso</button>
+          <button type="button" class="tk-btn" id="exp-clean-consolidate" title="Combina elementos de footage duplicados en uno solo.">Consolidar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="modal-overlay">
+    <div id="modal">
+      <h3>Editar valores Bezier</h3>
+      <div class="modal-field"><label>X1</label><input id="inp-x1" type="number" min="-2" max="2" step="0.01" value="0.42" /></div>
+      <div class="modal-field"><label>Y1</label><input id="inp-y1" type="number" min="-2" max="2" step="0.01" value="0" /></div>
+      <div class="modal-field"><label>X2</label><input id="inp-x2" type="number" min="-2" max="2" step="0.01" value="0.58" /></div>
+      <div class="modal-field"><label>Y2</label><input id="inp-y2" type="number" min="-2" max="2" step="0.01" value="1" /></div>
+      <div class="modal-actions">
+        <div class="modal-btn secondary" id="modal-cancel">Cancelar</div>
+        <div class="modal-btn primary" id="modal-ok">Aplicar</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="save-modal-overlay" class="hidden" style="align-items:center;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);bottom:0;left:0;right:0;top:0;display:none;justify-content:center;position:fixed;z-index:500;">
+    <div id="save-modal" style="background:var(--ec-bg-surface);border:1px solid var(--ec-border-bright);border-radius:var(--ec-radius-lg);box-shadow:0 20px 60px rgba(0,0,0,0.5);min-width:260px;padding:16px;">
+      <h3 style="color:var(--ec-text-primary);font-size:13px;margin-bottom:14px;font-weight:600;">Guardar preset <span id="save-preset-mode" style="color:var(--ec-blue-bright);font-size:11px;font-weight:500;"></span></h3>
+      <div class="modal-field">
+        <label style="width:48px;">Nombre</label>
+        <input id="preset-name-inp" type="text" placeholder="Mi curva" maxlength="30" />
+      </div>
+      <div class="modal-field">
+        <label style="width:48px;">Categoría</label>
+        <select id="preset-cat-inp" style="background:var(--ec-bg-input);border:1px solid var(--ec-border);border-radius:var(--ec-radius-sm);color:var(--ec-text-primary);flex:1;font-size:11px;outline:none;padding:5px 8px;">
+          <option value="ease">Suave</option>
+          <option value="speed">Velocidad</option>
+          <option value="elastic">Elastic</option>
+          <option value="bounce">Bounce</option>
+          <option value="custom">Custom</option>
+          <option value="power">Fuerza</option>
+          <option value="back">Atrás</option>
+          <option value="cinematic">Cine</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <div class="modal-btn secondary" id="save-modal-cancel">Cancelar</div>
+        <div class="modal-btn primary" id="save-modal-ok">Guardar</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="settings-modal-overlay" class="hidden" style="align-items:center;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);bottom:0;left:0;right:0;top:0;display:none;justify-content:center;position:fixed;z-index:500;">
+    <div id="settings-modal" style="background:var(--ec-bg-surface);border:1px solid var(--ec-border-bright);border-radius:var(--ec-radius-lg);box-shadow:0 20px 60px rgba(0,0,0,0.5);width:240px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+      <h3 style="color:var(--ec-text-primary);font-size:14px;margin:0;font-weight:600;text-align:center;">SmoothMotion <span style="color:var(--ec-blue);font-size:10px;">v5.0.1</span></h3>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="color:var(--ec-text-secondary);font-size:11px;font-weight:500;" id="txt-lang">Idioma:</span>
+        <select id="lang-select" style="background:var(--ec-bg-input);border:1px solid var(--ec-border);border-radius:var(--ec-radius-sm);color:var(--ec-text-primary);padding:4px 6px;font-size:11px;outline:none;">
+          <option value="en">English</option>
+          <option value="es" selected>Español</option>
+        </select>
+      </div>
+      <button type="button" id="btn-support-discord" style="background:#5865F2;border:none;border-radius:var(--ec-radius-sm);color:#fff;cursor:pointer;font-size:12px;font-weight:600;padding:9px 12px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;transition:filter 0.15s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        <span id="txt-support">Soporte</span>
+      </button>
+      <div style="border-top:1px solid var(--ec-border);padding-top:10px;display:flex;flex-direction:column;gap:8px;">
+        <span style="color:var(--ec-text-secondary);font-size:11px;font-weight:500;" id="txt-license-label">Licencia:</span>
+        <div id="settings-license-status" style="color:var(--ec-text-muted);font-size:10px;line-height:1.4;">No activada</div>
+        <button type="button" id="btn-change-license" style="background:var(--ec-bg-input);border:1px solid var(--ec-border);border-radius:var(--ec-radius-sm);color:var(--ec-text-primary);cursor:pointer;font-size:11px;font-weight:600;padding:7px 10px;width:100%;">Cambiar licencia</button>
+      </div>
+      <p style="color:var(--ec-text-muted);font-size:10px;line-height:1.4;text-align:center;">SmoothCurves · SmoothTools · Bibliotecas persistentes</p>
+      <div class="modal-btn secondary" id="settings-modal-close" style="text-align:center;">Cerrar</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('input', function(e) {
+      if (e.target && e.target.tagName === 'INPUT' && e.target.id && e.target.id.indexOf('inp-') > -1) {
+        if (e.target.value.indexOf(',') > -1) e.target.value = e.target.value.replace(',', '.');
+      }
+    });
+    function smoothMotionToast(msg, ms) { motionFlowToast(msg, ms); }
+    function motionBroToast(msg, ms)    { motionFlowToast(msg, ms); }
+    function motionFlowToast(msg, ms) {
+      var t = document.createElement('div');
+      t.style.cssText = 'position:fixed;bottom:36px;left:4px;right:4px;background:#0d1117;color:#7ee8a2;font-size:9px;padding:4px 6px;border-radius:4px;z-index:9999;border:1px solid #2a4a3a;';
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); }, ms || 3500);
+    }
+  </script>
+  <!-- Scripts modals -->
+  <div class="scr-modal-overlay" id="scr-addScriptModal">
+    <div class="scr-modal-content">
+      <div class="scr-modal-header">
+        <h3 data-scr-i18n="modal_add_title">Añadir Nuevo Script</h3>
+        <div class="scr-close-modal" id="scr-closeModalBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      </div>
+      <div class="scr-modal-body">
+        <div class="scr-form-group"><label data-scr-i18n="lbl_script_name">Nombre</label><input type="text" id="scr-newScriptName" class="scr-form-input" data-scr-i18n-placeholder="placeholder_name" autocomplete="off" /></div>
+        <div class="scr-form-group"><label data-scr-i18n="lbl_script_desc">Descripción</label><input type="text" id="scr-newScriptDescription" class="scr-form-input" data-scr-i18n-placeholder="placeholder_desc" autocomplete="off" /></div>
+        <div class="scr-form-group">
+          <label data-scr-i18n="lbl_script_file">Archivo del Script (.jsx / .jsxbin)</label>
+          <label class="scr-file-upload-box" id="scr-scriptFileBox" for="scr-newScriptFile">
+            <div class="scr-upload-default">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span data-scr-i18n="lbl_select_file">Seleccionar Archivo</span>
+            </div>
+            <div class="scr-upload-filled">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span id="scr-scriptFileName" class="scr-upload-filename"></span>
+            </div>
+          </label>
+          <input type="file" id="scr-newScriptFile" accept=".jsx,.jsxbin" style="display:none" />
+        </div>
+        <div class="scr-form-group">
+          <label data-scr-i18n="lbl_script_icon">Icono (PNG, JPG)</label>
+          <label class="scr-file-upload-box scr-icon-upload-box" id="scr-iconFileBox" for="scr-newScriptIcon">
+            <div class="scr-upload-default">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span data-scr-i18n="lbl_select_icon">Seleccionar Icono</span>
+            </div>
+            <img id="scr-iconPreview" class="scr-icon-preview" alt="" />
+          </label>
+          <input type="file" id="scr-newScriptIcon" accept="image/png,image/jpeg" style="display:none" />
+        </div>
+        <div class="scr-form-group"><label data-scr-i18n="lbl_script_category">Categoría</label><select id="scr-newScriptCategory" class="scr-form-input"><option value="utilities" data-scr-i18n="cat_utilities">Utilidades</option><option value="layers" data-scr-i18n="cat_layers">Capas</option><option value="animation" data-scr-i18n="cat_animation">Animación</option><option value="cameras" data-scr-i18n="cat_cameras">Cámaras</option></select></div>
+      </div>
+      <div class="scr-modal-footer"><button type="button" class="scr-btn-cancel" id="scr-cancelAddBtn" data-scr-i18n="btn_cancel">Cancelar</button><button type="button" class="scr-btn-execute" id="scr-saveScriptBtn" data-scr-i18n="btn_add_script">Añadir Script</button></div>
+    </div>
+  </div>
+  <div class="scr-modal-overlay" id="scr-editCodeModal">
+    <div class="scr-modal-content edit-modal">
+      <div class="scr-modal-header"><h3><span data-scr-i18n="modal_edit_title">Editor</span> — <span id="scr-editCodeTitle"></span></h3><div class="scr-close-modal" id="scr-closeEditCodeBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div>
+      <div class="scr-modal-body" style="flex:1;display:flex;"><textarea id="scr-codeEditorArea" spellcheck="false" data-scr-i18n-placeholder="placeholder_code"></textarea></div>
+      <div class="scr-modal-footer"><button type="button" class="scr-btn-cancel" id="scr-cancelEditCodeBtn" data-scr-i18n="btn_discard">Descartar</button><button type="button" class="scr-btn-execute" id="scr-saveCodeBtn" data-scr-i18n="btn_save_code">Guardar</button></div>
+    </div>
+  </div>
+  <div class="scr-modal-overlay" id="scr-settingsModal">
+    <div class="scr-modal-content">
+      <div class="scr-modal-header"><h3 data-scr-i18n="modal_settings_title">Ajustes</h3><div class="scr-close-modal" id="scr-closeSettingsBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div>
+      <div class="scr-modal-body">
+        <div class="scr-form-group"><label data-scr-i18n="lbl_button_size">Tamaño botones</label><div style="display:flex;gap:10px;align-items:center;"><span style="font-size:10px;color:var(--ec-text-muted);" data-scr-i18n="lbl_size_small">Pequeño</span><input type="range" id="scr-iconSizeSlider" min="80" max="150" value="105" style="flex:1;" /><span style="font-size:10px;color:var(--ec-text-muted);" data-scr-i18n="lbl_size_large">Grande</span></div></div>
+      </div>
+      <div class="scr-modal-footer"><button type="button" class="scr-btn-execute" id="scr-saveSettingsBtn" data-scr-i18n="btn_done">Hecho</button></div>
+    </div>
+  </div>
+
+  <!-- ── Command Palette (Ctrl/Cmd + K) ───────────────────────────────────── -->
+  <div id="cmdk-overlay" class="cmdk-overlay">
+    <div class="cmdk-modal">
+      <div class="cmdk-search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;flex-shrink:0;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Buscar acción..." autocomplete="off" />
+        <span class="cmdk-esc">ESC</span>
+      </div>
+      <div id="cmdk-list" class="cmdk-list"></div>
+      <div class="cmdk-profiles">
+        <span class="cmdk-profiles-title">Pestañas visibles</span>
+        <div id="cmdk-profile-toggles" class="cmdk-profile-toggles"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Onboarding ───────────────────────────────────────────────────────── -->
+  <div id="onb-overlay" class="onb-overlay">
+    <div class="onb-card">
+      <div class="onb-logo">Smooth<span>Motion</span></div>
+      <h3 class="onb-title">¡Bienvenido a la suite completa!</h3>
+      <p class="onb-text">Ahora tienes <b>SmoothCurves</b>, <b>SmoothTools</b>, <b>SmoothComp</b>, <b>SmoothFX</b>, <b>SmoothColor</b>, <b>SmoothText</b>, <b>SmoothTypo</b>, <b>SmoothAnchor</b>, <b>SmoothExport</b> y los nuevos <b>SmoothAlign</b> y <b>SmoothGuides</b>.</p>
+      <p class="onb-text">Pulsa <span class="onb-kbd onb-kbd-mod">Ctrl</span> + <span class="onb-kbd">K</span> en cualquier momento para buscar y ejecutar cualquier acción al instante.</p>
+      <button type="button" class="tk-btn tk-btn-primary" id="onb-close">Entendido</button>
+    </div>
+  </div>
+
+  <!-- ── License activation ───────────────────────────────────────────────── -->
+  <div id="lic-overlay" class="lic-overlay">
+    <div class="lic-card">
+      <div class="onb-logo">Smooth<span>Motion</span></div>
+      <h3 class="lic-title">Activa tu licencia</h3>
+      <div class="lic-hwid-block">
+        <span class="lic-hwid-label">Tu ID de equipo</span>
+        <div class="lic-hwid-row">
+          <code id="lic-hwid" class="lic-hwid-code" title="">—</code>
+          <button type="button" class="lic-copy-btn" id="lic-copy-hwid">Copiar</button>
+        </div>
+      </div>
+      <p class="lic-text">1. Copia el ID → 2. Reclámala en Discord con tu paquete → 3. Pega la key aquí</p>
+      <input type="text" id="lic-input" class="lic-input" placeholder="SM-XXXX-XXXX" autocomplete="off" spellcheck="false" maxlength="13" />
+      <button type="button" class="tk-btn tk-btn-primary" id="lic-activate">Activar licencia</button>
+      <button type="button" class="lic-btn-discord" id="lic-discord">Abrir Discord</button>
+      <p id="lic-error" class="lic-error hidden"></p>
+      <p class="lic-footnote">Válida solo en este equipo. Uso ilimitado en la misma PC.</p>
+    </div>
+  </div>
+
+  <script src="js/CSInterface.js"></script>
+  <script src="js/paths.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/host-result.js"></script>
+  <script src="../shared/license-config.js"></script>
+  <script src="../shared/license.js"></script>
+  <script src="js/curves.js"></script>
+  <script src="js/scripts-data.js"></script>
+  <script src="js/panel-modes.js"></script>
+  <script src="js/panel-scripts.js"></script>
+  <script src="js/panel-tools.js"></script>
+  <script src="js/panel-comp.js"></script>
+  <script src="js/panel-fx.js"></script>
+  <script src="js/panel-color.js"></script>
+  <script src="js/text-preset-manager.js"></script>
+  <script src="js/panel-text.js"></script>
+  <script src="js/panel-anchor.js"></script>
+  <script src="js/panel-export.js"></script>
+  <script src="js/panel-extras.js"></script>
+  <script src="js/panel-standalone.js"></script>
+  <script src="js/panel-nav.js"></script>
+  <script src="js/demo-shim.js"></script>
+  <script src="js/panel.js"></script>
+</body>
+</html>

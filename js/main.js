@@ -66,6 +66,7 @@ if (hamburgerBtn && mobileNav) {
     { name: 'SmoothExplorer',  src: 'app/SmoothExplorer/index.html' },
     { name: 'SmoothTraductor', src: 'app/SmoothTraductor/index.html' },
     { name: 'SmoothPaste',     src: 'app/SmoothPaste/index.html' },
+    { name: 'Smooth3D',        src: 'app/Smooth3D/index.html' },
   ];
 
   const INTERVAL = 5000;
@@ -182,6 +183,11 @@ const PANEL_INFO = {
     body: 'Copia el fotograma actual al portapapeles del sistema, o pega una imagen del portapapeles como una capa nueva.',
     list: ['Copia el frame de la comp al portapapeles', 'Pega imágenes del portapapeles como capa', 'Panel adaptable a cualquier zona de After Effects'],
   },
+  smooth3d: {
+    num: '15', name: 'Smooth3D', tag: 'Carruseles y orbes 3D animados',
+    body: 'Genera composiciones 3D animadas en un clic: carruseles, orbes, slides y muros de tarjetas, con vista previa en vivo y todo controlable despues desde un nulo.',
+    list: ['11 distribuciones: circulo, slide, helice, esfera, muro, tunel y mas', 'Un nulo con deslizadores: centra el slot que quieras, radio, giro y camara', 'Auto-rellena los slots con una carpeta de imagenes o videos'],
+  },
 };
 
 /* ==========================================================
@@ -214,8 +220,8 @@ const STORE = {
     },
     {
       id: 'studio', name: 'Studio', price: 70, originalPrice: 110,
-      tagline: 'Todo SmoothMotion, con actualizaciones futuras',
-      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export', 'explorer', 'translator', 'paste'],
+      tagline: 'Todo SmoothMotion + cada panel nuevo que saquemos',
+      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export', 'explorer', 'translator', 'paste', 'smooth3d'],
       allAndUpdates: true,
       url: 'https://ko-fi.com/s/9811ac8619',
     },

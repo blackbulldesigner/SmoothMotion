@@ -19,14 +19,16 @@
     'Cambiar idioma': 'Change language',
 
     /* ── Hero ────────────────────────────────────────────────────────── */
-    'La familia perfecta para': 'The perfect family for',
+    'La única herramienta que necesitas': 'The only tool you need',
+    'para': 'for',
+    'editar en After Effects.': 'editing in After Effects.',
     'Motion Graphics.': 'Motion Graphics.',
-    'SmoothMotion no es un panel — son 14 paneles profesionales que trabajan como uno solo dentro de After Effects. Curvas de ease, animación de texto, tipografía, composición, FX, color, alineación, guías y más. Todo tu flujo de Motion Graphics, en una sola suite.':
+    'SmoothMotion no es un panel — son 15 paneles profesionales que trabajan como uno solo dentro de After Effects. Curvas de ease, animación de texto ilimitada, carruseles 3D, tipografía, composición, FX, color, alineación, guías y más. Todo tu flujo de trabajo, en una sola suite.':
       'SmoothMotion is not one panel — it is 14 professional panels that work as one inside After Effects. Ease curves, text animation, typography, compositing, FX, color, alignment, guides and more. Your whole Motion Graphics workflow, in a single suite.',
     'Comprar para After Effects': 'Buy for After Effects',
-    'Ver los 14 paneles ▸': 'See all 14 panels ▸',
+    'Ver los 15 paneles ▸': 'See all 15 panels ▸',
     'paneles': 'panels',
-    'presets de texto': 'text presets',
+    'animaciones de texto': 'text animations',
     'suite unificada': 'unified suite',
 
     /* ── Barra de compatibilidad ─────────────────────────────────────── */
@@ -35,7 +37,7 @@
 
     /* ── Playground ──────────────────────────────────────────────────── */
     'La familia SmoothMotion': 'The SmoothMotion family',
-    'Catorce paneles reales, en tu navegador.': 'Fourteen real panels, in your browser.',
+    'Quince paneles reales, en tu navegador.': 'Fifteen real panels, in your browser.',
     'No son fotos ni vídeos: es la interfaz real de cada panel corriendo en vivo. Elige uno, navégalo, cambia de pestaña y arrastra la curva. Las acciones que tocan After Effects están en modo demo — pero el HUD es 100% auténtico.':
       'These are not screenshots or videos: it is each panel\'s real interface running live. Pick one, browse it, switch tabs and drag the curve. Actions that touch After Effects are in demo mode — but the HUD is 100% authentic.',
     'Cargando panel…': 'Loading panel…',
@@ -158,7 +160,7 @@
     'Por qué SmoothMotion': 'Why SmoothMotion',
     'Pensado para animar más rápido': 'Built to animate faster',
     'Todo en un panel': 'Everything in one panel',
-    'Los 14 paneles conviven en una sola ventana con pestañas, o se acoplan por separado donde quieras dentro de After Effects. Tu espacio de trabajo, tus reglas.':
+    'Los 15 paneles conviven en una sola ventana con pestañas, o se acoplan por separado donde quieras dentro de After Effects. Tu espacio de trabajo, tus reglas.':
       'All 14 panels live in a single tabbed window, or dock separately wherever you want inside After Effects. Your workspace, your rules.',
     'Activa la sincronización en vivo y cada ajuste de la curva se aplica automáticamente a los keyframes seleccionados. Sin clics extra.':
       'Turn on live sync and every curve tweak is automatically applied to the selected keyframes. No extra clicks.',
@@ -204,8 +206,8 @@
     'Todo lo de Pro': 'Everything in Pro',
     '3 paneles': '3 panels',
     '7 paneles': '7 panels',
-    '14 paneles': '14 panels',
-    '14 paneles · todo': '14 panels · everything',
+    '15 paneles': '15 panels',
+    '15 paneles · todo': '15 panels · everything',
     'Desde $30': 'From $30',
     'Desde $50': 'From $50',
     'Desde $70': 'From $70',
@@ -219,7 +221,7 @@
       'Choose your panel or the full family. After buying on Ko-fi, you claim your key on Discord, paste it into the panel and start animating — installed in under a minute.',
     'Ver precios y comprar': 'See pricing and buy',
     'Ver manual de usuario': 'View user manual',
-    'La suite todo-en-uno de Motion Graphics para Adobe After Effects.':
+    'La única herramienta que necesitas para editar en Adobe After Effects.':
       'The all-in-one Motion Graphics suite for Adobe After Effects.',
     '© 2026 SmoothMotion. Todos los derechos reservados.':
       '© 2026 SmoothMotion. All rights reserved.',
@@ -233,12 +235,23 @@
     /* ── Meta (SEO) ──────────────────────────────────────────────────── */
     'SmoothMotion — La suite todo-en-uno para Motion Graphics en After Effects':
       'SmoothMotion — The all-in-one Motion Graphics suite for After Effects',
-    'SmoothMotion v5: 14 paneles profesionales para After Effects. Curvas de ease, texto, tipografía, composición, FX, color, alineación, guías, anchor point y export — la familia perfecta para Motion Graphics.':
-      'SmoothMotion v5: 14 professional panels for After Effects. Ease curves, text, typography, compositing, FX, color, alignment, guides, anchor point and export — the perfect family for Motion Graphics.',
+    'SmoothMotion v6: 15 paneles profesionales para After Effects. La única herramienta que necesitas para editar: curvas de ease, texto ilimitado, carruseles 3D, tipografía, composición, FX, color, alineación, guías y export.':
+      'SmoothMotion v6: 15 professional panels for After Effects. The only tool you need to edit: ease curves, unlimited text, 3D carousels, typography, compositing, FX, color, alignment, guides and export.',
     'SmoothMotion v5: 14 paneles profesionales para After Effects. Curvas de ease, texto, tipografía, composición, FX, color, alineación, guías, anchor point y export.':
       'SmoothMotion v5: 14 professional panels for After Effects. Ease curves, text, typography, compositing, FX, color, alignment, guides, anchor point and export.',
-    '14 paneles profesionales. La familia perfecta para Motion Graphics en After Effects.':
+    '15 paneles profesionales. Todo tu flujo de edición y Motion Graphics en una sola suite.':
       '14 professional panels. The perfect family for Motion Graphics in After Effects.',
 
+    /* --- v6: Smooth3D y textos nuevos --- */
+    'Nuevo · Smooth3D — carruseles 3D en un clic': 'New · Smooth3D — 3D carousels in one click',
+    'La única herramienta que necesitas para editar en After Effects': 'The only tool you need to edit in After Effects',
+    'SmoothMotion — La única herramienta que necesitas para editar en After Effects': 'SmoothMotion — The only tool you need to edit in After Effects',
+    'SmoothMotion v6 — La única herramienta que necesitas para editar en After Effects': 'SmoothMotion v6 — The only tool you need to edit in After Effects',
+    'Carruseles y orbes 3D animados': 'Animated 3D carousels and orbs',
+    'Todo SmoothMotion + cada panel nuevo que saquemos': 'All of SmoothMotion + every new panel we release',
+    'Genera composiciones 3D animadas en un clic: carruseles, orbes, slides y muros de tarjetas, con vista previa en vivo y todo controlable despues desde un nulo.': 'Generate animated 3D compositions in one click: carousels, orbs, slides and card walls, with a live preview and everything still controllable from a null afterwards.',
+    '11 distribuciones: circulo, slide, helice, esfera, muro, tunel y mas': '11 layouts: circle, slide, helix, sphere, wall, tunnel and more',
+    'Un nulo con deslizadores: centra el slot que quieras, radio, giro y camara': 'A null with sliders: center any slot, radius, spin and camera',
+    'Auto-rellena los slots con una carpeta de imagenes o videos': 'Auto-fill the slots from a folder of images or videos',
   });
 })();

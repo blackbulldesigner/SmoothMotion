@@ -1,0 +1,30 @@
+/* ==========================================
+   EaseCraft — Tooltips
+   ========================================== */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ec-bg-elevated);
+  border: 1px solid var(--ec-border-bright);
+  border-radius: var(--ec-radius-sm);
+  color: var(--ec-text-primary);
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  padding: 4px 8px;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--ec-transition);
+  z-index: 100;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
