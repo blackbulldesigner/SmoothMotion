@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smooth3D</title>
+  <link rel="stylesheet" href="css/_variables.css" />
+  <link rel="stylesheet" href="../shared/license.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="s3-app">
+
+    <div class="s3-top">
+      <div class="s3-logo" data-no-i18n>Smooth<span>3D</span></div>
+      <span class="s3-tier" data-no-i18n>STUDIO</span>
+      <span class="sp"></span>
+      <span class="s3-hint" data-no-i18n>Generador de orbes 3D</span>
+    </div>
+
+    <!-- Preview fijo (sticky: te sigue al scrollear) -->
+    <div class="s3-stage">
+      <canvas id="s3-canvas"></canvas>
+      <span class="s3-status" id="s3-status" data-no-i18n>10 slots · círculo</span>
+      <button type="button" class="s3-stage-btn" id="s3-spin" data-no-i18n>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.5 15a9 9 0 1 1-2.1-9.4L23 10"/></svg>
+        <span id="s3-spin-txt">Girar</span>
+      </button>
+    </div>
+
+    <div class="s3-body">
+
+      <!-- Rail lateral de pestañas -->
+      <nav class="s3-rail" id="s3-rail">
+        <button type="button" data-tab="orb" class="on" data-no-i18n>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="9" ry="3.5"/></svg>
+          <span>Orbe</span>
+        </button>
+        <button type="button" data-tab="style" data-no-i18n>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7s6 6.1 6 10.3a6 6 0 0 1-12 0C6 8.8 12 2.7 12 2.7z"/></svg>
+          <span>Estilo</span>
+        </button>
+        <button type="button" data-tab="anim" data-no-i18n>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c4 0 5-10 9-10s5 6 9 6"/></svg>
+          <span>Anim</span>
+        </button>
+        <button type="button" data-tab="cam" data-no-i18n>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h3l2-2h8l2 2h3v12H3z"/><circle cx="12" cy="13" r="3.5"/></svg>
+          <span>Cám</span>
+        </button>
+        <button type="button" data-tab="comp" data-no-i18n>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/></svg>
+          <span>Comp</span>
+        </button>
+        <button type="button" data-tab="content" data-no-i18n>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9" r="1.8"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Slots</span>
+        </button>
+      </nav>
+
+      <!-- Panel de controles -->
+      <main class="s3-pane">
+
+        <!-- ORBE -->
+        <section class="s3-tab on" data-pane="orb">
+          <div class="s3-group">
+            <div class="s3-gt">Geometría</div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Slots</span><input class="s3-num" id="o-slots-n" type="number" min="1" max="60" value="10" /></div>
+              <input class="s3-slider" id="o-slots" type="range" min="1" max="60" value="10" />
+            </div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Radio (px)</span><input class="s3-num" id="o-radius-n" type="number" value="380" /></div>
+              <input class="s3-slider" id="o-radius" type="range" min="80" max="900" value="380" />
+            </div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Inclinación X°</span><input class="s3-num" id="o-incline-n" type="number" value="72" /></div>
+              <input class="s3-slider" id="o-incline" type="range" min="0" max="180" value="72" />
+            </div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Vueltas</span><input class="s3-num" id="o-turns-n" type="number" step="0.5" value="2" /></div>
+              <input class="s3-slider" id="o-turns" type="range" min="0.5" max="8" step="0.5" value="2" />
+            </div>
+            <div class="s3-grid2">
+              <div class="s3-row">
+                <div class="s3-row-top"><span class="s3-label">Ancho slot</span><input class="s3-num" id="o-sw-n" type="number" value="200" /></div>
+                <input class="s3-slider" id="o-sw" type="range" min="60" max="500" value="200" />
+              </div>
+              <div class="s3-row">
+                <div class="s3-row-top"><span class="s3-label">Alto slot</span><input class="s3-num" id="o-sh-n" type="number" value="280" /></div>
+                <input class="s3-slider" id="o-sh" type="range" min="60" max="600" value="280" />
+              </div>
+            </div>
+          </div>
+          <div class="s3-group">
+            <div class="s3-gt">Distribución</div>
+            <div class="s3-chips" id="s3-dist"></div>
+          </div>
+        </section>
+
+        <!-- ESTILO -->
+        <section class="s3-tab" data-pane="style">
+          <div class="s3-group">
+            <div class="s3-gt">Forma de los slots</div>
+            <div class="s3-chips" id="s3-shape"></div>
+          </div>
+          <div class="s3-group">
+            <div class="s3-gt">Anillo visual</div>
+            <div class="s3-row-top"><span class="s3-label">Mostrar anillo</span><div class="s3-toggle" id="r-on"></div></div>
+            <div class="s3-row-top"><span class="s3-label">Color</span><input class="s3-color" id="r-color" type="color" value="#3b82f6" /></div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Grosor</span><input class="s3-num" id="r-w-n" type="number" value="4" /></div>
+              <input class="s3-slider" id="r-w" type="range" min="1" max="30" value="4" />
+            </div>
+            <div class="s3-row-top"><span class="s3-label">Animar trazado (0→100%)</span><div class="s3-toggle on" id="r-anim"></div></div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Tiempo (s)</span><input class="s3-num" id="r-time-n" type="number" step="0.5" value="1.5" /></div>
+              <input class="s3-slider" id="r-time" type="range" min="0.5" max="8" step="0.5" value="1.5" />
+            </div>
+          </div>
+          <div class="s3-group">
+            <div class="s3-gt">Slot enfocado</div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Zoom del slot central (%)</span><input class="s3-num" id="z-center-n" type="number" value="140" /></div>
+              <input class="s3-slider" id="z-center" type="range" min="100" max="260" value="140" />
+            </div>
+            <p class="s3-hint">En Slide, el slot del centro se agranda y los demás se achican. En 100% queda un slide plano común.</p>
+          </div>
+          <div class="s3-group">
+            <div class="s3-gt">Profundidad</div>
+            <div class="s3-row-top"><span class="s3-label">Separar capas en Z</span><div class="s3-toggle" id="d-on"></div></div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Intensidad</span><input class="s3-num" id="d-amt-n" type="number" value="40" /></div>
+              <input class="s3-slider" id="d-amt" type="range" min="0" max="120" value="40" />
+            </div>
+          </div>
+        </section>
+
+        <!-- ANIMACIÓN -->
+        <section class="s3-tab" data-pane="anim">
+          <div class="s3-group">
+            <div class="s3-gt">Preset de animación</div>
+            <div id="s3-anim"></div>
+          </div>
+          <div class="s3-group">
+            <div class="s3-gt">Curva de velocidad</div>
+            <div class="s3-seg" id="s3-vel">
+              <button type="button" data-v="linear">Lineal</button>
+              <button type="button" data-v="ease" class="on">Ease</button>
+              <button type="button" data-v="easeIn">Ease In</button>
+              <button type="button" data-v="easeOut">Ease Out</button>
+            </div>
+            <div class="s3-row-top"><span class="s3-label">Rotación automática</span><div class="s3-toggle on" id="a-rot"></div></div>
+            <p class="s3-hint">Desactivala si querés el orbe quieto y moverlo vos con los controles.</p>
+            <div class="s3-row-top"><span class="s3-label">Loop perfecto (para reels)</span><div class="s3-toggle" id="a-loop"></div></div>
+          </div>
+        </section>
+
+        <!-- CÁMARA -->
+        <section class="s3-tab" data-pane="cam">
+          <div class="s3-group">
+            <div class="s3-gt">Cámara</div>
+            <div class="s3-row">
+              <div class="s3-row-top"><span class="s3-label">Distancia</span><input class="s3-num" id="cam-dist-n" type="number" value="1200" /></div>
+              <input class="s3-slider" id="cam-dist" type="range" min="500" max="3000" value="1200" />
+            </div>
+            <div class="s3-row-top"><span class="s3-label">Órbita de cámara</span><div class="s3-toggle" id="cam-orbit"></div></div>
+            <div class="s3-row-top"><span class="s3-label">Profundidad de campo (DOF)</span><div class="s3-toggle" id="cam-dof"></div></div>
+          </div>
+        </section>
+
+        <!-- COMPOSICIÓN -->
+        <section class="s3-tab" data-pane="comp">
+          <div class="s3-group">
+            <div class="s3-gt">Composición</div>
+            <div class="s3-grid2">
+              <div class="s3-field"><span class="s3-label">Ancho</span><input class="s3-num" id="c-w" type="number" value="1920" /></div>
+              <div class="s3-field"><span class="s3-label">Alto</span><input class="s3-num" id="c-h" type="number" value="1080" /></div>
+              <div class="s3-field"><span class="s3-label">FPS</span><input class="s3-num" id="c-fps" type="number" value="30" /></div>
+              <div class="s3-field"><span class="s3-label">Duración (s)</span><input class="s3-num" id="c-dur" type="number" value="12" /></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTENIDO -->
+        <section class="s3-tab" data-pane="content">
+          <div class="s3-group">
+            <div class="s3-gt">Contenido de los slots</div>
+            <button type="button" class="s3-mini" id="ct-folder" style="align-self:flex-start" data-no-i18n>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              <span>Auto-rellenar desde carpeta…</span>
+            </button>
+            <div class="s3-row-top"><span class="s3-label">Importar el contenido</span><div class="s3-toggle on" id="ct-import"></div></div>
+            <p class="s3-hint">Apagalo para generar los slots vacíos aunque tengas una carpeta elegida.</p>
+            <div class="s3-row-top"><span class="s3-label">Track matte automático (bordes)</span><div class="s3-toggle on" id="ct-matte"></div></div>
+            <p class="s3-hint">Elegí una carpeta de imágenes y se reparten en los slots. Después ajustás cada uno en la comp.</p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Barra de acción fija -->
+    <div class="s3-actionbar">
+      <span class="s3-sum" id="s3-sum" data-no-i18n>10 slots · círculo</span>
+      <button type="button" class="s3-go" id="s3-generate">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+      <span id="s3-gen-txt">Generar Orbe 3D</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="s3-toast" data-no-i18n></div>
+
+  <!-- ── License activation (compartido con license.js) ─────────────────── -->
+  <div id="lic-overlay" class="lic-overlay">
+    <div class="lic-card">
+      <div class="onb-logo" data-no-i18n>Smooth<span>Motion</span></div>
+      <h3 class="lic-title">Activa tu licencia</h3>
+      <div class="lic-hwid-block">
+        <span class="lic-hwid-label">Tu ID de equipo</span>
+        <div class="lic-hwid-row">
+          <code id="lic-hwid" class="lic-hwid-code" title="" data-no-i18n>—</code>
+          <button type="button" class="lic-copy-btn" id="lic-copy-hwid">Copiar</button>
+        </div>
+      </div>
+      <p class="lic-text">1. Copia el ID → 2. Reclámala en Discord con tu paquete → 3. Pega la key aquí</p>
+      <input type="text" id="lic-input" class="lic-input" placeholder="SM-XXXX-XXXX-X" autocomplete="off" spellcheck="false" maxlength="24" data-no-i18n />
+      <button type="button" class="tk-btn tk-btn-primary" id="lic-activate">Activar licencia</button>
+      <button type="button" class="lic-btn-discord" id="lic-discord">Abrir Discord</button>
+      <p id="lic-error" class="lic-error hidden" data-no-i18n></p>
+      <p class="lic-footnote">Válida solo en este equipo. Uso ilimitado en la misma PC.</p>
+    </div>
+  </div>
+
+  <script src="CSInterface.js"></script>
+  <script src="../shared/license-config.js"></script>
+  <script src="../shared/license.js"></script>
+  <script src="../shared/demo-shim.js"></script>
+  <script src="../shared/license-boot.js"></script>
+  <script src="js/orb.js"></script>
+  <script src="js/preview.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
