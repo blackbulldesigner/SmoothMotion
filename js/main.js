@@ -324,7 +324,10 @@ function tierForPanel(id) {
       if (!e.isIntersecting) return;
       const el = e.target;
       const raw = el.textContent.trim();
-      const target = parseInt(raw, 10) || 0;
+      const target = parseInt(raw, 10);
+      // Cifras sin numero (p. ej. "∞") se dejan tal cual: si no, parseInt da NaN
+      // y se pintaba un "0" pegado al simbolo.
+      if (!isFinite(target)) { countObs.unobserve(el); return; }
       const suffix = raw.replace(/[0-9]/g, '');
       const dur = 900;
       const t0 = performance.now();
