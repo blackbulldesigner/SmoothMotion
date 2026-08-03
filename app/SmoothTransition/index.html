@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmoothTransition</title>
+  <link rel="stylesheet" href="../client/css/_variables.css" />
+  <link rel="stylesheet" href="../shared/license.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="st-app">
+
+    <div class="st-top">
+      <div class="st-logo" data-no-i18n>Smooth<span>Transition</span></div>
+      <span class="st-tier" data-no-i18n>STUDIO</span>
+      <span class="sp"></span>
+      <span class="st-hint">Transiciones entre clips</span>
+    </div>
+
+    <!-- Preview fijo: te sigue al scrollear mientras tocas los controles -->
+    <div class="st-stage">
+      <canvas id="st-canvas"></canvas>
+      <span class="st-status" id="st-status" data-no-i18n>Deslizar · Motion blur</span>
+      <div class="st-stage-ctl">
+        <button type="button" class="st-stage-btn" id="st-play" title="Reproducir / pausar">
+          <svg id="st-play-ico" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        </button>
+        <input type="range" id="st-scrub" min="0" max="1000" value="0" class="st-scrub" title="Progreso" />
+      </div>
+    </div>
+
+    <div class="st-body">
+
+      <!-- ── Tiempo ─────────────────────────────────────────────────────── -->
+      <section class="st-card">
+        <h3 class="st-h">Tiempo</h3>
+        <div class="st-row">
+          <label class="st-lb">Duración</label>
+          <input type="range" id="st-dur" min="10" max="200" step="5" />
+          <input type="number" id="st-dur-n" min="0.1" max="2" step="0.05" class="st-num" />
+          <span class="st-u" data-no-i18n>s</span>
+        </div>
+      </section>
+
+      <!-- ── Curva de velocidad (el mini SmoothCurves) ───────────────────── -->
+      <section class="st-card">
+        <h3 class="st-h">Velocidad</h3>
+        <div class="st-curve-wrap">
+          <canvas id="st-curve"></canvas>
+          <span class="st-curve-tag" id="st-curve-tag" data-no-i18n></span>
+        </div>
+        <p class="st-hint-sm">Arrastrá los dos tiradores para cambiar cómo acelera y frena.</p>
+        <div class="st-seg" id="st-curve-presets"></div>
+      </section>
+
+      <!-- ── Módulos (se pintan solos desde el modelo) ──────────────────── -->
+      <div id="st-modulos"></div>
+
+      <!-- ── Presets ────────────────────────────────────────────────────── -->
+      <section class="st-card">
+        <h3 class="st-h">Presets</h3>
+        <div class="st-presets" id="st-presets-fab"></div>
+        <div class="st-user-head">
+          <span class="st-sub">Los tuyos</span>
+          <button type="button" class="st-mini" id="st-save">Guardar el actual</button>
+        </div>
+        <div class="st-presets" id="st-presets-user"></div>
+        <p class="st-empty" id="st-user-empty">Todavía no guardaste ninguno. Armá tu combinación y guardala acá.</p>
+      </section>
+
+    </div>
+
+    <!-- ── Aplicar ──────────────────────────────────────────────────────── -->
+    <div class="st-foot">
+      <span class="st-foot-txt" id="st-foot-txt">Seleccioná 2 capas</span>
+      <button type="button" class="st-go" id="st-apply">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        <span>Aplicar transición</span>
+      </button>
+    </div>
+
+    <div class="st-toast" id="st-toast"></div>
+
+    <!-- ── Aviso de beta (se puede silenciar) ───────────────────────────── -->
+    <div class="st-beta" id="st-beta" hidden>
+      <div class="st-beta-card">
+        <span class="st-beta-badge" data-no-i18n>BETA</span>
+        <h2 class="st-beta-t">Panel en beta</h2>
+        <p class="st-beta-p">
+          SmoothTransition todavía está en desarrollo. Cualquier feedback o aporte
+          es completamente bienvenido — contámelo en el Discord y lo tengo en cuenta
+          para la próxima versión.
+        </p>
+        <button type="button" class="st-beta-dc" id="st-beta-dc">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.3 5.3A16.9 16.9 0 0 0 15.1 4l-.2.4a12.6 12.6 0 0 1 3.7 1.9 15.9 15.9 0 0 0-13.2 0A12.6 12.6 0 0 1 9.1 4.4L8.9 4a16.9 16.9 0 0 0-4.2 1.3C2 9.3 1.3 13.2 1.6 17a17 17 0 0 0 5.2 2.6l.6-.9a11 11 0 0 1-1.7-.8l.4-.3a12.1 12.1 0 0 0 10.3 0l.4.3a11 11 0 0 1-1.7.8l.6.9a17 17 0 0 0 5.2-2.6c.4-4.4-.6-8.3-2.6-11.7ZM8.5 14.7c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Z"/></svg>
+          <span>Ir al Discord</span>
+        </button>
+        <button type="button" class="st-beta-ok" id="st-beta-ok">Entendido, a trabajar</button>
+        <label class="st-beta-no">
+          <input type="checkbox" id="st-beta-never" />
+          <span>No volver a mostrar este aviso</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <script src="CSInterface.js"></script>
+  <script src="../shared/license-config.js"></script>
+  <script src="../shared/license.js"></script>
+  <script src="../shared/demo-shim.js"></script>
+  <script src="../shared/license-boot.js"></script>
+  <script src="js/trans.js"></script>
+  <script src="js/preview.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

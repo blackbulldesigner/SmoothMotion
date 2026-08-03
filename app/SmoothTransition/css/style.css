@@ -1,0 +1,324 @@
+/* ============================================================================
+   SmoothTransition — estilos del panel
+   Mismo lenguaje visual que Smooth3D (variables --ec-*), incluidas las dos
+   correcciones que ya costaron caro alla: la barra de desplazamiento propia
+   (la de Windows es horrible dentro de CEP) y el area de click alta de los
+   deslizadores.
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--ec-bg-deep, #0f1117);
+  color: var(--ec-text-primary, #e6ebf5);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+}
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--ec-border, #2d3448);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ec-border-bright, #3b4260); background-clip: padding-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-button { display: none; height: 0; width: 0; }
+
+.st-app { max-width: 640px; margin: 0 auto; padding: 8px 10px 76px; display: flex; flex-direction: column; gap: 8px; }
+
+/* ── Cabecera ───────────────────────────────────────────────────────────── */
+.st-top { display: flex; align-items: baseline; gap: 8px; padding: 2px 2px 0; }
+.st-logo { font-size: 16px; font-weight: 800; letter-spacing: -.3px; }
+.st-logo span { color: var(--ec-blue, #3b82f6); }
+.st-tier {
+  font-size: 8.5px; font-weight: 800; letter-spacing: 1.2px;
+  color: var(--ec-blue, #3b82f6);
+  border-bottom: 2px solid var(--ec-blue, #3b82f6);
+  padding-bottom: 1px;
+}
+.sp { flex: 1; }
+.st-hint { font-size: 10px; color: var(--ec-text-muted, #566379); }
+
+/* ── Preview ────────────────────────────────────────────────────────────── */
+.st-stage {
+  position: sticky; top: 0; z-index: 5;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 12px;
+  background: var(--ec-bg-deep, #0f1117);
+  overflow: hidden;
+}
+#st-canvas { display: block; width: 100%; height: 190px; }
+.st-status {
+  position: absolute; top: 8px; left: 10px;
+  font-size: 9.5px; font-weight: 600; color: var(--ec-text-secondary, #94a3b8);
+  background: rgba(8, 11, 18, .72); border-radius: 20px; padding: 3px 9px;
+  pointer-events: none;
+}
+.st-stage-ctl {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px 7px;
+  background: linear-gradient(to top, rgba(8, 11, 18, .9), rgba(8, 11, 18, 0));
+}
+.st-stage-btn {
+  flex: 0 0 auto; width: 24px; height: 24px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 7px;
+  background: rgba(8, 11, 18, .6); color: var(--ec-text-secondary, #94a3b8);
+  cursor: pointer;
+}
+.st-stage-btn:hover { color: var(--ec-blue, #3b82f6); border-color: var(--ec-blue, #3b82f6); }
+.st-stage-btn svg { width: 12px; height: 12px; }
+
+/* ── Tarjetas ───────────────────────────────────────────────────────────── */
+.st-card {
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 12px;
+  padding: 10px 11px 12px;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.st-h {
+  margin: 0; font-size: 9.5px; font-weight: 800; letter-spacing: 1.1px;
+  text-transform: uppercase; color: var(--ec-text-muted, #566379);
+}
+.st-sub { font-size: 9.5px; font-weight: 700; color: var(--ec-text-muted, #566379); }
+
+/* ── Filas de control ───────────────────────────────────────────────────── */
+.st-row { display: flex; align-items: center; gap: 8px; }
+.st-lb { flex: 0 0 74px; font-size: 11px; color: var(--ec-text-secondary, #94a3b8); }
+.st-u { font-size: 10px; color: var(--ec-text-muted, #566379); width: 10px; }
+
+/* El area de click va alta (18px) aunque la linea se vea fina: sin esto el
+   click "no engancha". Y el thumb NO lleva transform, que rota el area
+   sensible y hace que a veces no agarre. */
+input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  flex: 1; height: 18px; margin: 0;
+  background: transparent; outline: none; cursor: pointer;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 3px;
+  background: var(--ec-border, #2d3448);
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px; margin-top: -5px;
+  border-radius: 50%;
+  background: var(--ec-blue, #3b82f6);
+  border: 2px solid var(--ec-bg-deep, #0f1117);
+  box-shadow: 0 0 0 1px var(--ec-blue, #3b82f6);
+  cursor: pointer;
+}
+input[type=range]:disabled::-webkit-slider-thumb { background: var(--ec-border, #2d3448); box-shadow: none; }
+
+.st-scrub { flex: 1; }
+.st-scrub::-webkit-slider-runnable-track { background: rgba(255, 255, 255, .18); }
+
+.st-num {
+  flex: 0 0 50px; width: 50px;
+  background: var(--ec-bg-soft, #161a24);
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 7px;
+  color: var(--ec-text-primary, #e6ebf5); font-size: 11px;
+  padding: 4px 6px; text-align: center;
+}
+.st-sel {
+  flex: 1;
+  background: var(--ec-bg-soft, #161a24);
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 7px;
+  color: var(--ec-text-primary, #e6ebf5); font-size: 11px;
+  padding: 5px 7px; cursor: pointer;
+}
+
+/* ── Curva de velocidad (mini SmoothCurves) ─────────────────────────────── */
+.st-curve-wrap {
+  position: relative;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 9px;
+  background: var(--ec-bg-soft, #161a24);
+  overflow: hidden;
+}
+#st-curve { display: block; width: 100%; height: 132px; cursor: grab; touch-action: none; }
+#st-curve:active { cursor: grabbing; }
+.st-curve-tag {
+  position: absolute; top: 6px; right: 8px;
+  font-size: 9px; color: var(--ec-text-muted, #566379);
+  pointer-events: none;
+}
+.st-hint-sm { margin: 0; font-size: 9.5px; color: var(--ec-text-muted, #566379); }
+
+/* ── Módulos ────────────────────────────────────────────────────────────── */
+.st-mod {
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 10px;
+  padding: 8px 10px 9px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: border-color .15s, opacity .15s;
+}
+.st-mod.off { opacity: .5; }
+.st-mod.on { border-color: var(--ec-blue, #3b82f6); }
+.st-mod-head { display: flex; align-items: center; gap: 8px; }
+.st-mod-name { flex: 1; font-size: 11.5px; font-weight: 600; }
+.st-mod-extra { display: flex; flex-direction: column; gap: 8px; }
+.st-mod.off .st-mod-extra { display: none; }
+
+/* Interruptor */
+.st-sw {
+  position: relative; flex: 0 0 auto;
+  width: 30px; height: 17px; border-radius: 10px;
+  background: var(--ec-border, #2d3448); border: none;
+  cursor: pointer; padding: 0;
+}
+.st-sw::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--ec-bg-deep, #0f1117);
+  transition: left .15s;
+}
+.st-sw.on { background: var(--ec-blue, #3b82f6); }
+.st-sw.on::after { left: 15px; }
+
+/* Botones de opción (dirección, tipo de barrido…) */
+.st-seg { display: flex; gap: 4px; flex-wrap: wrap; }
+.st-seg button {
+  flex: 1; min-width: 48px;
+  padding: 5px 6px; font-size: 10px; font-weight: 600;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 7px;
+  background: transparent; color: var(--ec-text-muted, #566379); cursor: pointer;
+}
+.st-seg button.on { border-color: var(--ec-blue, #3b82f6); color: var(--ec-blue, #3b82f6); }
+
+/* ── Presets ────────────────────────────────────────────────────────────── */
+.st-presets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.st-preset {
+  position: relative;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 10px;
+  padding: 7px 8px 8px; cursor: pointer; overflow: hidden;
+  display: flex; flex-direction: column; gap: 5px;
+  background: transparent; text-align: left;
+}
+.st-preset:hover { border-color: var(--ec-blue, #3b82f6); }
+.st-preset canvas { width: 100%; height: 46px; border-radius: 6px; display: block; }
+.st-preset-n { font-size: 10.5px; font-weight: 700; }
+.st-preset-d {
+  font-size: 8.5px; color: var(--ec-text-muted, #566379);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.st-preset-x {
+  position: absolute; top: 5px; right: 5px;
+  width: 17px; height: 17px; line-height: 15px; text-align: center;
+  border-radius: 50%; border: 1px solid var(--ec-border, #2d3448);
+  background: rgba(8, 11, 18, .82); color: var(--ec-text-muted, #566379);
+  font-size: 11px; cursor: pointer; padding: 0;
+}
+.st-preset-x:hover { color: #f43f5e; border-color: #f43f5e; }
+.st-user-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.st-mini {
+  padding: 4px 9px; font-size: 10px; font-weight: 600;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 7px;
+  background: transparent; color: var(--ec-text-secondary, #94a3b8); cursor: pointer;
+}
+.st-mini:hover { border-color: var(--ec-blue, #3b82f6); color: var(--ec-blue, #3b82f6); }
+.st-empty { margin: 0; font-size: 10px; color: var(--ec-text-muted, #566379); }
+.st-empty.hide { display: none; }
+
+/* ── Pie ────────────────────────────────────────────────────────────────── */
+.st-foot {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 12px;
+  background: var(--ec-bg-deep, #0f1117);
+  border-top: 1px solid var(--ec-border, #2d3448);
+}
+.st-foot-txt { flex: 1; font-size: 9.5px; color: var(--ec-text-muted, #566379); }
+.st-go {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 15px; font-size: 11.5px; font-weight: 700;
+  border: none; border-radius: 9px;
+  background: var(--ec-blue, #3b82f6); color: #fff; cursor: pointer;
+}
+.st-go:hover { filter: brightness(1.1); }
+.st-go svg { width: 14px; height: 14px; }
+
+/* ── Aviso de beta ──────────────────────────────────────────────────────── */
+.st-beta {
+  position: fixed; inset: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: center;
+  padding: 18px;
+  background: rgba(6, 9, 15, .78);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  animation: st-beta-in .22s ease-out;
+}
+.st-beta[hidden] { display: none; }
+@keyframes st-beta-in { from { opacity: 0; } to { opacity: 1; } }
+
+.st-beta-card {
+  position: relative;
+  width: 100%; max-width: 330px;
+  display: flex; flex-direction: column; align-items: center; gap: 11px;
+  padding: 26px 22px 18px;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 16px;
+  background: var(--ec-bg-soft, #161a24);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .55);
+  text-align: center;
+  animation: st-beta-pop .26s cubic-bezier(.2, 1, .3, 1);
+}
+@keyframes st-beta-pop { from { transform: translateY(14px) scale(.97); } to { transform: none; } }
+
+/* Franja de color arriba, para que no sea una caja gris mas */
+.st-beta-card::before {
+  content: ''; position: absolute; top: 0; left: 22px; right: 22px; height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, var(--ec-blue, #3b82f6), #a855f7);
+}
+
+.st-beta-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: 2.2px;
+  padding: 4px 11px; border-radius: 20px;
+  color: #fff;
+  background: linear-gradient(90deg, var(--ec-blue, #3b82f6), #a855f7);
+}
+.st-beta-t { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: -.2px; }
+.st-beta-p {
+  margin: 0; font-size: 11px; line-height: 1.55;
+  color: var(--ec-text-secondary, #94a3b8);
+}
+
+.st-beta-dc {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 3px; padding: 10px 14px;
+  font-size: 12px; font-weight: 700;
+  border: none; border-radius: 10px;
+  background: #5865f2; color: #fff; cursor: pointer;
+  transition: filter .14s, transform .14s;
+}
+.st-beta-dc:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.st-beta-dc svg { width: 17px; height: 17px; }
+
+.st-beta-ok {
+  width: 100%; padding: 8px 14px;
+  font-size: 11.5px; font-weight: 600;
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 10px;
+  background: transparent; color: var(--ec-text-secondary, #94a3b8); cursor: pointer;
+}
+.st-beta-ok:hover { border-color: var(--ec-blue, #3b82f6); color: var(--ec-blue, #3b82f6); }
+
+.st-beta-no {
+  display: flex; align-items: center; gap: 7px;
+  margin-top: 2px;
+  font-size: 10px; color: var(--ec-text-muted, #566379);
+  cursor: pointer; user-select: none;
+}
+.st-beta-no input { width: 13px; height: 13px; accent-color: var(--ec-blue, #3b82f6); cursor: pointer; margin: 0; }
+.st-beta-no:hover { color: var(--ec-text-secondary, #94a3b8); }
+
+/* ── Aviso ──────────────────────────────────────────────────────────────── */
+.st-toast {
+  position: fixed; left: 50%; bottom: 58px; transform: translateX(-50%) translateY(8px);
+  max-width: 90%;
+  background: var(--ec-bg-soft, #161a24);
+  border: 1px solid var(--ec-border, #2d3448); border-radius: 9px;
+  padding: 7px 13px; font-size: 10.5px;
+  opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s;
+  z-index: 20;
+}
+.st-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
