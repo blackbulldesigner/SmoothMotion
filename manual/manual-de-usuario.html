@@ -768,7 +768,7 @@
   <header class="topbar">
     <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
     <a href="#" class="logo">Smooth<span>Motion</span></a>
-    <span class="topbar-badge">Manual v6.4.0</span>
+    <span class="topbar-badge">Manual v6.11.1</span>
     <nav class="topbar-nav" aria-label="Módulos">
       <a class="module-pill" href="#sec-curves">SmoothCurves</a>
       <a class="module-pill" href="#sec-tools">SmoothTools</a>
@@ -782,6 +782,7 @@
       <a class="module-pill" href="#sec-translator">SmoothTraductor</a>
       <a class="module-pill" href="#sec-paste">SmoothPaste</a>
 <a class="module-pill" href="#sec-smooth3d">Smooth3D</a>
+<a class="module-pill" href="#sec-smoothtransition">SmoothTransition</a>
     </nav>
     <a class="btn-discord" href="https://discord.gg/eV8xHpq2Np" target="_blank" rel="noopener">Únete al Discord</a>
   </header>
@@ -809,6 +810,7 @@
         <a href="#sec-translator">SmoothTraductor</a>
         <a href="#sec-paste">SmoothPaste</a>
 <a href="#sec-smooth3d">Smooth3D</a>
+<a href="#sec-smoothtransition">SmoothTransition</a>
         <a href="#atajos">Atajos y paleta</a>
         <a href="#ajustes">Ajustes</a>
         <a href="#consejos">Consejos</a>
@@ -1378,13 +1380,15 @@ Guárdala. Solo funciona en la PC cuyo ID usaste al reclamar.</div>
 <li><span>Pulsa <strong>Generar Orbe 3D</strong>: se crea la composición <code>Smooth3D_Orb</code> con la cámara, el nulo de control y una precomposición por slot.</span></li>
 </ol>
 <h3>El nulo de control</h3>
-<p>La composición incluye un nulo llamado <code>Smooth3D_Control</code> con todos los parámetros como deslizadores, enlazados por expresiones. Cambias uno y el orbe se reacomoda solo, sin volver a generar nada:</p>
+<p>La composición incluye un nulo llamado <code>Smooth3D_Control</code> con todos los parámetros como deslizadores, enlazados por expresiones. Cambias uno y el orbe se reacomoda solo, sin volver a generar nada. Los controles se crean <strong>en el idioma que tengas puesto en el panel</strong>:</p>
 <ul>
 <li><strong>Slot al frente:</strong> el control estrella. Si pones <code>3</code>, el slot 3 pasa al centro; con <code>7</code>, el 7. Acepta decimales (<code>3.5</code> queda a mitad de camino) y se adapta a la cantidad de slots que tengas.</li>
 <li><strong>Slots · Radio · Inclinación X · Separación Z · Escala:</strong> la geometría del orbe.</li>
 <li><strong>Giro Y:</strong> la rotación del conjunto.</li>
 <li><strong>Distancia · Altura · Órbita · Zoom · Enfoque:</strong> la cámara.</li>
 <li><strong>Zoom central</strong> (solo en Slide): agranda el slot enfocado y achica los vecinos. Al 100&#37; queda un slide plano normal.</li>
+<li><strong>Giro tarjetas:</strong> cuánto gira cada tarjeta hacia la cámara. Al 100&#37; apuntan exacto; en 0 quedan todas planas de frente.</li>
+<li><strong>Giro del texto</strong> (si activaste el texto por slot): lo mismo para los textos, pero arranca en 0 para que se lean siempre rectos. Súbelo si los quieres pegados al plano de su tarjeta.</li>
 </ul>
 <div class="callout note">
 Las animaciones se crean como <strong>fotogramas sobre esos deslizadores</strong>, así que puedes moverlos, cambiar duraciones y ajustar las curvas de velocidad como en cualquier capa. El preset <strong>Carrusel</strong> anima <em>Slot al frente</em> de 1 a N para que cada tarjeta pase por el centro.
@@ -1393,9 +1397,52 @@ Las animaciones se crean como <strong>fotogramas sobre esos deslizadores</strong
 <p>Cada slot es una precomposición (<code>Slot_1_Content</code>, <code>Slot_2_Content</code>…): ábrela y coloca dentro tu imagen, vídeo o texto.</p>
 <p>Para ir más rápido, en la pestaña <strong>Slots</strong> usa <strong>Auto-rellenar desde carpeta</strong>: eliges una carpeta y al generar se reparten los archivos entre los slots, escalados para cubrir la tarjeta y recortados con su forma gracias al <strong>track matte automático</strong>. Si quieres generar los slots vacíos sin perder la carpeta elegida, apaga <strong>Importar el contenido</strong>.</p>
 <div class="callout tip">
-Las tarjetas miran siempre a la cámara mientras el orbe gira. Si prefieres el orbe quieto y moverlo tú con los controles, apaga <strong>Rotación automática</strong> en la pestaña Anim.
+Las tarjetas miran siempre a la cámara mientras el orbe gira. La <strong>Rotación automática</strong> viene apagada: enciéndela en la pestaña Anim si quieres que el orbe gire solo.
 </div>
 </section>
+
+      <!-- 19. SmoothTransition -->
+<section id="sec-smoothtransition">
+<h2><span class="num">19</span> SmoothTransition — Transiciones entre clips <span class="tag accent">Nuevo</span></h2>
+<p><strong>SmoothTransition</strong> (paquete <strong>Studio</strong>) arma la transición entre dos clips, en el corte. No es un pack cerrado de transiciones hechas: <strong>apilas los módulos que quieras</strong> y guardas tu combinación como preset propio, igual que haces con SmoothText.</p>
+
+<h3>Cómo se usa</h3>
+<ol class="steps">
+<li><span>Abre <strong>Ventana → Extensiones → SmoothTransition</strong>.</span></li>
+<li><span>En la línea de tiempo, selecciona <strong>las dos capas del corte</strong>.</span></li>
+<li><span>Enciende los módulos que quieras y ajusta sus intensidades.</span></li>
+<li><span>Pulsa <strong>Aplicar transición</strong>.</span></li>
+</ol>
+<p>El panel detecta solo cuál clip sale y cuál entra, y dónde está el corte. Funciona con corte limpio, con clips solapados y hasta con un hueco entre ellos.</p>
+
+<h3>Los módulos</h3>
+<ul>
+<li><strong>Movimiento:</strong> Deslizar (en los cuatro sentidos), Zoom de acercar o alejar, y Giro.</li>
+<li><strong>Distorsión:</strong> Glitch, Motion blur direccional, Sacudida y Desenfoque.</li>
+<li><strong>Corte:</strong> Barrido lineal, radial, iris o fundido.</li>
+<li><strong>Color:</strong> Destello blanco o negro, Exposición y Desaturar.</li>
+</ul>
+<p>Se combinan entre sí: un <em>whip pan</em> no es más que Deslizar al 100&#37; con Motion blur, y un <em>glitch cut</em> es Glitch más un Deslizar corto. Vienen <strong>10 combinaciones de fábrica</strong> para empezar, y cada tarjeta se anima al pasar el ratón por encima.</p>
+
+<h3>La curva de velocidad</h3>
+<p>La sección <strong>Velocidad</strong> es un editor de curva en miniatura: arrastra los dos tiradores para decidir cómo acelera y cómo frena la transición. La línea punteada es la referencia de velocidad constante, y si sacas un tirador fuera de la banda central consigues <strong>rebote</strong>. Hay seis curvas de partida (Smooth, Golpe seco, Suave, Simétrica, Con rebote y Lineal).</p>
+<div class="callout note">
+Lo que dibujas en esa curva es <strong>exactamente</strong> lo que hace la transición en After Effects: el panel y la composición usan la misma fórmula.
+</div>
+
+<h3>Queda editable después</h3>
+<p>La transición no se "hornea". En la composición aparece un nulo <code>SmoothTransition_Control</code> con un deslizador <strong>Progreso</strong> animado y un deslizador por cada módulo activo:</p>
+<ul>
+<li>Mueve los <strong>dos fotogramas de Progreso</strong> y re-temporizas la transición entera.</li>
+<li>Toca cualquier deslizador y cambias la intensidad sin volver a aplicar.</li>
+<li>El nulo dura lo mismo que la transición, así que no te ocupa toda la línea de tiempo.</li>
+</ul>
+<p>Además, las expresiones se aplican <em>sobre</em> los valores de tus capas, así que <strong>si los clips ya tenían animación propia, se respeta</strong> en vez de pisarse.</p>
+<div class="callout tip">
+El barrido y el fundido necesitan ver los dos clips a la vez, así que estiran las capas para que se crucen. Si al material no le da para estirarse, el panel hace lo que puede y te lo dice en el aviso.
+</div>
+</section>
+
 <section id="atajos">
         <h2><span class="num">10</span> Atajos de Teclado y Paleta de Comandos</h2>
         <h3>Atajos Globales de la Interfaz</h3>
@@ -1580,7 +1627,7 @@ Las tarjetas miran siempre a la cámara mientras el orbe gira. Si prefieres el o
     'Menú': 'Menu',
     'Módulos': 'Modules',
     'SmoothMotion — Manual de usuario': 'SmoothMotion — User manual',
-    'Manual v6.4.0': 'Manual v6.4.0',
+    'Manual v6.11.1': 'Manual v6.11.1',
     'Únete al Discord': 'Join the Discord',
     'Unirse a la Comunidad Discord': 'Join the Discord community',
     'Contenido': 'Contents',
@@ -2385,6 +2432,62 @@ Las tarjetas miran siempre a la cámara mientras el orbe gira. Si prefieres el o
     'Poner tu contenido': 'Adding your content',
     'Slot al frente:': 'Slot in front:',
     'Zoom central': 'Center zoom',
+    'Giro tarjetas:': 'Card turn:',
+
+    /* ── SmoothTransition ── */
+    'Aplicar transición': 'Apply transition',
+    'SmoothTransition — Transiciones entre clips': 'SmoothTransition — Transitions between clips',
+    ') arma la transición entre dos clips, en el corte. No es un pack cerrado de transiciones hechas:': ') builds the transition between two clips, right at the cut. It is not a closed pack of ready-made transitions:',
+    'apilas los módulos que quieras': 'you stack whichever modules you want',
+    'y guardas tu combinación como preset propio, igual que haces con SmoothText.': 'and save your combo as your own preset, just like you do in SmoothText.',
+    'Cómo se usa': 'How to use it',
+    'Ventana → Extensiones → SmoothTransition': 'Window → Extensions → SmoothTransition',
+    'En la línea de tiempo, selecciona': 'In the timeline, select',
+    'las dos capas del corte': 'the two layers of the cut',
+    'Enciende los módulos que quieras y ajusta sus intensidades.': 'Turn on the modules you want and set their amounts.',
+    'El panel detecta solo cuál clip sale y cuál entra, y dónde está el corte. Funciona con corte limpio, con clips solapados y hasta con un hueco entre ellos.': 'The panel works out on its own which clip is leaving, which one is coming in, and where the cut is. It handles a clean cut, overlapping clips, and even a gap between them.',
+    'Los módulos': 'The modules',
+    'Movimiento:': 'Movement:',
+    'Deslizar (en los cuatro sentidos), Zoom de acercar o alejar, y Giro.': 'Slide (in all four directions), Zoom in or out, and Spin.',
+    'Distorsión:': 'Distortion:',
+    'Glitch, Motion blur direccional, Sacudida y Desenfoque.': 'Glitch, directional Motion blur, Shake and Blur.',
+    'Corte:': 'Cut:',
+    'Barrido lineal, radial, iris o fundido.': 'Linear, radial or iris wipe, and dissolve.',
+    'Color:': 'Color:',
+    'Destello blanco o negro, Exposición y Desaturar.': 'White or black Flash, Exposure and Desaturate.',
+    'Se combinan entre sí: un': 'They combine with each other: a',
+    'no es más que Deslizar al 100% con Motion blur, y un': 'is just Slide at 100% with Motion blur, and a',
+    'es Glitch más un Deslizar corto. Vienen': 'is Glitch plus a short Slide. It ships with',
+    '10 combinaciones de fábrica': '10 factory combos',
+    'para empezar, y cada tarjeta se anima al pasar el ratón por encima.': 'to get you started, and each card animates when you hover over it.',
+    'La curva de velocidad': 'The speed curve',
+    'La sección': 'The',
+    'Velocidad': 'Speed',
+    'es un editor de curva en miniatura: arrastra los dos tiradores para decidir cómo acelera y cómo frena la transición. La línea punteada es la referencia de velocidad constante, y si sacas un tirador fuera de la banda central consigues': 'section is a miniature curve editor: drag the two handles to decide how the transition speeds up and slows down. The dotted line is the constant-speed reference, and pulling a handle outside the central band gives you',
+    'rebote': 'overshoot',
+    '. Hay seis curvas de partida (Smooth, Golpe seco, Suave, Simétrica, Con rebote y Lineal).': '. There are six starting curves (Smooth, Snap, Gentle, Symmetric, Overshoot and Linear).',
+    'Lo que dibujas en esa curva es': 'What you draw on that curve is',
+    'exactamente': 'exactly',
+    'lo que hace la transición en After Effects: el panel y la composición usan la misma fórmula.': 'what the transition does in After Effects: the panel and the composition use the same formula.',
+    'Queda editable después': 'It stays editable afterwards',
+    'La transición no se "hornea". En la composición aparece un nulo': 'The transition is not baked. A null appears in the composition called',
+    'con un deslizador': 'with a',
+    'Progreso': 'Progress',
+    'animado y un deslizador por cada módulo activo:': 'slider that is keyframed, plus one slider per active module:',
+    'Mueve los': 'Move the',
+    'dos fotogramas de Progreso': 'two Progress keyframes',
+    'y re-temporizas la transición entera.': 'and you retime the whole transition.',
+    'Toca cualquier deslizador y cambias la intensidad sin volver a aplicar.': 'Touch any slider and you change the amount without applying again.',
+    'El nulo dura lo mismo que la transición, así que no te ocupa toda la línea de tiempo.': 'The null lasts exactly as long as the transition, so it does not take over your whole timeline.',
+    'Además, las expresiones se aplican': 'On top of that, the expressions are applied',
+    'sobre': 'on top of',
+    'los valores de tus capas, así que': 'your layers’ own values, so',
+    'si los clips ya tenían animación propia, se respeta': 'if the clips already had their own animation, it is preserved',
+    'en vez de pisarse.': 'instead of being overwritten.',
+    'El barrido y el fundido necesitan ver los dos clips a la vez, así que estiran las capas para que se crucen. Si al material no le da para estirarse, el panel hace lo que puede y te lo dice en el aviso.': 'The wipe and the dissolve need both clips visible at once, so they extend the layers to overlap. If the footage does not reach, the panel does what it can and tells you in the message.',
+    'cuánto gira cada tarjeta hacia la cámara. Al 100% apuntan exacto; en 0 quedan todas planas de frente.': 'how much each card turns toward the camera. At 100% they aim exactly; at 0 they stay flat, facing front.',
+    'Giro del texto': 'Text turn',
+    '(si activaste el texto por slot): lo mismo para los textos, pero arranca en 0 para que se lean siempre rectos. Súbelo si los quieres pegados al plano de su tarjeta.': '(if you enabled per-slot text): the same for the texts, but it starts at 0 so they always read straight. Raise it if you want them stuck to their card\'s plane.',
     'Rotación automática': 'Auto rotation',
     'Importar el contenido': 'Import the content',
     'Auto-rellenar desde carpeta': 'Auto-fill from folder',
@@ -2411,7 +2514,8 @@ Las tarjetas miran siempre a la cámara mientras el orbe gira. Si prefieres el o
     ': se crea la composición': ': the composition',
     'con la cámara, el nulo de control y una precomposición por slot.': 'is created, with the camera, the control null and one precomp per slot.',
     'La composición incluye un nulo llamado': 'The composition includes a null named',
-    'con todos los parámetros como deslizadores, enlazados por expresiones. Cambias uno y el orbe se reacomoda solo, sin volver a generar nada:': 'with every parameter as a slider, linked by expressions. Change one and the orb rearranges itself, with no need to generate again:',
+    'con todos los parámetros como deslizadores, enlazados por expresiones. Cambias uno y el orbe se reacomoda solo, sin volver a generar nada. Los controles se crean': 'with every parameter as a slider, linked by expressions. Change one and the orb rearranges itself, with no need to generate again. The controls are created',
+    'en el idioma que tengas puesto en el panel': 'in whatever language the panel is set to',
     'el control estrella. Si pones': 'the star control. Set it to',
     ', el slot 3 pasa al centro; con': 'and slot 3 moves to the center; with',
     ', el 7. Acepta decimales (': 'it is slot 7. It accepts decimals (',

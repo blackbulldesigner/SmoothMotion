@@ -253,5 +253,11 @@
     '11 distribuciones: circulo, slide, helice, esfera, muro, tunel y mas': '11 layouts: circle, slide, helix, sphere, wall, tunnel and more',
     'Un nulo con deslizadores: centra el slot que quieras, radio, giro y camara': 'A null with sliders: center any slot, radius, spin and camera',
     'Auto-rellena los slots con una carpeta de imagenes o videos': 'Auto-fill the slots from a folder of images or videos',
+    'Armate tus propias transiciones': 'Build your own transitions',
+    'Elegis dos clips y el panel monta la transicion en el corte. No es un pack cerrado: apilas los modulos que quieras y guardas tu combinacion como preset propio.': "Pick two clips and the panel builds the transition right at the cut. It's not a closed pack: stack whichever modules you want and save your combo as your own preset.",
+    '11 modulos apilables: deslizar, zoom, giro, glitch, barrido, destello y mas': '11 stackable modules: slide, zoom, spin, glitch, wipe, flash and more',
+    'Editor de curva de velocidad, como un mini SmoothCurves': 'A speed-curve editor, like a mini SmoothCurves',
+    'Queda todo vivo: un nulo con deslizadores para retocarla despues': 'It stays editable: a null with sliders to tweak it afterwards',
+    'Nuevo · SmoothTransition — armate tus propias transiciones': 'New · SmoothTransition — build your own transitions',
   });
 })();

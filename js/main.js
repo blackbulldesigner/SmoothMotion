@@ -67,6 +67,7 @@ if (hamburgerBtn && mobileNav) {
     { name: 'SmoothTraductor', src: 'app/SmoothTraductor/index.html' },
     { name: 'SmoothPaste',     src: 'app/SmoothPaste/index.html' },
     { name: 'Smooth3D',        src: 'app/Smooth3D/index.html' },
+    { name: 'SmoothTransition', src: 'app/SmoothTransition/index.html' },
   ];
 
   const INTERVAL = 5000;
@@ -221,7 +222,7 @@ const STORE = {
     {
       id: 'studio', name: 'Studio', price: 70, originalPrice: 110,
       tagline: 'Todo SmoothMotion + cada panel nuevo que saquemos',
-      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export', 'explorer', 'translator', 'paste', 'smooth3d'],
+      panels: ['flow', 'text', 'anchor', 'typo', 'fx', 'comp', 'scripts', 'color', 'align', 'guides', 'export', 'explorer', 'translator', 'paste', 'smooth3d', 'smoothtransition'],
       allAndUpdates: true,
       url: 'https://ko-fi.com/s/9811ac8619',
     },
