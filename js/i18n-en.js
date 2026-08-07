@@ -37,7 +37,7 @@
 
     /* ── Playground ──────────────────────────────────────────────────── */
     'La familia SmoothMotion': 'The SmoothMotion family',
-    'Quince paneles reales, en tu navegador.': 'Fifteen real panels, in your browser.',
+    'Dieciséis paneles reales, en tu navegador.': 'Fifteen real panels, in your browser.',
     'No son fotos ni vídeos: es la interfaz real de cada panel corriendo en vivo. Elige uno, navégalo, cambia de pestaña y arrastra la curva. Las acciones que tocan After Effects están en modo demo — pero el HUD es 100% auténtico.':
       'These are not screenshots or videos: it is each panel\'s real interface running live. Pick one, browse it, switch tabs and drag the curve. Actions that touch After Effects are in demo mode — but the HUD is 100% authentic.',
     'Cargando panel…': 'Loading panel…',
@@ -254,6 +254,9 @@
     'Un nulo con deslizadores: centra el slot que quieras, radio, giro y camara': 'A null with sliders: center any slot, radius, spin and camera',
     'Auto-rellena los slots con una carpeta de imagenes o videos': 'Auto-fill the slots from a folder of images or videos',
     'Armate tus propias transiciones': 'Build your own transitions',
+    '20% EXTRA de descuento': '20% EXTRA off',
+    'en los tres paquetes, encima del precio ya rebajado': 'on all three packages, on top of the already reduced price',
+    'Precio normal': 'Regular price',
     'Elegis dos clips y el panel monta la transicion en el corte. No es un pack cerrado: apilas los modulos que quieras y guardas tu combinacion como preset propio.': "Pick two clips and the panel builds the transition right at the cut. It's not a closed pack: stack whichever modules you want and save your combo as your own preset.",
     '11 modulos apilables: deslizar, zoom, giro, glitch, barrido, destello y mas': '11 stackable modules: slide, zoom, spin, glitch, wipe, flash and more',
     'Editor de curva de velocidad, como un mini SmoothCurves': 'A speed-curve editor, like a mini SmoothCurves',

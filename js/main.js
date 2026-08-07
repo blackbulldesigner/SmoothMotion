@@ -203,6 +203,10 @@ const PANEL_INFO = {
    ========================================================== */
 const STORE = {
   kofiShop: 'https://ko-fi.com/TU_USUARIO/shop',
+  // Descuento EXTRA sobre el precio ya rebajado. Poner 0 apaga toda la
+  // carteleria de la promo de una vez (banda, insignias y 'precio normal').
+  // OJO: los precios de Ko-fi tienen que coincidir con lo que se muestra.
+  extraOff: 0.20,
   currency: '$',
   // Paquetes acumulativos (cada uno incluye los paneles del anterior).
   // 👉 EDITA precios y pega la 'url' del producto en Ko-fi cuando lo tengas.
@@ -228,6 +232,12 @@ const STORE = {
     },
   ],
 };
+// Precio final con el descuento extra ya aplicado (redondeado hacia abajo).
+function finalPrice(t) {
+  var off = STORE.extraOff || 0;
+  return off > 0 ? Math.floor(t.price * (1 - off)) : t.price;
+}
+function offPct() { return Math.round((STORE.extraOff || 0) * 100); }
 function storeUrl(u) { return (u && u.trim()) ? u.trim() : STORE.kofiShop; }
 // Paquete más barato que incluye un panel dado
 function tierForPanel(id) {
@@ -271,7 +281,7 @@ function tierForPanel(id) {
     dList.innerHTML = info.list.map((li) => '<li>' + li + '</li>').join('');
     if (dPrice) {
       const tier = tierForPanel(id);
-      dPrice.textContent = tier ? 'Desde ' + STORE.currency + tier.price : '';
+      dPrice.textContent = tier ? 'Desde ' + STORE.currency + finalPrice(tier) : '';
       if (dTier) dTier.textContent = tier ? 'Incluido en el paquete ' + tier.name : '';
     }
   }
@@ -426,10 +436,12 @@ function tierForPanel(id) {
         (t.popular ? '<span class="tier-badge">Más popular</span>' : '') +
         '<h3 class="tier-name">' + t.name + '</h3>' +
         '<p class="tier-tagline">' + t.tagline + '</p>' +
-        '<div class="tier-price">' + 
+        (STORE.extraOff > 0 ? '<span class="tier-off">-' + offPct() + '% EXTRA</span>' : '') +
+        '<div class="tier-price">' +
           (t.originalPrice ? '<span class="tier-original-price">' + STORE.currency + t.originalPrice + '</span>' : '') +
-          STORE.currency + t.price +
+          STORE.currency + finalPrice(t) +
           '<span class="tier-per">/ pago único</span></div>' +
+        (STORE.extraOff > 0 ? '<div class="tier-was">Precio normal ' + STORE.currency + t.price + '</div>' : '') +
         '<div class="tier-count">' + t.panels.length + ' paneles' + (t.allAndUpdates ? ' · todo' : '') + '</div>' +
         '<a class="btn ' + (t.popular ? 'btn-primary' : 'btn-ghost') + ' tier-buy" href="' +
           storeUrl(t.url) + '" target="_blank" rel="noopener">Comprar ' + t.name + '</a>' +
