@@ -594,6 +594,7 @@ const VOICES = [
     return '' +
       '<figure class="voice reveal">' +
         '<blockquote class="voice-text">' + esc(v.text) + '</blockquote>' +
+        '<span class="voice-tr">Traducido del español</span>' +
         '<figcaption class="voice-who">' +
           avatar +
           '<span class="voice-meta">' +

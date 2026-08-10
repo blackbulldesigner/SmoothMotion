@@ -893,6 +893,19 @@ footer {
   position: relative;
   white-space: pre-line;      /* respeta los saltos de línea del mensaje */
 }
+/* Aviso de traducción: los mensajes se escribieron en español, así que en
+   inglés se dice claramente que lo que se lee es una traducción. En español
+   no se muestra, porque ahí son las palabras originales. */
+.voice-tr { display: none; }
+html[lang="en"] .voice-tr {
+  color: var(--ec-text-muted);
+  display: block;
+  font-size: 10px;
+  font-style: italic;
+  margin-top: -6px;
+  opacity: .75;
+}
+
 .voice-who { align-items: center; display: flex; gap: 11px; }
 .voice-pic {
   border-radius: 50%;

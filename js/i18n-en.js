@@ -254,6 +254,26 @@
     'Un nulo con deslizadores: centra el slot que quieras, radio, giro y camara': 'A null with sliders: center any slot, radius, spin and camera',
     'Auto-rellena los slots con una carpeta de imagenes o videos': 'Auto-fill the slots from a folder of images or videos',
     'Armate tus propias transiciones': 'Build your own transitions',
+
+    /* ── Feedback de la comunidad ── */
+    'Comunidad':
+      'Community',
+    'Feedback de la comunidad':
+      'Community feedback',
+    'Lo que nos escriben en el Discord, sin retocar ni una coma.':
+      'What people write to us on Discord, without changing a single word.',
+    'Traducido del español':
+      'Translated from Spanish',
+    'La verdad me sorprendió bastante lo completo que es SmoothMotion. Pensaba que sería el típico plugin que terminas usando para dos o tres cosas, pero tiene un montón de herramientas que realmente uso a diario con After. Lo recomiendo porque tiene Curvas, animaciones de texto, efectos, herramientas para organizar capas, color, alineación, transiciones, etc. Son cosas que normalmente tendría repartidas entre varios scripts o plugins.':
+      'Honestly, how complete SmoothMotion is really surprised me. I thought it would be the typical plugin you end up using for two or three things, but it has a ton of tools I actually use daily with After. I recommend it because it has Curves, text animations, effects, tools to organise layers, colour, alignment, transitions, etc. Things I would normally have scattered across several scripts or plugins.',
+    'El apartado de smooth text y smooth typo son mis favoritas y a mi opinión las mas rotas de todos los paneles. Curves es muy intuitivo el uso de dicho panel. Smooth tools tiene muchos apartados muy útiles. El nuevo smooth 3d sin duda fue un buen movimiento de parte del creador, me ahorró el tema de realizarlo manual ya que la mayoría de tutos que buscaba no eran muy eficientes. Sin duda alguna de los mejores plugins para after.':
+      'SmoothText and SmoothTypo are my favourites and in my opinion the most insane of all the panels. Curves is really intuitive to use. SmoothTools has a lot of very useful sections. The new Smooth3D was definitely a good move by the creator, it saved me doing it by hand since most of the tutorials I found were not very efficient. Without a doubt one of the best plugins for After.',
+    'Smoothmotion lo vi como una opcion muy viable y amigable a la mayoria de problemas que presentaba dia a dia editando. Confie en este gran proyecto y con cada actualizacion me sorprendo mas y admiro la dedicacion de BlackBull. Es un producto muy completo que reemplazo todos mis plugins pagando solo por uno. Ademas de la comunidad que se esta formando':
+      'I saw SmoothMotion as a very workable and friendly answer to most of the problems I ran into editing day to day. I trusted this project and with every update I am more surprised, and I admire BlackBull\'s dedication. It is a very complete product that replaced all my plugins while paying for just one. Plus the community that is forming around it.',
+    'SmoothMotion a pesar de su gran cantidad de funciones, al menos una ves en la vida tendrás que usar TODAS las funciones que ofrece por que está diseñado para cualquier tipo de situación no importa que tan complejo sea, y constantemente sacan updates mejores que las anteriores':
+      'Despite how many features SmoothMotion has, at least once in your life you will end up using ALL of them, because it is designed for any kind of situation no matter how complex, and the updates that keep coming out are better than the last ones.',
+    'El plugin es muy bueno, ahorra tiempo, es util, consolida muchas funciones en un solo plugin, una oferta y plugin realmente util y tentador, lo recomiendo. Hay detallitos como que se enfocan mucho en agregar funciones, cuando hay cosas por estabilizar o testear mas rigurosamente, pero eso con el tiempo y entre mas gente lo compre, se iran descubriendo y arreglando.':
+      'The plugin is very good, it saves time, it is useful, it brings a lot of features together into a single plugin — a genuinely useful and tempting deal, I recommend it. There are little things, like a lot of focus on adding features when there are things to stabilise or test more thoroughly, but with time and as more people buy it, those will get found and fixed.',
     '20% EXTRA de descuento': '20% EXTRA off',
     'en los tres paquetes, encima del precio ya rebajado': 'on all three packages, on top of the already reduced price',
     'Precio normal': 'Regular price',
