@@ -207,6 +207,9 @@ const STORE = {
   // carteleria de la promo de una vez (banda, insignias y 'precio normal').
   // OJO: los precios de Ko-fi tienen que coincidir con lo que se muestra.
   extraOff: 0.20,
+  // Cuando la promo caduca se apaga SOLA: vuelven los precios normales y
+  // desaparece la cartelería. Así no queda un '20% EXTRA' colgado meses.
+  promoEnds: '2026-08-16T23:59:59',
   currency: '$',
   // Paquetes acumulativos (cada uno incluye los paneles del anterior).
   // 👉 EDITA precios y pega la 'url' del producto en Ko-fi cuando lo tengas.
@@ -233,8 +236,15 @@ const STORE = {
   ],
 };
 // Precio final con el descuento extra ya aplicado (redondeado hacia abajo).
+// ¿Sigue viva la promo? Si no hay fecha, dura para siempre.
+function promoViva() {
+  if (!STORE.extraOff) return false;
+  if (!STORE.promoEnds) return true;
+  var fin = new Date(STORE.promoEnds).getTime();
+  return isFinite(fin) ? (Date.now() < fin) : true;
+}
 function finalPrice(t) {
-  var off = STORE.extraOff || 0;
+  var off = promoViva() ? STORE.extraOff : 0;
   return off > 0 ? Math.floor(t.price * (1 - off)) : t.price;
 }
 function offPct() { return Math.round((STORE.extraOff || 0) * 100); }
@@ -436,16 +446,170 @@ function tierForPanel(id) {
         (t.popular ? '<span class="tier-badge">Más popular</span>' : '') +
         '<h3 class="tier-name">' + t.name + '</h3>' +
         '<p class="tier-tagline">' + t.tagline + '</p>' +
-        (STORE.extraOff > 0 ? '<span class="tier-off">-' + offPct() + '% EXTRA</span>' : '') +
+        (promoViva() ? '<span class="tier-off">-' + offPct() + '% EXTRA</span>' : '') +
         '<div class="tier-price">' +
           (t.originalPrice ? '<span class="tier-original-price">' + STORE.currency + t.originalPrice + '</span>' : '') +
           STORE.currency + finalPrice(t) +
           '<span class="tier-per">/ pago único</span></div>' +
-        (STORE.extraOff > 0 ? '<div class="tier-was">Precio normal ' + STORE.currency + t.price + '</div>' : '') +
+        (promoViva() ? '<div class="tier-was">Precio normal ' + STORE.currency + t.price + '</div>' : '') +
         '<div class="tier-count">' + t.panels.length + ' paneles' + (t.allAndUpdates ? ' · todo' : '') + '</div>' +
         '<a class="btn ' + (t.popular ? 'btn-primary' : 'btn-ghost') + ' tier-buy" href="' +
           storeUrl(t.url) + '" target="_blank" rel="noopener">Comprar ' + t.name + '</a>' +
         '<ul class="tier-list">' + items.join('') + '</ul>' +
       '</article>';
   }).join('');
+})();
+
+
+/* ==========================================================
+   CONTADOR DE LA OFERTA
+   Se actualiza cada segundo. Cuando llega a cero esconde la banda y recarga
+   los precios, para que nadie vea una oferta que ya no existe.
+   ========================================================== */
+(function () {
+  var banda = document.getElementById('promoBanner');
+  var caja  = document.getElementById('promoCount');
+  if (!banda || !caja) return;
+
+  if (!promoViva()) { banda.style.display = 'none'; return; }
+
+  var fin = new Date(STORE.promoEnds).getTime();
+  var CAMPOS = [
+    { k: 'd', es: 'días',    en: 'days' },
+    { k: 'h', es: 'horas',   en: 'hrs' },
+    { k: 'm', es: 'min',     en: 'min' },
+    { k: 's', es: 'seg',     en: 'sec' }
+  ];
+
+  function dosDigitos(n) { return (n < 10 ? '0' : '') + n; }
+
+  function pintar() {
+    var falta = fin - Date.now();
+    if (falta <= 0) {
+      banda.style.display = 'none';
+      // Los precios vuelven a los normales sin recargar la página.
+      try { if (window.renderTiers) window.renderTiers(); } catch (e) {}
+      clearInterval(timer);
+      return;
+    }
+    var seg = Math.floor(falta / 1000);
+    var v = {
+      d: Math.floor(seg / 86400),
+      h: Math.floor(seg % 86400 / 3600),
+      m: Math.floor(seg % 3600 / 60),
+      s: seg % 60
+    };
+    var en = (document.documentElement.lang === 'en');
+    caja.innerHTML = CAMPOS.map(function (c) {
+      return '<span class="cd-box"><b>' + dosDigitos(v[c.k]) + '</b>' +
+             '<i>' + (en ? c.en : c.es) + '</i></span>';
+    }).join('<span class="cd-sep">:</span>');
+  }
+
+  pintar();
+  var timer = setInterval(pintar, 1000);
+})();
+
+
+/* ==========================================================
+   OPINIONES DE LA COMUNIDAD
+   ----------------------------------------------------------
+   👉 AQUÍ SE AÑADEN LOS MENSAJES. Uno por entrada:
+
+     name : cómo firma la persona (su nick del Discord).
+     rol  : opcional, lo que hace ("Editor de video", "Motion designer"…).
+            Si se deja vacío no se muestra la línea.
+     text : SU MENSAJE TAL CUAL. No se corrige ni se recorta: es lo que le da
+            credibilidad. Si es muy largo, la tarjeta crece y ya.
+     photo: ruta a su foto, p. ej. 'img/voices/nombre.jpg'. Si se deja vacío
+            se dibuja un avatar con sus iniciales y un color sacado del propio
+            nombre — siempre el mismo para la misma persona.
+
+   El orden de aquí es el orden en que salen en la web.
+   ========================================================== */
+const VOICES = [
+  {
+    "name": "Strike",
+    "rol": "",
+    "text": "La verdad me sorprendió bastante lo completo que es SmoothMotion. Pensaba que sería el típico plugin que terminas usando para dos o tres cosas, pero tiene un montón de herramientas que realmente uso a diario con After. Lo recomiendo porque tiene Curvas, animaciones de texto, efectos, herramientas para organizar capas, color, alineación, transiciones, etc. Son cosas que normalmente tendría repartidas entre varios scripts o plugins.",
+    "photo": "img/voices/strike.png"
+  },
+  {
+    "name": "Zarking Play",
+    "rol": "",
+    "text": "El apartado de smooth text y smooth typo son mis favoritas y a mi opinión las mas rotas de todos los paneles. Curves es muy intuitivo el uso de dicho panel. Smooth tools tiene muchos apartados muy útiles. El nuevo smooth 3d sin duda fue un buen movimiento de parte del creador, me ahorró el tema de realizarlo manual ya que la mayoría de tutos que buscaba no eran muy eficientes. Sin duda alguna de los mejores plugins para after.",
+    "photo": "img/voices/zarking.png"
+  },
+  {
+    "name": "Klim | lv",
+    "rol": "",
+    "text": "Smoothmotion lo vi como una opcion muy viable y amigable a la mayoria de problemas que presentaba dia a dia editando. Confie en este gran proyecto y con cada actualizacion me sorprendo mas y admiro la dedicacion de BlackBull. Es un producto muy completo que reemplazo todos mis plugins pagando solo por uno. Ademas de la comunidad que se esta formando",
+    "photo": "img/voices/klim.png"
+  },
+  {
+    "name": "Playera",
+    "rol": "",
+    "text": "SmoothMotion a pesar de su gran cantidad de funciones, al menos una ves en la vida tendrás que usar TODAS las funciones que ofrece por que está diseñado para cualquier tipo de situación no importa que tan complejo sea, y constantemente sacan updates mejores que las anteriores",
+    "photo": "img/voices/playera.png"
+  },
+  {
+    "name": "Clover",
+    "rol": "",
+    "text": "El plugin es muy bueno, ahorra tiempo, es util, consolida muchas funciones en un solo plugin, una oferta y plugin realmente util y tentador, lo recomiendo. Hay detallitos como que se enfocan mucho en agregar funciones, cuando hay cosas por estabilizar o testear mas rigurosamente, pero eso con el tiempo y entre mas gente lo compre, se iran descubriendo y arreglando.",
+    "photo": "img/voices/clover.png"
+  }
+];
+
+(function () {
+  const grid = document.getElementById('voicesGrid');
+  if (!grid) return;
+  if (!VOICES.length) { grid.closest('section').style.display = 'none'; return; }
+
+  // Color estable a partir del nombre: la misma persona siempre igual.
+  function tono(nombre) {
+    let h = 0;
+    for (let i = 0; i < nombre.length; i++) h = (h * 31 + nombre.charCodeAt(i)) % 3600;
+    // Se separa el resultado: si no, dos nombres parecidos ("Ana 1" y "Ana 2")
+    // salian practicamente del mismo color.
+    return (h * 47) % 360;
+  }
+  function iniciales(nombre) {
+    const p = nombre.trim().split(/\s+/);
+    return ((p[0] || '')[0] + (p.length > 1 ? (p[p.length - 1] || '')[0] : '')).toUpperCase();
+  }
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  grid.innerHTML = VOICES.map((v) => {
+    const h = tono(v.name);
+    const avatar = v.photo
+      ? '<img class="voice-pic" src="' + esc(v.photo) + '" alt="" loading="lazy" ' +
+        'onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),' +
+        '{className:\'voice-pic voice-ini\',textContent:\'' + esc(iniciales(v.name)) + '\',' +
+        'style:\'background:hsl(' + h + ' 55% 42%)\'}))">'
+      : '<span class="voice-pic voice-ini" style="background:hsl(' + h + ' 55% 42%)">' +
+        esc(iniciales(v.name)) + '</span>';
+
+    return '' +
+      '<figure class="voice reveal">' +
+        '<blockquote class="voice-text">' + esc(v.text) + '</blockquote>' +
+        '<figcaption class="voice-who">' +
+          avatar +
+          '<span class="voice-meta">' +
+            '<b>' + esc(v.name) + '</b>' +
+            (v.rol ? '<i>' + esc(v.rol) + '</i>' : '') +
+          '</span>' +
+        '</figcaption>' +
+      '</figure>';
+  }).join('');
+
+  // El observador de .reveal ya corrio cuando estas tarjetas no existian, asi
+  // que nunca les pondria la clase .visible y se quedarian en opacity 0. Se
+  // les pone a mano en el siguiente frame, para que la transicion se vea.
+  // setTimeout y no requestAnimationFrame: si la pestaña esta en segundo plano
+  // rAF no dispara ni un fotograma y las tarjetas se quedarian invisibles.
+  grid.querySelectorAll('.voice').forEach(function (el, i) {
+    setTimeout(function () { el.classList.add('visible'); }, 60 + i * 70);
+  });
 })();

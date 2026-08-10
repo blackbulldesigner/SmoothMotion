@@ -224,6 +224,16 @@
     </div>
   </section>
 
+  <!-- ===== OPINIONES ===== -->
+  <section id="opiniones" class="section">
+    <div class="section-head reveal">
+      <span class="kicker">Comunidad</span>
+      <h2>Feedback de la comunidad</h2>
+      <p>Lo que nos escriben en el Discord, sin retocar ni una coma.</p>
+    </div>
+    <div class="voices" id="voicesGrid"><!-- generado por JS --></div>
+  </section>
+
   <!-- ===== PRECIOS ===== -->
   <section id="precios" class="section section-alt">
     <div class="section-head reveal">
@@ -233,11 +243,13 @@
         tu key se reclama en el Discord.</p>
     </div>
 
-    <div class="promo-banner reveal">
+    <div class="promo-banner reveal" id="promoBanner">
       <span class="promo-spark" aria-hidden="true">✦</span>
       <div class="promo-txt">
         <strong class="promo-big">20&#37; EXTRA de descuento</strong>
         <span class="promo-sub">en los tres paquetes, encima del precio ya rebajado</span>
+        <div class="promo-count" id="promoCount"><!-- lo pinta main.js --></div>
+        <span class="promo-ends">La oferta termina el 16 de agosto</span>
       </div>
       <span class="promo-spark" aria-hidden="true">✦</span>
     </div>

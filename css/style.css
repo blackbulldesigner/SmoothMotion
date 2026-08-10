@@ -818,6 +818,102 @@ footer {
   .promo-spark  { animation: none; opacity: 0.85; }
 }
 
+/* Contador de la oferta */
+.promo-count { display: flex; align-items: center; gap: 5px; justify-content: center; margin-top: 8px; }
+.cd-box {
+  background: rgba(0,0,0,0.24);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 42px;
+  padding: 4px 6px 3px;
+}
+.cd-box b {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;   /* que no baile al cambiar de cifra */
+}
+.cd-box i {
+  color: rgba(255,255,255,0.72);
+  font-size: 8.5px;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.cd-sep { color: rgba(255,255,255,0.45); font-weight: 800; padding-bottom: 8px; }
+.promo-ends {
+  color: rgba(255,255,255,0.78);
+  display: block;
+  font-size: 10.5px;
+  margin-top: 6px;
+}
+
+/* ── Opiniones ────────────────────────────────────────────────────────── */
+.voices {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin: 0 auto;
+  max-width: 1080px;
+}
+.voice {
+  background: linear-gradient(165deg, var(--ec-bg-elevated), var(--ec-bg-surface));
+  border: 1px solid var(--ec-border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 22px 22px 18px;
+  position: relative;
+  transition: border-color .18s, transform .18s;
+}
+.voice:hover { border-color: var(--ec-blue); transform: translateY(-2px); }
+/* Comilla de fondo: da aire de cita sin meter una imagen */
+.voice::before {
+  color: var(--ec-blue);
+  content: '"';
+  font-size: 62px;
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0.16;
+  position: absolute;
+  right: 18px;
+  top: 6px;
+}
+.voice-text {
+  color: var(--ec-text-secondary);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+  margin: 0;
+  position: relative;
+  white-space: pre-line;      /* respeta los saltos de línea del mensaje */
+}
+.voice-who { align-items: center; display: flex; gap: 11px; }
+.voice-pic {
+  border-radius: 50%;
+  flex: 0 0 auto;
+  height: 40px;
+  object-fit: cover;
+  width: 40px;
+}
+.voice-ini {
+  align-items: center;
+  color: #fff;
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.5px;
+}
+.voice-meta { display: flex; flex-direction: column; line-height: 1.3; }
+.voice-meta b { color: var(--ec-text-primary); font-size: 13.5px; font-weight: 700; }
+.voice-meta i { color: var(--ec-text-muted); font-size: 11px; font-style: normal; }
+
 /* Insignia del descuento en cada tarjeta. Va a la DERECHA para no chocar con
    la de "Mas popular", que ocupa la izquierda. */
 .tier-off {
