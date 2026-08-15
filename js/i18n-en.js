@@ -274,7 +274,10 @@
       'Despite how many features SmoothMotion has, at least once in your life you will end up using ALL of them, because it is designed for any kind of situation no matter how complex, and the updates that keep coming out are better than the last ones.',
     'El plugin es muy bueno, ahorra tiempo, es util, consolida muchas funciones en un solo plugin, una oferta y plugin realmente util y tentador, lo recomiendo. Hay detallitos como que se enfocan mucho en agregar funciones, cuando hay cosas por estabilizar o testear mas rigurosamente, pero eso con el tiempo y entre mas gente lo compre, se iran descubriendo y arreglando.':
       'The plugin is very good, it saves time, it is useful, it brings a lot of features together into a single plugin — a genuinely useful and tempting deal, I recommend it. There are little things, like a lot of focus on adding features when there are things to stabilise or test more thoroughly, but with time and as more people buy it, those will get found and fixed.',
+    'la verdad lo recomiendo para hacer lyrics  o cosas en 3d con animaciones y aprendes a como usar cada a partado es super intuitivo,  y gracias al plugin puedo tener 5 novias 😄':
+      'honestly I recommend it for doing lyrics or 3d stuff with animations, and you learn how to use every section, it is super intuitive, and thanks to the plugin I can have 5 girlfriends 😄',
     '20% EXTRA de descuento': '20% EXTRA off',
+    '20% EXTRA de descuento gracias a': '20% EXTRA off thanks to',
     'en los tres paquetes, encima del precio ya rebajado': 'on all three packages, on top of the already reduced price',
     'Precio normal': 'Regular price',
     'Elegis dos clips y el panel monta la transicion en el corte. No es un pack cerrado: apilas los modulos que quieras y guardas tu combinacion como preset propio.': "Pick two clips and the panel builds the transition right at the cut. It's not a closed pack: stack whichever modules you want and save your combo as your own preset.",

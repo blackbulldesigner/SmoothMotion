@@ -557,6 +557,12 @@ const VOICES = [
     "rol": "",
     "text": "El plugin es muy bueno, ahorra tiempo, es util, consolida muchas funciones en un solo plugin, una oferta y plugin realmente util y tentador, lo recomiendo. Hay detallitos como que se enfocan mucho en agregar funciones, cuando hay cosas por estabilizar o testear mas rigurosamente, pero eso con el tiempo y entre mas gente lo compre, se iran descubriendo y arreglando.",
     "photo": "img/voices/clover.png"
+  },
+  {
+    "name": "Mr_Oslo",
+    "rol": "",
+    "text": "la verdad lo recomiendo para hacer lyrics  o cosas en 3d con animaciones y aprendes a como usar cada a partado es super intuitivo,  y gracias al plugin puedo tener 5 novias 😄",
+    "photo": "img/voices/mr_oslo.png"
   }
 ];
 
