@@ -209,7 +209,7 @@ const STORE = {
   extraOff: 0.20,
   // Cuando la promo caduca se apaga SOLA: vuelven los precios normales y
   // desaparece la cartelería. Así no queda un '20% EXTRA' colgado meses.
-  promoEnds: '2026-08-16T23:59:59',
+  promoEnds: '2026-08-24T23:59:59',
   currency: '$',
   // Paquetes acumulativos (cada uno incluye los paneles del anterior).
   // 👉 EDITA precios y pega la 'url' del producto en Ko-fi cuando lo tengas.
@@ -508,6 +508,105 @@ function tierForPanel(id) {
 
   pintar();
   var timer = setInterval(pintar, 1000);
+})();
+
+
+/* ==========================================================
+   VÍDEOS DE LA COMUNIDAD
+   ----------------------------------------------------------
+   👉 AQUÍ SE AÑADEN LOS VÍDEOS. Uno por entrada:
+
+     id     : el número del vídeo. Está en su propia URL:
+              tiktok.com/@quien/video/ESTE_NUMERO
+     title  : el título que se ve en la tarjeta (se puede acortar el original).
+     author : el @ de quien lo hizo, sin la arroba.
+     url    : enlace a su perfil.
+     thumb  : la portada, en 'img/videos/…'.
+     net    : 'TikTok' de momento; es solo la etiquetita de la esquina.
+
+   ⚠️ La portada hay que GUARDARLA LOCAL. La URL que devuelve TikTok va firmada
+   y caduca a los pocos días: si se enlaza directa, la tarjeta se queda en gris.
+   Se saca de https://www.tiktok.com/oembed?url=<url del video>
+
+   El reproductor NO se carga hasta que alguien hace clic: la tarjeta es una
+   imagen normal y recién ahí se monta el iframe de TikTok. Así la portada
+   entra al instante y la página no arrastra el peso de TikTok en cada visita.
+
+   El orden de aquí es el orden en que salen en la web.
+   ========================================================== */
+const VIDEOS = [
+  {
+    id: '7674915881448721685',
+    title: 'Encontré el mejor plugin para After Effects',
+    author: 'ubray',
+    url: 'https://www.tiktok.com/@ubrayshit',
+    thumb: 'img/videos/ubray-tiktok.jpg',
+    net: 'TikTok',
+  },
+];
+
+(function () {
+  const grid = document.getElementById('videosGrid');
+  if (!grid) return;
+
+  function esc(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // Sin vídeos cargados no se deja la sección vacía: se esconde entera.
+  if (!VIDEOS.length) {
+    const sec = grid.closest('.section');
+    if (sec) sec.style.display = 'none';
+    return;
+  }
+
+  // Con un solo vídeo la rejilla se centra en vez de quedar pegada a la
+  // izquierda con un hueco enorme al lado.
+  grid.classList.toggle('is-solo', VIDEOS.length === 1);
+
+  grid.innerHTML = VIDEOS.map(function (v) {
+    return '' +
+      '<article class="vid reveal">' +
+        '<button type="button" class="vid-thumb" data-id="' + esc(v.id) + '" ' +
+                'aria-label="Reproducir: ' + esc(v.title) + '">' +
+          '<img src="' + esc(v.thumb) + '" alt="" loading="lazy" decoding="async">' +
+          '<span class="vid-net" data-no-i18n>' + esc(v.net || 'TikTok') + '</span>' +
+          '<span class="vid-play" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>' +
+          '</span>' +
+        '</button>' +
+        '<div class="vid-meta">' +
+          '<b class="vid-title">' + esc(v.title) + '</b>' +
+          '<a class="vid-author" data-no-i18n href="' + esc(v.url) + '" ' +
+             'target="_blank" rel="noopener">@' + esc(v.author) + '</a>' +
+        '</div>' +
+      '</article>';
+  }).join('');
+
+  // Clic → se cambia la portada por el reproductor de TikTok.
+  grid.addEventListener('click', function (ev) {
+    const btn = ev.target.closest ? ev.target.closest('.vid-thumb') : null;
+    if (!btn) return;
+
+    const id = btn.getAttribute('data-id');
+    const marco = document.createElement('div');
+    marco.className = 'vid-frame';
+    marco.innerHTML =
+      '<iframe src="https://www.tiktok.com/embed/v2/' + encodeURIComponent(id) + '" ' +
+              'title="TikTok" frameborder="0" allowfullscreen ' +
+              'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" ' +
+              'referrerpolicy="strict-origin-when-cross-origin" scrolling="no"></iframe>';
+    btn.parentNode.replaceChild(marco, btn);
+  });
+
+  // Igual que en las opiniones: el observador de .reveal ya paso de largo
+  // cuando estas tarjetas todavia no existian, asi que se les pone .visible
+  // a mano para que la transicion se vea.
+  grid.querySelectorAll('.vid').forEach(function (el, i) {
+    setTimeout(function () { el.classList.add('visible'); }, 60 + i * 70);
+  });
 })();
 
 

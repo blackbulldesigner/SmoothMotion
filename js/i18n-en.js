@@ -12,6 +12,7 @@
     /* ── Navegación ──────────────────────────────────────────────────── */
     'Paneles': 'Panels',
     'Características': 'Features',
+    'Vídeos': 'Videos',
     'Sobre mí': 'About',
     'Precios': 'Pricing',
     'Comprar': 'Buy',
@@ -255,6 +256,12 @@
     'Auto-rellena los slots con una carpeta de imagenes o videos': 'Auto-fill the slots from a folder of images or videos',
     'Armate tus propias transiciones': 'Build your own transitions',
 
+    /* ── Vídeos de la comunidad ── */
+    'En vídeo': 'On video',
+    'en acción': 'in action',
+    'Lo que la comunidad está haciendo con la suite. ¿Grabaste uno? Pásalo por el Discord y lo sumamos aquí.':
+      'What the community is making with the suite. Recorded one? Drop it in the Discord and we will add it here.',
+
     /* ── Feedback de la comunidad ── */
     'Comunidad':
       'Community',
@@ -279,6 +286,7 @@
     '20% EXTRA de descuento': '20% EXTRA off',
     '20% EXTRA de descuento gracias a': '20% EXTRA off thanks to',
     'en los tres paquetes, encima del precio ya rebajado': 'on all three packages, on top of the already reduced price',
+    'La oferta termina el 24 de agosto': 'The offer ends on 24 August',
     'Precio normal': 'Regular price',
     'Elegis dos clips y el panel monta la transicion en el corte. No es un pack cerrado: apilas los modulos que quieras y guardas tu combinacion como preset propio.': "Pick two clips and the panel builds the transition right at the cut. It's not a closed pack: stack whichever modules you want and save your combo as your own preset.",
     '11 modulos apilables: deslizar, zoom, giro, glitch, barrido, destello y mas': '11 stackable modules: slide, zoom, spin, glitch, wipe, flash and more',
