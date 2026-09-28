@@ -1376,11 +1376,14 @@ body.modal-open { overflow: hidden; }
 
 /* ==========================================
    DowP — herramienta amiga
-   Copia el estilo de su web (marckdp.github.io/DowP): pixel, verde lima y
-   ventanas de escritorio viejo. Todo va con prefijo dp- y las variables
-   viven dentro de .dp-band para no pisar la paleta azul del sitio.
+   Un botón en la página y un portal a pantalla completa con el estilo de su
+   web (marckdp.github.io/DowP): pixel, verde lima y ventanas de escritorio
+   viejo. Todo va con prefijo dp- y las variables viven dentro de .dp-launch
+   y .dp-portal para no pisar la paleta azul del sitio.
+   La transición (onda de píxeles + encendido de CRT) la maneja main.js.
    ========================================== */
-.dp-band {
+.dp-launch,
+.dp-portal {
   --dp-lime:   #b8e640;
   --dp-green:  #00b030;
   --dp-deep:   #007828;
@@ -1390,48 +1393,187 @@ body.modal-open { overflow: hidden; }
   --dp-muted:  #8fa383;
   --dp-warn:   #ffd23f;
   --dp-bevel:  #4c6a33 #0a0f08 #0a0f08 #4c6a33;
-
-  background-color: #070907;
-  /* Cielo de píxeles: dos capas de "estrellas" y una rejilla tenue */
-  background-image:
+  --dp-sky:
     radial-gradient(1px 1px at 12px 18px, var(--dp-lime) 50%, transparent 51%),
     radial-gradient(1px 1px at 61px 77px, #6f8f4a 50%, transparent 51%),
     linear-gradient(rgba(0,176,48,.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0,176,48,.05) 1px, transparent 1px);
-  background-size: 97px 97px, 131px 131px, 24px 24px, 24px 24px;
-  border-bottom: 2px solid var(--dp-deep);
-  border-top: 2px solid var(--dp-deep);
-  color: var(--dp-text);
-  font-family: 'VT323', Consolas, monospace;
-  font-size: 22px;
-  line-height: 1.25;
-  overflow: hidden;
-  padding: 90px 24px;
-  position: relative;
 }
-/* Líneas de monitor CRT por encima, sin bloquear clics */
-.dp-band::after {
-  background: repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+
+/* ── El botón de la página ─────────────────────────────── */
+.dp-launch-wrap { display: flex; justify-content: center; margin-top: 30px; }
+.dp-launch {
+  align-items: center;
+  background-color: #070907;
+  background-image: var(--dp-sky);
+  background-size: 97px 97px, 131px 131px, 24px 24px, 24px 24px;
+  border: 3px solid;
+  border-color: var(--dp-bevel);
+  box-shadow: 6px 6px 0 #03280f;
+  color: var(--dp-text);
+  cursor: pointer;
+  display: flex;
+  font-family: 'VT323', Consolas, monospace;
+  gap: 16px;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 14px 18px 14px 16px;
+  position: relative;
+  text-align: left;
+  transition: transform .06s, box-shadow .06s, border-color .15s;
+}
+/* Líneas de monitor también en el botón */
+.dp-launch::after {
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,.2) 0 1px, transparent 1px 3px);
   content: '';
   inset: 0;
   pointer-events: none;
   position: absolute;
+}
+.dp-launch:hover { border-color: var(--dp-lime) var(--dp-deep) var(--dp-deep) var(--dp-lime); }
+.dp-launch:active { box-shadow: 2px 2px 0 #03280f; transform: translate(4px, 4px); }
+.dp-launch:focus-visible { outline: 2px dashed var(--dp-lime); outline-offset: 5px; }
+.dp-launch-logo {
+  filter: drop-shadow(3px 3px 0 var(--dp-deep));
+  flex-shrink: 0;
+  height: 64px;
+  image-rendering: pixelated;
+  width: 64px;
+}
+.dp-launch:hover .dp-launch-logo { animation: dp-bob .6s steps(2) infinite; }
+.dp-launch-txt { display: flex; flex-direction: column; min-width: 0; }
+.dp-launch-kicker { color: var(--dp-warn); font-family: 'Silkscreen', monospace; font-size: 11px; letter-spacing: 1px; }
+.dp-launch-title {
+  color: var(--dp-lime);
+  font-family: 'Press Start 2P', 'Silkscreen', monospace;
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin: 8px 0 6px;
+  text-shadow: 2px 2px 0 var(--dp-green), 4px 4px 0 var(--dp-deep);
+}
+.dp-launch-sub { color: var(--dp-muted); font-size: 19px; line-height: 1; }
+.dp-launch-go {
+  background: linear-gradient(180deg, var(--dp-lime), var(--dp-green));
+  border: 2px solid;
+  border-color: #e2ff9a var(--dp-deep) var(--dp-deep) #e2ff9a;
+  color: var(--dp-ink);
+  flex-shrink: 0;
+  font-family: 'Silkscreen', monospace;
+  font-size: 15px;
+  margin-left: 10px;
+  padding: 8px 12px;
+}
+.dp-launch:hover .dp-launch-go { background: linear-gradient(180deg, #d6ff70, var(--dp-lime)); }
+
+/* Al pulsar: parpadeo con separación de color, justo antes de la onda */
+.dp-launch.is-launching,
+.nav-dowp.is-launching { animation: dp-glitch .36s steps(1) both; }
+@keyframes dp-glitch {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-3px, 1px);  filter: drop-shadow(-3px 0 0 #ff2bd6) drop-shadow(3px 0 0 #2bf0ff); }
+  40%  { transform: translate(3px, -1px);  filter: drop-shadow(3px 0 0 #ff2bd6) drop-shadow(-3px 0 0 #2bf0ff); }
+  60%  { transform: translate(-1px, 0);    filter: brightness(1.8); }
+  80%  { transform: translate(2px, 1px);   filter: drop-shadow(-2px 0 0 #b8e640); }
+  100% { transform: translate(0, 0);       filter: none; }
+}
+
+/* Onda de píxeles (canvas que crea main.js) */
+.dp-wave {
+  height: 100%;
+  inset: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
+}
+
+/* ── El portal ──────────────────────────────────────────── */
+.dp-portal {
+  background: #000;
+  inset: 0;
+  overflow: hidden;
+  position: fixed;
+  z-index: 1500;
+}
+.dp-portal[hidden] { display: none; }
+/* Viñeta y líneas CRT fijas por encima de todo el portal, sin bloquear clics */
+.dp-portal::before,
+.dp-portal::after {
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+.dp-portal::before { background: radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,.5) 100%); }
+.dp-portal::after  { background: repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
+
+.dp-screen {
+  background-color: #070907;
+  background-image: var(--dp-sky);
+  background-size: 97px 97px, 131px 131px, 24px 24px, 24px 24px;
+  color: var(--dp-text);
+  font-family: 'VT323', Consolas, monospace;
+  font-size: 22px;
+  height: 100%;
+  line-height: 1.25;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  position: relative;
+  scrollbar-color: var(--dp-deep) #070907;
+  transform-origin: 50% 50%;
+}
+.dp-portal ::selection { background: var(--dp-deep); color: #fff; }
+
+/* La raya brillante del encendido/apagado del monitor */
+.dp-flash {
+  background: #f4ffd6;
+  box-shadow: 0 0 18px 6px rgba(184,230,64,.85), 0 0 70px 24px rgba(0,176,48,.45);
+  height: 4px;
+  left: 0;
+  margin-top: -2px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  z-index: 4;
+}
+
+.dp-topbar {
+  align-items: center;
+  background: rgba(7,9,7,.94);
+  border-bottom: 2px solid var(--dp-deep);
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  padding: 10px 24px;
+  position: sticky;
+  top: 0;
   z-index: 2;
 }
-.dp-band ::selection { background: var(--dp-deep); color: #fff; }
-.dp-inner { margin: 0 auto; max-width: 1060px; position: relative; }
-
-.dp-label {
-  color: var(--dp-warn);
+.dp-back,
+.dp-no-btn {
+  background: #000;
+  border: 2px solid;
+  border-color: var(--dp-bevel);
+  box-shadow: 3px 3px 0 #03280f;
+  color: var(--dp-lime);
+  cursor: pointer;
   font-family: 'Silkscreen', monospace;
-  font-size: 13px;
-  letter-spacing: 1px;
-  margin-bottom: 18px;
+  font-size: 14px;
+  padding: 7px 12px;
 }
+.dp-back:hover, .dp-no-btn:hover { background: var(--dp-deep); color: #fff; }
+.dp-back:active, .dp-no-btn:active { box-shadow: 1px 1px 0 #03280f; transform: translate(2px, 2px); }
+.dp-back:focus-visible, .dp-no-btn:focus-visible { outline: 2px dashed var(--dp-lime); outline-offset: 3px; }
+.dp-topbar-note { color: var(--dp-muted); font-size: 18px; text-align: right; }
+
+.dp-inner { margin: 0 auto; max-width: 1060px; padding: 28px 24px 48px; }
 
 /* ── Cabecera: logo + título con sombra en escalera ── */
 .dp-masthead {
-  --dp-title: clamp(34px, 7vw, 64px);
+  --dp-title: clamp(34px, 6vw, 60px);
   align-items: flex-start;
   display: flex;
   gap: 18px;
@@ -1480,7 +1622,7 @@ body.modal-open { overflow: hidden; }
   align-items: start;
   display: grid;
   gap: 22px;
-  grid-template-columns: minmax(0, 1fr) 330px;
+  grid-template-columns: minmax(0, 1fr) 360px;
 }
 .dp-win {
   background: var(--dp-panel);
@@ -1512,7 +1654,30 @@ body.modal-open { overflow: hidden; }
 .dp-num { color: var(--dp-muted); }
 .dp-win-body .dp-sign { color: var(--dp-muted); margin: 14px 0 0; text-align: right; }
 
-/* ── Ventana "Pruébalo": captura, estado y botón ── */
+/* ── Ventana "¿Entrar a DowP?": la decisión ── */
+.dp-win-body .dp-ask { color: var(--dp-text); font-size: 20px; margin-bottom: 16px; }
+.dp-choices { display: grid; gap: 14px; justify-items: center; margin-bottom: 18px; }
+.dp-big-btn {
+  align-items: center;
+  background: linear-gradient(180deg, var(--dp-lime), var(--dp-green));
+  border: 3px solid;
+  border-color: #e2ff9a var(--dp-deep) var(--dp-deep) #e2ff9a;
+  box-shadow: 6px 6px 0 #03280f;
+  color: var(--dp-ink);
+  display: inline-flex;
+  font-family: 'Silkscreen', monospace;
+  font-size: 18px;
+  gap: 12px;
+  justify-content: center;
+  max-width: 100%;
+  padding: 12px 18px;
+  transition: transform .05s;
+}
+.dp-big-btn:hover { background: linear-gradient(180deg, #d6ff70, var(--dp-lime)); }
+.dp-big-btn:active { box-shadow: 2px 2px 0 #03280f; transform: translate(4px, 4px); }
+.dp-big-btn:focus-visible { outline: 2px dashed var(--dp-lime); outline-offset: 4px; }
+.dp-big-btn-arrow { animation: dp-bob 1s steps(2) infinite; }
+
 .dp-shot {
   background: var(--dp-ink);
   border: 2px solid;
@@ -1534,7 +1699,7 @@ body.modal-open { overflow: hidden; }
 }
 .dp-shot:hover, .dp-shot:focus-visible { border-color: var(--dp-lime); color: var(--dp-lime); outline: none; }
 
-.dp-status { display: grid; gap: 4px; list-style: none; margin: 14px 0 16px; }
+.dp-status { display: grid; gap: 4px; list-style: none; margin: 14px 0; }
 .dp-status li { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; }
 .dp-led {
   background: var(--dp-lime);
@@ -1552,33 +1717,58 @@ body.modal-open { overflow: hidden; }
   font-style: normal;
   padding: 0 4px;
 }
-
 .dp-center { text-align: center; }
-.dp-big-btn {
-  align-items: center;
-  background: linear-gradient(180deg, var(--dp-lime), var(--dp-green));
-  border: 3px solid;
-  border-color: #e2ff9a var(--dp-deep) var(--dp-deep) #e2ff9a;
-  box-shadow: 6px 6px 0 #03280f;
-  color: var(--dp-ink);
-  display: inline-flex;
-  font-family: 'Silkscreen', monospace;
-  font-size: 20px;
-  gap: 12px;
-  max-width: 100%;
-  padding: 12px 22px;
-  transition: transform .05s;
-}
-.dp-big-btn:hover { background: linear-gradient(180deg, #d6ff70, var(--dp-lime)); }
-.dp-big-btn:active { box-shadow: 2px 2px 0 #03280f; transform: translate(4px, 4px); }
-.dp-big-btn:focus-visible { outline: 2px dashed var(--dp-lime); outline-offset: 4px; }
-.dp-big-btn-arrow { animation: dp-bob 1s steps(2) infinite; }
-.dp-win-body .dp-tiny { color: var(--dp-muted); font-size: 17px; margin: 14px 0 10px; }
 .dp-badge { display: inline-block; line-height: 0; }
 .dp-badge img { image-rendering: pixelated; }
 .dp-badge:hover img, .dp-badge:focus-visible img { outline: 1px solid var(--dp-lime); outline-offset: 2px; }
 
-/* Pestaña del menú: un píxel lima para anunciar la sección */
+/* ── Animaciones del portal ────────────────────────────────
+   Entrada: raya brillante que se abre (monitor encendiéndose) y el contenido
+   "arranca" por partes. Salida: se cierra en una raya y luego un punto. */
+.dp-portal.is-crt-on .dp-screen { animation: dp-crt-on .62s cubic-bezier(.2,.7,.2,1) both; }
+.dp-portal.is-crt-on .dp-flash  { animation: dp-flash-on .62s ease-out both; }
+.dp-portal.is-crt-on .dp-boot {
+  animation: dp-boot-in .42s steps(6) backwards;
+  animation-delay: calc(420ms + var(--i, 0) * 110ms);
+}
+.dp-portal.is-crt-off .dp-screen { animation: dp-crt-off .44s ease-in both; }
+.dp-portal.is-crt-off .dp-flash  { animation: dp-flash-off .44s ease-in both; }
+
+@keyframes dp-crt-on {
+  0%   { opacity: 0; transform: scale(1, .004); filter: brightness(3); }
+  30%  { opacity: 0; transform: scale(1, .004); filter: brightness(3); }
+  31%  { opacity: 1; }
+  72%  { transform: scale(1, 1); filter: brightness(1.7) contrast(1.2); }
+  100% { opacity: 1; transform: scale(1, 1); filter: none; }
+}
+@keyframes dp-flash-on {
+  0%   { opacity: 1; transform: scaleX(0); }
+  30%  { opacity: 1; transform: scaleX(1); }
+  60%  { opacity: 0; transform: scaleX(1) scaleY(6); }
+  100% { opacity: 0; }
+}
+@keyframes dp-crt-off {
+  0%   { opacity: 1; transform: scale(1, 1); filter: none; }
+  45%  { opacity: 1; transform: scale(1, .004); filter: brightness(3); }
+  46%  { opacity: 0; }
+  100% { opacity: 0; transform: scale(1, .004); }
+}
+@keyframes dp-flash-off {
+  0%, 40% { opacity: 0; transform: scaleX(1); }
+  46%     { opacity: 1; transform: scaleX(1); }
+  82%     { opacity: 1; transform: scaleX(.006) scaleY(1.6); }
+  100%    { opacity: 0; transform: scaleX(0); }
+}
+@keyframes dp-boot-in {
+  from { clip-path: inset(0 100% 0 0); opacity: .3; }
+  to   { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+/* Sin movimiento: fundido corto y nada más */
+.dp-portal.is-fade-in  { animation: dp-fade .2s ease both; }
+.dp-portal.is-fade-out { animation: dp-fade .18s ease reverse both; }
+@keyframes dp-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Pestaña del menú: un píxel lima para anunciar el portal */
 .nav-dowp::before {
   background: #b8e640;
   box-shadow: 0 0 6px #b8e640;
@@ -1589,23 +1779,34 @@ body.modal-open { overflow: hidden; }
   vertical-align: middle;
   width: 6px;
 }
-.nav-links a.nav-dowp:hover, .nav-links a.nav-dowp.active, .mob-link.nav-dowp:hover { color: #b8e640; }
-.nav-links a.nav-dowp.active::after { background: #b8e640; }
+.nav-links a.nav-dowp:hover, .mob-link.nav-dowp:hover { color: #b8e640; }
 
 @media (max-width: 860px) {
   .dp-grid { grid-template-columns: minmax(0, 1fr); }
-  .dp-win-cta { justify-self: center; max-width: 420px; width: 100%; }
+  .dp-win-cta { justify-self: center; max-width: 440px; width: 100%; }
 }
 @media (max-width: 600px) {
-  .dp-band { font-size: 20px; padding: 70px 16px; }
+  .dp-screen { font-size: 20px; }
+  .dp-topbar { padding: 8px 16px; }
+  .dp-topbar-note { display: none; }
+  .dp-inner { padding: 22px 16px 40px; }
   .dp-masthead { gap: 14px; }
   .dp-logo { height: var(--dp-title); width: var(--dp-title); }
   .dp-sub { font-size: 19px; line-height: 22px; }
   .dp-feats { grid-template-columns: minmax(0, 1fr); }
-  .dp-big-btn { font-size: 17px; padding: 12px 16px; }
+  .dp-big-btn { font-size: 16px; padding: 12px 14px; }
+  .dp-launch { gap: 12px; padding: 12px; }
+  .dp-launch-logo { height: 48px; width: 48px; }
+  .dp-launch-title { font-size: 20px; }
+  .dp-launch-sub { font-size: 17px; }
+  .dp-launch-go { margin-left: 0; padding: 7px 9px; font-size: 13px; }
+}
+@media (max-width: 380px) {
+  .dp-launch-go > span { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .dp-logo, .dp-blink, .dp-big-btn-arrow, .dp-ticker-track { animation: none; }
+  .dp-logo, .dp-blink, .dp-big-btn-arrow, .dp-ticker-track,
+  .dp-launch:hover .dp-launch-logo, .dp-launch.is-launching, .nav-dowp.is-launching { animation: none; }
   .dp-ticker { white-space: normal; }
   .dp-dup { display: none; }
 }
