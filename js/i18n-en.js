@@ -316,12 +316,19 @@
     'Envía lo que descargas a After Effects, Premiere Pro, Photoshop o DaVinci Resolve.':
       'Send what you download to After Effects, Premiere Pro, Photoshop or DaVinci Resolve.',
     '— hecho por MarckDP': '— made by MarckDP',
-    'Pruébalo': 'Try it',
     'Captura de DowP: Proceso Avanzado': 'DowP screenshot: Advanced Process',
     'Proceso Avanzado': 'Advanced Process',
     'Gratis': 'Free',
-    'Visitar DowP': 'Visit DowP',
-    'Abre la web de DowP en una pestaña nueva.': 'Opens the DowP website in a new tab.',
     'Botón de DowP': 'DowP button',
+    // Botón de la página y portal
+    'Herramienta amiga': 'A friend\'s tool',
+    'descarga · convierte · organiza': 'download · convert · organize',
+    'Entrar': 'Enter',
+    'Volver a SmoothMotion': 'Back to SmoothMotion',
+    '¿Entrar a DowP?': 'Go to DowP?',
+    'Vas a salir de SmoothMotion hacia la web oficial de DowP, que se abre en una pestaña nueva.':
+      'You\'re leaving SmoothMotion for the official DowP website, which opens in a new tab.',
+    'Sí, entrar a DowP': 'Yes, go to DowP',
+    'No, volver a SmoothMotion': 'No, back to SmoothMotion',
   });
 })();

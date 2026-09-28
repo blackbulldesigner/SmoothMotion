@@ -719,3 +719,258 @@ const VOICES = [
     setTimeout(function () { el.classList.add('visible'); }, 60 + i * 70);
   });
 })();
+
+
+/* ==========================================================
+   DowP — PORTAL CON TRANSICIÓN
+   ----------------------------------------------------------
+   El botón de DowP (y la pestaña del menú) no llevan a una sección: abren
+   #dowpPortal, un "mundo" a pantalla completa con el estilo de su web.
+
+   Entrada: el botón parpadea, una onda de píxeles verdes sale de él y tapa la
+   página, y el portal se enciende como un monitor CRT (la raya brillante y el
+   arranque por partes están en el CSS, clase .is-crt-on).
+   Salida: el monitor se apaga (.is-crt-off) y una onda de píxeles azules
+   destapa SmoothMotion desde el centro, donde se apagó.
+
+   #dowp en la URL abre el portal directo; Atrás del navegador o Esc vuelven.
+   Con "reducir movimiento" todo queda en un fundido corto.
+   ========================================================== */
+(function () {
+  const portal = document.getElementById('dowpPortal');
+  if (!portal) return;
+
+  const HASH = '#dowp';
+  const SHOT = 'https://marckdp.github.io/DowP/img/avanzado.png';
+  const GREENS = ['#b8e640', '#00b030', '#007828', '#b8e640', '#1e241b'];
+  const BLUES = ['#3b82f6', '#60a5fa', '#1d4ed8', '#38bdf8', '#272d3f'];
+  const DARK = '#070907';
+  const OPENERS = '[data-dowp-open], a[href="#dowp"]';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const screenEl = portal.querySelector('.dp-screen');
+
+  let state = 'closed';      // closed | opening | open | closing
+  let want = 'closed';       // lo último que pidió el visitante (botones o Atrás/Adelante)
+  let opener = null;         // a quién devolverle el foco al volver
+  let pushed = false;        // ¿el #dowp del historial lo puso este script?
+  let preloaded = false;
+
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  // La captura pesa ~130 KB: solo se baja cuando alguien apunta al botón.
+  function preload() {
+    if (preloaded) return;
+    preloaded = true;
+    new Image().src = SHOT;
+  }
+
+  /* Onda de píxeles sobre un canvas a pantalla completa.
+     'cover':  los bloques salen desde (x, y) y dejan la pantalla a oscuras.
+     'reveal': la pantalla empieza tapada y los bloques se van destapando.
+     Cada bloque crece o se encoge en dos saltos, para que se vea pixelado.
+     El canvas se crea y (en 'reveal') se pinta tapado en el acto; la promesa
+     devuelve el canvas para que quien llama lo quite cuando le convenga. */
+  function pixelWave(x, y, mode, palette, duration) {
+    const w = window.innerWidth, h = window.innerHeight;
+    const cv = document.createElement('canvas');
+    cv.className = 'dp-wave';
+    cv.setAttribute('aria-hidden', 'true');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.ceil(w * dpr);
+    cv.height = Math.ceil(h * dpr);
+    const ctx = cv.getContext('2d');
+    ctx.scale(dpr, dpr);
+    document.body.appendChild(cv);
+
+    const size = Math.max(28, Math.round(Math.min(w, h) / 16));
+    const cols = Math.ceil(w / size), rows = Math.ceil(h / size);
+    const far = Math.max(Math.hypot(x, y), Math.hypot(w - x, y),
+                         Math.hypot(x, h - y), Math.hypot(w - x, h - y));
+    const life = duration * 0.3;        // lo que tarda cada bloque
+    const spread = duration - life;     // reparto de las salidas según la distancia
+    const blocks = [];
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const d = Math.hypot(c * size + size / 2 - x, r * size + size / 2 - y) / far;
+        blocks.push({
+          x: c * size,
+          y: r * size,
+          at: spread * (d * 0.85 + Math.random() * 0.15),
+          color: palette[(Math.random() * palette.length) | 0],
+        });
+      }
+    }
+
+    function paint(t) {
+      ctx.clearRect(0, 0, w, h);
+      for (const b of blocks) {
+        const p = (t - b.at) / life;    // progreso de este bloque, 0..1
+        let fill, s = size;
+        if (mode === 'cover') {
+          if (p <= 0) continue;
+          if (p < 0.5) { fill = b.color; if (p < 0.25) s = size / 2; }
+          else fill = DARK;
+        } else {
+          if (p <= 0) fill = DARK;
+          else if (p < 0.5) fill = b.color;
+          else if (p < 0.75) { fill = b.color; s = size / 2; }
+          else continue;
+        }
+        const o = (size - s) / 2;
+        ctx.fillStyle = fill;
+        ctx.fillRect(b.x + o, b.y + o, s, s);
+      }
+    }
+
+    paint(mode === 'cover' ? -1 : 0);
+    return new Promise((resolve) => {
+      // Pestaña en segundo plano: requestAnimationFrame no corre, se salta la onda.
+      if (document.hidden) { paint(mode === 'cover' ? Infinity : 0); resolve(cv); return; }
+      const t0 = performance.now();
+      requestAnimationFrame(function frame(now) {
+        const t = now - t0;
+        paint(t);
+        if (t < duration) requestAnimationFrame(frame);
+        else resolve(cv);
+      });
+    });
+  }
+
+  // Mientras el portal está abierto, la página de atrás no se desplaza ni
+  // recibe foco (inert), así el teclado y los lectores de pantalla se quedan
+  // dentro del portal.
+  function lockPage(on) {
+    document.body.classList.toggle('modal-open', on);
+    for (const el of document.body.children) {
+      if (el === portal || el.tagName === 'SCRIPT' || el.classList.contains('dp-wave')) continue;
+      if (on) el.setAttribute('inert', '');
+      else el.removeAttribute('inert');
+    }
+  }
+
+  function centerOf(el) {
+    const r = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+    if (r && r.width && r.bottom > 0 && r.top < window.innerHeight) {
+      return [r.left + r.width / 2, r.top + r.height / 2];
+    }
+    return [window.innerWidth / 2, window.innerHeight / 2];
+  }
+
+  async function open(from, instant) {
+    if (state !== 'closed') return;
+    state = 'opening';
+    opener = from || null;
+    preload();
+    const calm = reduced.matches;
+
+    let cv = null;
+    if (!calm && !instant) {
+      const [x, y] = centerOf(from);
+      if (from) {
+        from.classList.add('is-launching');
+        await wait(160);                // deja ver el parpadeo antes de la onda
+      }
+      cv = await pixelWave(x, y, 'cover', GREENS, 760);
+      if (from) from.classList.remove('is-launching');
+    }
+
+    lockPage(true);
+    portal.hidden = false;
+    screenEl.scrollTop = 0;
+    portal.classList.add(calm ? 'is-fade-in' : 'is-crt-on');
+    // El portal ya está pintado debajo (negro, con la raya del CRT): fuera la onda.
+    if (cv) setTimeout(() => cv.remove(), 60);
+
+    await wait(calm ? 200 : 640);
+    state = 'open';
+    const back = portal.querySelector('.dp-back');
+    if (back) back.focus({ preventScroll: true });
+    // Si pidieron volver mientras se abría, se cierra ya.
+    if (want === 'closed') close();
+  }
+
+  async function close() {
+    if (state !== 'open') return;
+    state = 'closing';
+    const calm = reduced.matches;
+    portal.classList.remove('is-crt-on', 'is-fade-in');
+    portal.classList.add(calm ? 'is-fade-out' : 'is-crt-off');
+    await wait(calm ? 180 : 440);
+
+    // pixelWave deja la pantalla tapada en el acto: se esconde el portal y se
+    // suelta la página por debajo sin que se note el cambio.
+    const wave = calm ? null :
+      pixelWave(window.innerWidth / 2, window.innerHeight / 2, 'reveal', BLUES, 700);
+    portal.hidden = true;
+    portal.classList.remove('is-crt-off', 'is-fade-out');
+    lockPage(false);
+    if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+    if (wave) (await wave).remove();
+
+    state = 'closed';
+    // Si le dieron a Adelante mientras se cerraba, se vuelve a abrir.
+    if (want === 'open') { open(null, true); return; }
+    // Si el navegador no quiso sacar el #dowp del historial, se limpia la URL
+    // para que al recargar no se abra el portal solo.
+    if (location.hash === HASH) history.replaceState(null, '', location.pathname + location.search);
+  }
+
+  // El #dowp va al historial: así el botón Atrás del navegador (o del móvil)
+  // vuelve a SmoothMotion en vez de sacar al visitante de la web.
+  function requestOpen(from) {
+    if (state !== 'closed') return;
+    want = 'open';
+    if (location.hash !== HASH) {
+      history.pushState({ dowp: true }, '', HASH);
+      pushed = true;
+    }
+    open(from);
+  }
+
+  // Cierra siempre en el acto. Lo del historial es aparte: si el #dowp lo puso
+  // este script se deshace con back() (así Atrás no se queda "vacío"); el
+  // navegador puede ignorarlo, y no pasa nada porque close() ya está en marcha.
+  function requestClose() {
+    if (state !== 'open') return;
+    want = 'closed';
+    if (pushed && history.state && history.state.dowp) history.back();
+    else history.replaceState(null, '', location.pathname + location.search);
+    pushed = false;
+    close();
+  }
+
+  window.addEventListener('popstate', () => {
+    want = location.hash === HASH ? 'open' : 'closed';
+    if (want === 'open' && state === 'closed') open(null, true);
+    else if (want === 'closed' && state === 'open') close();
+  });
+
+  document.addEventListener('click', (e) => {
+    const go = e.target.closest(OPENERS);
+    if (go) {
+      // Ctrl/Cmd/Shift + clic en el enlace: que el navegador haga lo suyo
+      // (la pestaña nueva se abre con el portal ya abierto).
+      if (go.tagName === 'A' && (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0)) return;
+      e.preventDefault();
+      requestOpen(go);
+      return;
+    }
+    if (e.target.closest('[data-dowp-close]')) {
+      e.preventDefault();
+      requestClose();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && state === 'open') requestClose();
+  });
+
+  ['pointerover', 'focusin', 'touchstart'].forEach((type) => {
+    document.addEventListener(type, (e) => {
+      if (!preloaded && e.target.closest && e.target.closest(OPENERS)) preload();
+    }, { passive: true });
+  });
+
+  // Enlace directo (getsmoothmotion.com/#dowp): se abre sin la onda.
+  if (location.hash === HASH) { want = 'open'; open(null, true); }
+})();

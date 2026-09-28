@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <!-- Fuentes pixel de la sección DowP (las mismas que usa su web) -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&family=VT323&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=6.17.0" />
+  <link rel="stylesheet" href="css/style.css?v=6.18.0" />
 </head>
 <body>
 
@@ -228,87 +228,23 @@
            class="btn btn-primary about-btn">Ver mis redes ↗</a>
       </div>
     </div>
-  </section>
 
-  <!-- ===== DowP — herramienta amiga =====
-       Va con el estilo retro de la web de DowP (marckdp.github.io/DowP), no con
-       el azul de SmoothMotion: así se nota que es otro proyecto. Las imágenes se
-       cargan desde su web, que invita a enlazar su botón 88x31. -->
-  <section id="dowp" class="dp-band">
-    <div class="dp-inner">
-      <p class="dp-label reveal">Herramienta amiga · recomendada por BlackBull</p>
-
-      <header class="dp-masthead reveal">
-        <img class="dp-logo" src="https://marckdp.github.io/DowP/img/logo128.png"
-             width="128" height="128" alt="Logo de DowP" loading="lazy" decoding="async" />
-        <div>
-          <h2 class="dp-title">DowP</h2>
-          <p class="dp-sub">descarga · convierte · organiza · <span class="dp-blink" aria-hidden="true">_</span></p>
-        </div>
-      </header>
-
-      <div class="dp-ticker" aria-hidden="true">
-        <div class="dp-ticker-track">
-          <span>★ 100&#37; gratis ★ descarga de YouTube y cientos de sitios ★ IA para imagen y video ★ directo a After Effects, Premiere y DaVinci ★ hecho por MarckDP</span>
-          <span class="dp-dup">★ 100&#37; gratis ★ descarga de YouTube y cientos de sitios ★ IA para imagen y video ★ directo a After Effects, Premiere y DaVinci ★ hecho por MarckDP</span>
-        </div>
-      </div>
-
-      <div class="dp-grid">
-        <div class="dp-win reveal">
-          <div class="dp-win-bar">¿Qué es DowP?</div>
-          <div class="dp-win-body">
-            <p>DowP es una navaja suiza gratuita para quien edita: descarga, convierte, recodifica y organiza tus medios, y los manda directo a tu editor. No es mío — lo hace mi amigo MarckDP, me pareció increíble y quiero que llegue a más gente.</p>
-            <dl class="dp-feats">
-              <div>
-                <dt><span class="dp-num">[01]</span> Descarga</dt>
-                <dd>Video y audio de YouTube y de cientos de sitios, con buscador integrado y playlists enteras por lotes.</dd>
-              </div>
-              <div>
-                <dt><span class="dp-num">[02]</span> Convierte</dt>
-                <dd>Imágenes entre formatos (HEIC, AVIF, PSD, RAW), PDF a imagen, vectoriza a SVG y quita fondos con IA.</dd>
-              </div>
-              <div>
-                <dt><span class="dp-num">[03]</span> Recodifica</dt>
-                <dd>Video y audio con preajustes, recorte sobre la forma de onda y reescalado de video con IA.</dd>
-              </div>
-              <div>
-                <dt><span class="dp-num">[04]</span> Directo a tu editor</dt>
-                <dd>Envía lo que descargas a After Effects, Premiere Pro, Photoshop o DaVinci Resolve.</dd>
-              </div>
-            </dl>
-            <p class="dp-sign">— hecho por MarckDP</p>
-          </div>
-        </div>
-
-        <div class="dp-win dp-win-cta reveal">
-          <div class="dp-win-bar">Pruébalo</div>
-          <div class="dp-win-body">
-            <a class="dp-shot" href="https://marckdp.github.io/DowP/" target="_blank" rel="noopener">
-              <img src="https://marckdp.github.io/DowP/img/avanzado.png" width="1116" height="789"
-                   alt="Captura de DowP: Proceso Avanzado" loading="lazy" decoding="async" />
-              <span>Proceso Avanzado</span>
-            </a>
-            <ul class="dp-status">
-              <li><i class="dp-led"></i>Gratis</li>
-              <li><i class="dp-led"></i>Windows 10/11</li>
-              <li><i class="dp-led"></i>macOS Apple Silicon <em class="dp-tag">beta</em></li>
-            </ul>
-            <div class="dp-center">
-              <a class="dp-big-btn" href="https://marckdp.github.io/DowP/" target="_blank" rel="noopener">
-                <span class="dp-big-btn-arrow" aria-hidden="true">▶</span> Visitar DowP
-              </a>
-              <p class="dp-tiny">Abre la web de DowP en una pestaña nueva.</p>
-              <a class="dp-badge" href="https://marckdp.github.io/DowP/" target="_blank" rel="noopener">
-                <img src="https://marckdp.github.io/DowP/img/dowp-88x31.gif" width="88" height="31"
-                     alt="Botón de DowP" loading="lazy" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- DowP (herramienta de un amigo): solo un botón. Al pulsarlo, una onda de
+         píxeles lleva al portal #dowpPortal (al final del body). -->
+    <div class="dp-launch-wrap reveal">
+      <button type="button" class="dp-launch" data-dowp-open aria-haspopup="dialog" aria-controls="dowpPortal">
+        <img class="dp-launch-logo" src="https://marckdp.github.io/DowP/img/logo128.png"
+             width="128" height="128" alt="" loading="lazy" decoding="async" />
+        <span class="dp-launch-txt">
+          <span class="dp-launch-kicker">Herramienta amiga</span>
+          <span class="dp-launch-title">DowP</span>
+          <span class="dp-launch-sub">descarga · convierte · organiza</span>
+        </span>
+        <span class="dp-launch-go"><span aria-hidden="true">▶</span> Entrar</span>
+      </button>
     </div>
   </section>
+
 
   <!-- ===== VÍDEOS ===== -->
   <section id="videos" class="section">
@@ -404,8 +340,98 @@
     </div>
   </div>
 
-  <script src="js/i18n.js?v=6.17.0"></script>
-  <script src="js/i18n-en.js?v=6.17.0"></script>
-  <script src="js/main.js?v=6.17.0"></script>
+  <!-- ===== PORTAL: DowP (herramienta amiga) =====
+       Un "mundo" aparte a pantalla completa con el estilo retro de la web de DowP
+       (marckdp.github.io/DowP), no con el azul de SmoothMotion. Lo abre el botón
+       de DowP o la pestaña del menú; la transición la hace main.js. Las imágenes
+       se cargan desde su web, que invita a enlazar su botón 88x31.
+       --i en cada .dp-boot = orden en que "arranca" al encender la pantalla. -->
+  <div class="dp-portal" id="dowpPortal" role="dialog" aria-modal="true" aria-labelledby="dpTitle" hidden>
+    <div class="dp-flash" aria-hidden="true"></div>
+    <div class="dp-screen">
+      <div class="dp-topbar dp-boot" style="--i:0">
+        <button type="button" class="dp-back" data-dowp-close><span aria-hidden="true">◀</span> Volver a SmoothMotion</button>
+        <span class="dp-topbar-note">Herramienta amiga · recomendada por BlackBull</span>
+      </div>
+
+      <div class="dp-inner">
+        <header class="dp-masthead dp-boot" style="--i:1">
+          <img class="dp-logo" src="https://marckdp.github.io/DowP/img/logo128.png"
+               width="128" height="128" alt="Logo de DowP" decoding="async" />
+          <div>
+            <h2 class="dp-title" id="dpTitle">DowP</h2>
+            <p class="dp-sub">descarga · convierte · organiza · <span class="dp-blink" aria-hidden="true">_</span></p>
+          </div>
+        </header>
+
+        <div class="dp-ticker dp-boot" style="--i:2" aria-hidden="true">
+          <div class="dp-ticker-track">
+            <span>★ 100&#37; gratis ★ descarga de YouTube y cientos de sitios ★ IA para imagen y video ★ directo a After Effects, Premiere y DaVinci ★ hecho por MarckDP</span>
+            <span class="dp-dup">★ 100&#37; gratis ★ descarga de YouTube y cientos de sitios ★ IA para imagen y video ★ directo a After Effects, Premiere y DaVinci ★ hecho por MarckDP</span>
+          </div>
+        </div>
+
+        <div class="dp-grid">
+          <div class="dp-win dp-boot" style="--i:3">
+            <div class="dp-win-bar">¿Qué es DowP?</div>
+            <div class="dp-win-body">
+              <p>DowP es una navaja suiza gratuita para quien edita: descarga, convierte, recodifica y organiza tus medios, y los manda directo a tu editor. No es mío — lo hace mi amigo MarckDP, me pareció increíble y quiero que llegue a más gente.</p>
+              <dl class="dp-feats">
+                <div>
+                  <dt><span class="dp-num">[01]</span> Descarga</dt>
+                  <dd>Video y audio de YouTube y de cientos de sitios, con buscador integrado y playlists enteras por lotes.</dd>
+                </div>
+                <div>
+                  <dt><span class="dp-num">[02]</span> Convierte</dt>
+                  <dd>Imágenes entre formatos (HEIC, AVIF, PSD, RAW), PDF a imagen, vectoriza a SVG y quita fondos con IA.</dd>
+                </div>
+                <div>
+                  <dt><span class="dp-num">[03]</span> Recodifica</dt>
+                  <dd>Video y audio con preajustes, recorte sobre la forma de onda y reescalado de video con IA.</dd>
+                </div>
+                <div>
+                  <dt><span class="dp-num">[04]</span> Directo a tu editor</dt>
+                  <dd>Envía lo que descargas a After Effects, Premiere Pro, Photoshop o DaVinci Resolve.</dd>
+                </div>
+              </dl>
+              <p class="dp-sign">— hecho por MarckDP</p>
+            </div>
+          </div>
+
+          <div class="dp-win dp-win-cta dp-boot" style="--i:4">
+            <div class="dp-win-bar">¿Entrar a DowP?</div>
+            <div class="dp-win-body">
+              <p class="dp-ask">Vas a salir de SmoothMotion hacia la web oficial de DowP, que se abre en una pestaña nueva.</p>
+              <div class="dp-choices">
+                <a class="dp-big-btn" href="https://marckdp.github.io/DowP/" target="_blank" rel="noopener">
+                  <span class="dp-big-btn-arrow" aria-hidden="true">▶</span> Sí, entrar a DowP
+                </a>
+                <button type="button" class="dp-no-btn" data-dowp-close><span aria-hidden="true">◀</span> No, volver a SmoothMotion</button>
+              </div>
+              <a class="dp-shot" href="https://marckdp.github.io/DowP/" target="_blank" rel="noopener">
+                <img src="https://marckdp.github.io/DowP/img/avanzado.png" width="1116" height="789"
+                     alt="Captura de DowP: Proceso Avanzado" loading="lazy" decoding="async" />
+                <span>Proceso Avanzado</span>
+              </a>
+              <ul class="dp-status">
+                <li><i class="dp-led"></i>Gratis</li>
+                <li><i class="dp-led"></i>Windows 10/11</li>
+                <li><i class="dp-led"></i>macOS Apple Silicon <em class="dp-tag">beta</em></li>
+              </ul>
+              <div class="dp-center">
+                <a class="dp-badge" href="https://marckdp.github.io/DowP/" target="_blank" rel="noopener">
+                  <img src="https://marckdp.github.io/DowP/img/dowp-88x31.gif" width="88" height="31" alt="Botón de DowP" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/i18n.js?v=6.18.0"></script>
+  <script src="js/i18n-en.js?v=6.18.0"></script>
+  <script src="js/main.js?v=6.18.0"></script>
 </body>
 </html>
