@@ -293,5 +293,35 @@
     'Editor de curva de velocidad, como un mini SmoothCurves': 'A speed-curve editor, like a mini SmoothCurves',
     'Queda todo vivo: un nulo con deslizadores para retocarla despues': 'It stays editable: a null with sliders to tweak it afterwards',
     'Nuevo · SmoothTransition — armate tus propias transiciones': 'New · SmoothTransition — build your own transitions',
+
+    /* ── DowP (herramienta amiga) ── */
+    'Herramienta amiga · recomendada por BlackBull': 'A friend\'s tool · recommended by BlackBull',
+    'Logo de DowP': 'DowP logo',
+    'descarga · convierte · organiza ·': 'download · convert · organize ·',
+    '★ 100% gratis ★ descarga de YouTube y cientos de sitios ★ IA para imagen y video ★ directo a After Effects, Premiere y DaVinci ★ hecho por MarckDP':
+      '★ 100% free ★ download from YouTube and hundreds of sites ★ AI for image and video ★ straight to After Effects, Premiere and DaVinci ★ made by MarckDP',
+    '¿Qué es DowP?': 'What is DowP?',
+    'DowP es una navaja suiza gratuita para quien edita: descarga, convierte, recodifica y organiza tus medios, y los manda directo a tu editor. No es mío — lo hace mi amigo MarckDP, me pareció increíble y quiero que llegue a más gente.':
+      'DowP is a free Swiss army knife for editors: it downloads, converts, re-encodes and organizes your media, and sends it straight to your editor. It isn\'t mine — my friend MarckDP makes it, I think it\'s amazing and I want more people to find it.',
+    'Descarga': 'Download',
+    'Video y audio de YouTube y de cientos de sitios, con buscador integrado y playlists enteras por lotes.':
+      'Video and audio from YouTube and hundreds of sites, with a built-in search and whole playlists in batches.',
+    'Convierte': 'Convert',
+    'Imágenes entre formatos (HEIC, AVIF, PSD, RAW), PDF a imagen, vectoriza a SVG y quita fondos con IA.':
+      'Images between formats (HEIC, AVIF, PSD, RAW), PDF to image, vectorize to SVG and remove backgrounds with AI.',
+    'Recodifica': 'Re-encode',
+    'Video y audio con preajustes, recorte sobre la forma de onda y reescalado de video con IA.':
+      'Video and audio with presets, trimming on the waveform and AI video upscaling.',
+    'Directo a tu editor': 'Straight to your editor',
+    'Envía lo que descargas a After Effects, Premiere Pro, Photoshop o DaVinci Resolve.':
+      'Send what you download to After Effects, Premiere Pro, Photoshop or DaVinci Resolve.',
+    '— hecho por MarckDP': '— made by MarckDP',
+    'Pruébalo': 'Try it',
+    'Captura de DowP: Proceso Avanzado': 'DowP screenshot: Advanced Process',
+    'Proceso Avanzado': 'Advanced Process',
+    'Gratis': 'Free',
+    'Visitar DowP': 'Visit DowP',
+    'Abre la web de DowP en una pestaña nueva.': 'Opens the DowP website in a new tab.',
+    'Botón de DowP': 'DowP button',
   });
 })();
