@@ -485,6 +485,21 @@ footer {
 .footer-links a:hover { color: var(--ec-blue-bright); }
 .copyright { color: var(--ec-text-muted); font-size: 11px; margin-top: 10px; }
 
+/* Botones 88x31 de webs amigas */
+.footer-friends { align-items: center; display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.footer-friends-label {
+  color: var(--ec-text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.footer-buttons { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.footer-buttons a { display: block; line-height: 0; transition: transform var(--ec-transition); }
+.footer-buttons a:hover { transform: translateY(-2px); }
+.footer-buttons a:focus-visible { outline: 2px solid var(--ec-blue-bright); outline-offset: 3px; }
+.footer-buttons img { display: block; image-rendering: pixelated; }
+
 /* ===== HAMBURGER ===== */
 .hamburger {
   align-items: center;

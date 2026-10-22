@@ -330,5 +330,6 @@
       'You\'re leaving SmoothMotion for the official DowP website, which opens in a new tab.',
     'Sí, entrar a DowP': 'Yes, go to DowP',
     'No, volver a SmoothMotion': 'No, back to SmoothMotion',
+    'Webs amigas': 'Friend sites',
   });
 })();
